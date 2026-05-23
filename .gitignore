@@ -40,3 +40,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Superpowers brainstorming artifacts
+.superpowers/
+
+# Font source zip (extracted to public/fonts/)
+Thmanyah-Font-Family*
