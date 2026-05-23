@@ -1,0 +1,165 @@
+{
+  "nav": {
+    "about": "من نحن",
+    "services": "خدماتنا",
+    "servicesYouth": "للشباب",
+    "servicesNGOs": "للمنظمات",
+    "servicesConsultants": "للاستشاريين",
+    "servicesBusinesses": "للشركات",
+    "ecosystem": "المنظومة",
+    "opportunities": "الفرص",
+    "directory": "الدليل",
+    "events": "الفعاليات",
+    "knowledge": "المعرفة والمدونة",
+    "impact": "الأثر والقصص",
+    "getInvolved": "شارك معنا",
+    "joinYouth": "انضم كشاب",
+    "listNGO": "سجّل منظمتك",
+    "beConsultant": "كن مستشاراً",
+    "partnerWithUs": "شاركنا",
+    "contact": "تواصل معنا",
+    "languageLabel": "English"
+  },
+  "footer": {
+    "tagline": "بوابة منطقة الشرق الأوسط وشمال أفريقيا للفرص المناخية والبيئية. نبني المنظومة الخضراء لـ 22 دولة.",
+    "newsletter": {
+      "placeholder": "بريدك الإلكتروني",
+      "button": "اشترك",
+      "label": "احصل على فرص خضراء في بريدك"
+    },
+    "columns": {
+      "explore": "استكشف",
+      "services": "الخدمات",
+      "about": "من نحن"
+    },
+    "links": {
+      "opportunities": "الفرص",
+      "directory": "الدليل",
+      "events": "الفعاليات",
+      "knowledge": "المعرفة والمدونة",
+      "impact": "الأثر والقصص",
+      "forYouth": "للشباب",
+      "forNGOs": "للمنظمات",
+      "forConsultants": "للاستشاريين",
+      "forBusinesses": "للشركات",
+      "about": "من نحن",
+      "contact": "تواصل معنا",
+      "joinYouth": "انضم كشاب",
+      "partnerWithUs": "شاركنا"
+    },
+    "legal": {
+      "copyright": "© 2025 Green Gate MENA. جميع الحقوق محفوظة.",
+      "privacy": "الخصوصية",
+      "terms": "الشروط",
+      "accessibility": "إمكانية الوصول"
+    }
+  },
+  "common": {
+    "exploreOpportunities": "استكشف الفرص",
+    "joinCommunity": "انضم إلى المجتمع",
+    "browseAll": "تصفح الكل",
+    "learnMore": "اعرف أكثر",
+    "partnerWithUs": "شاركنا",
+    "submitOpportunity": "أضف فرصة",
+    "getInvolved": "شارك معنا",
+    "loading": "جاري التحميل...",
+    "readMore": "اقرأ أكثر",
+    "back": "رجوع",
+    "close": "إغلاق",
+    "open": "فتح",
+    "viewAll": "عرض الكل",
+    "country": "الدولة",
+    "type": "النوع",
+    "theme": "المحور",
+    "deadline": "آخر موعد",
+    "applyNow": "تقدّم الآن"
+  },
+  "hero": {
+    "eyebrow": "نخدم الآن 22 دولة في المنطقة",
+    "h1Part1": "بوابة منطقة الشرق الأوسط وشمال أفريقيا",
+    "h1Italic": "إلى",
+    "h1Part2": "",
+    "h1Highlight": "الفرص الخضراء",
+    "h1Part3": "",
+    "subhead": "تربط Green Gate MENA الشباب بالفرص المناخية والشبكات البيئية والبرامج في جميع أنحاء المنطقة العربية — منصة إقليمية موثوقة، بنيت من الشباب للشباب.",
+    "cta1": "استكشف الفرص",
+    "cta2": "شارك معنا",
+    "stat1": "+500",
+    "stat1Label": "عضو في المجتمع",
+    "stat2": "+40K",
+    "stat2Label": "متابع",
+    "stat3": "+180",
+    "stat3Label": "مشارك في GreenX",
+    "stat4": "22",
+    "stat4Label": "دولة عربية"
+  },
+  "trust": {
+    "members": "عضو في المجتمع",
+    "followers": "متابع على وسائل التواصل",
+    "countries": "دولة في MENA",
+    "participants": "مشارك في GreenX 2025"
+  },
+  "services": {
+    "eyebrow": "خدماتنا",
+    "heading": "مصمم لكل",
+    "headingItalic": "فاعل أخضر",
+    "youth": {
+      "title": "للشباب",
+      "description": "زمالات وبرامج بناء قدرات وإرشاد ومسارات مهنية في الاقتصاد الأخضر."
+    },
+    "ngos": {
+      "title": "للمنظمات",
+      "description": "تصميم برامج وشراكات عابرة للحدود وروابط تمويل وأطر الإبلاغ عن الأثر."
+    },
+    "consultants": {
+      "title": "للاستشاريين",
+      "description": "الوصول إلى شبكتنا الإقليمية وخط مشاريعنا وفرص التعاون."
+    },
+    "businesses": {
+      "title": "للشركات",
+      "description": "شراكات ESG وتوظيف المواهب الخضراء ورعاية مبادرات المناخ الإقليمية."
+    }
+  },
+  "ecosystem": {
+    "eyebrow": "المنظومة",
+    "heading": "منصة واحدة للمنظومة",
+    "headingItalic": "الخضراء بأكملها",
+    "opportunities": {
+      "title": "الفرص",
+      "description": "زمالات ومنح وفعاليات وتدريب ومسابقات عبر 22 دولة."
+    },
+    "directory": {
+      "title": "الدليل",
+      "description": "ابحث وتواصل مع منظمات الشباب والمنظمات غير الحكومية والمهنيين البيئيين في MENA."
+    },
+    "events": {
+      "title": "الفعاليات",
+      "description": "مؤتمرات وورش عمل وفعاليات العمل المناخي في جميع أنحاء المنطقة."
+    }
+  },
+  "impact": {
+    "eyebrow": "الأثر والقصص",
+    "heading": "تغيير حقيقي،",
+    "headingItalic": "قصص حقيقية"
+  },
+  "getInvolved": {
+    "eyebrow": "شارك معنا",
+    "heading": "رحلتك الخضراء تبدأ",
+    "headingItalic": "من البوابة",
+    "joinYouth": "انضم كشاب",
+    "listNGO": "سجّل منظمتك",
+    "beConsultant": "كن مستشاراً",
+    "partnerWithUs": "شاركنا"
+  },
+  "contact": {
+    "eyebrow": "تواصل معنا",
+    "heading": "لنبني المستقبل الأخضر",
+    "headingItalic": "معاً",
+    "email": "البريد الإلكتروني",
+    "subject": "الموضوع",
+    "message": "الرسالة",
+    "send": "أرسل الرسالة",
+    "success": "تم إرسال رسالتك! سنتواصل معك قريباً.",
+    "faq": "الأسئلة الشائعة"
+  }
+}

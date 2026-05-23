@@ -1,0 +1,165 @@
+{
+  "nav": {
+    "about": "About Us",
+    "services": "Services",
+    "servicesYouth": "For Youth",
+    "servicesNGOs": "For NGOs",
+    "servicesConsultants": "For Consultants",
+    "servicesBusinesses": "For Businesses",
+    "ecosystem": "Ecosystem Hub",
+    "opportunities": "Opportunities",
+    "directory": "Directory",
+    "events": "Events",
+    "knowledge": "Knowledge & Blog",
+    "impact": "Impact & Stories",
+    "getInvolved": "Get Involved",
+    "joinYouth": "Join as Youth",
+    "listNGO": "List your NGO",
+    "beConsultant": "Be a Consultant",
+    "partnerWithUs": "Partner with Us",
+    "contact": "Contact Us",
+    "languageLabel": "العربية"
+  },
+  "footer": {
+    "tagline": "The MENA Region's gateway to climate & environmental opportunities. Building the green ecosystem for 22 countries.",
+    "newsletter": {
+      "placeholder": "Your email address",
+      "button": "Subscribe",
+      "label": "Get green opportunities in your inbox"
+    },
+    "columns": {
+      "explore": "Explore",
+      "services": "Services",
+      "about": "About"
+    },
+    "links": {
+      "opportunities": "Opportunities",
+      "directory": "Directory",
+      "events": "Events",
+      "knowledge": "Knowledge & Blog",
+      "impact": "Impact & Stories",
+      "forYouth": "For Youth",
+      "forNGOs": "For NGOs",
+      "forConsultants": "For Consultants",
+      "forBusinesses": "For Businesses",
+      "about": "About Us",
+      "contact": "Contact Us",
+      "joinYouth": "Join as Youth",
+      "partnerWithUs": "Partner with Us"
+    },
+    "legal": {
+      "copyright": "© 2025 Green Gate MENA. All rights reserved.",
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "accessibility": "Accessibility"
+    }
+  },
+  "common": {
+    "exploreOpportunities": "Explore Opportunities",
+    "joinCommunity": "Join the Community",
+    "browseAll": "Browse All",
+    "learnMore": "Learn More",
+    "partnerWithUs": "Partner With Us",
+    "submitOpportunity": "Submit an Opportunity",
+    "getInvolved": "Get Involved",
+    "loading": "Loading...",
+    "readMore": "Read More",
+    "back": "Back",
+    "close": "Close",
+    "open": "Open",
+    "viewAll": "View All",
+    "country": "Country",
+    "type": "Type",
+    "theme": "Theme",
+    "deadline": "Deadline",
+    "applyNow": "Apply Now"
+  },
+  "hero": {
+    "eyebrow": "Now serving 22 MENA countries",
+    "h1Part1": "The MENA Region's",
+    "h1Italic": "Gateway",
+    "h1Part2": "to",
+    "h1Highlight": "Green",
+    "h1Part3": "Opportunities.",
+    "subhead": "Green Gate MENA connects youth with climate opportunities, environmental networks, and programs across the Arab region and beyond — one trusted regional platform, built by youth, for youth.",
+    "cta1": "Explore Opportunities",
+    "cta2": "Get Involved",
+    "stat1": "500+",
+    "stat1Label": "Youth Members",
+    "stat2": "40K+",
+    "stat2Label": "Followers",
+    "stat3": "180+",
+    "stat3Label": "GreenX Participants",
+    "stat4": "22",
+    "stat4Label": "MENA Countries"
+  },
+  "trust": {
+    "members": "Community Members",
+    "followers": "Social Media Followers",
+    "countries": "MENA Countries",
+    "participants": "GreenX 2025 Participants"
+  },
+  "services": {
+    "eyebrow": "Our Services",
+    "heading": "Built for every",
+    "headingItalic": "green actor",
+    "youth": {
+      "title": "For Youth",
+      "description": "Fellowships, capacity-building programs, mentorship, and career pathways in the green economy."
+    },
+    "ngos": {
+      "title": "For NGOs",
+      "description": "Program design, cross-border partnerships, funding connections, and impact reporting frameworks."
+    },
+    "consultants": {
+      "title": "For Consultants",
+      "description": "Access our regional network, project pipeline, and collaborative opportunities."
+    },
+    "businesses": {
+      "title": "For Businesses",
+      "description": "ESG partnerships, green talent recruitment, and sponsorship of regional climate initiatives."
+    }
+  },
+  "ecosystem": {
+    "eyebrow": "Ecosystem Hub",
+    "heading": "One platform for the",
+    "headingItalic": "entire green ecosystem",
+    "opportunities": {
+      "title": "Opportunities",
+      "description": "Fellowships, grants, events, internships, and competitions across 22 countries."
+    },
+    "directory": {
+      "title": "Directory",
+      "description": "Find and connect with youth organizations, NGOs, and green professionals in MENA."
+    },
+    "events": {
+      "title": "Events",
+      "description": "Conferences, workshops, and climate action events happening across the region."
+    }
+  },
+  "impact": {
+    "eyebrow": "Impact & Stories",
+    "heading": "Real change, real",
+    "headingItalic": "stories"
+  },
+  "getInvolved": {
+    "eyebrow": "Get Involved",
+    "heading": "Your green journey starts",
+    "headingItalic": "at the gate",
+    "joinYouth": "Join as Youth",
+    "listNGO": "List your NGO",
+    "beConsultant": "Be a Consultant",
+    "partnerWithUs": "Partner with Us"
+  },
+  "contact": {
+    "eyebrow": "Get in Touch",
+    "heading": "Let's build the green",
+    "headingItalic": "future together",
+    "email": "Email",
+    "subject": "Subject",
+    "message": "Message",
+    "send": "Send Message",
+    "success": "Message sent! We'll be in touch soon.",
+    "faq": "Frequently Asked Questions"
+  }
+}
