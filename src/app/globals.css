@@ -1,3 +1,122 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --font-fraunces: '';
+    --font-manrope: '';
+    --font-jetbrains: '';
+    --font-thmanyah: '';
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-paper text-ink font-body;
+  }
+
+  /* RTL Arabic layout */
+  [dir='rtl'] body {
+    @apply font-arabic;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+
+  [dir='rtl'] h1,
+  [dir='rtl'] h2,
+  [dir='rtl'] h3,
+  [dir='rtl'] h4,
+  [dir='rtl'] h5,
+  [dir='rtl'] h6 {
+    @apply font-arabic;
+  }
+
+  /* Visible focus rings for keyboard navigation */
+  :focus-visible {
+    @apply outline-none ring-2 ring-teal-700 ring-offset-2 ring-offset-paper rounded-sm;
+  }
+
+  /* Skip to content link */
+  .skip-to-content {
+    @apply sr-only focus:not-sr-only focus:fixed focus:top-4 focus:start-4 focus:z-[9999]
+           focus:px-4 focus:py-2 focus:bg-teal-700 focus:text-white focus:rounded-md
+           focus:font-body focus:text-sm focus:font-medium;
+  }
+}
+
+@layer components {
+  /* Grain texture overlay — apply to sections with bg-grain class */
+  .grain-overlay {
+    position: relative;
+  }
+  .grain-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.035;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  /* Lime keyword underline — skewed accent */
+  .lime-underline {
+    position: relative;
+    display: inline-block;
+  }
+  .lime-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: -4px;
+    right: -4px;
+    height: 8px;
+    background-color: theme('colors.lime');
+    transform: skewX(-6deg);
+    z-index: -1;
+    border-radius: 2px;
+  }
+
+  /* Section padding utility */
+  .section-padding {
+    padding-top: clamp(70px, 10vw, 140px);
+    padding-bottom: clamp(70px, 10vw, 140px);
+  }
+
+  /* Eyebrow label style */
+  .eyebrow {
+    @apply font-mono text-eyebrow uppercase tracking-widest text-teal-700;
+  }
+
+  /* Smooth color transitions */
+  .transition-colors-smooth {
+    transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  }
+}
+
+@layer utilities {
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Logical margin/padding helpers (RTL-aware) */
+  .text-balance {
+    text-wrap: balance;
+  }
+}
