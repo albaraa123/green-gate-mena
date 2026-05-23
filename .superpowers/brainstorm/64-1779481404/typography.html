@@ -1,0 +1,35 @@
+<h2>Arabic Typography — Which font for Arabic text?</h2>
+<p class="subtitle">We found a <strong>Thmanyah</strong> font family zip in your project folder. The spec calls for IBM Plex Sans Arabic. Which should we use?</p>
+
+<div style="margin: 24px 0 8px; padding: 12px 16px; background: #f0f9f4; border-left: 3px solid #1a5a42; border-radius: 4px; font-size: 13px; color: #1a5a42;">
+  <strong>Found in your project:</strong> Thmanyah-Font-Family (1).zip — a premium Arabic typeface used by major Arab media brands.
+</div>
+
+<div class="options">
+  <div class="option" data-choice="thmanyah" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Use Thmanyah (found in project)</h3>
+      <p>Premium Arabic typeface — elegant, editorial, used by Thmanyah Media and top MENA brands. More distinctive, higher perceived quality for Arabic readers. Requires extracting and self-hosting the font.</p>
+      <div style="margin-top:10px; padding: 8px 12px; background:#0a2a1f; color:#c6e94a; border-radius:6px; font-family:serif; font-size:18px; direction:rtl; text-align:right;">البوابة الخضراء لمنطقة الشرق الأوسط وشمال إفريقيا</div>
+    </div>
+  </div>
+  <div class="option" data-choice="ibm-plex-arabic" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Use IBM Plex Sans Arabic (spec default)</h3>
+      <p>Clean, neutral, highly legible — used by many tech platforms. Loads via Google Fonts CDN, zero setup. Great for UI text and body copy. Excellent accessibility.</p>
+      <div style="margin-top:10px; padding: 8px 12px; background:#0a2a1f; color:#c6e94a; border-radius:6px; font-size:18px; direction:rtl; text-align:right; font-family:sans-serif;">البوابة الخضراء لمنطقة الشرق الأوسط وشمال إفريقيا</div>
+    </div>
+  </div>
+  <div class="option" data-choice="both" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Use Thmanyah for headings, IBM Plex for body</h3>
+      <p>Best of both: Thmanyah's editorial personality for big display text, IBM Plex's readability for body copy and UI. Mirrors the Fraunces + Manrope pairing used in English.</p>
+      <div style="margin-top:10px; padding: 8px 12px; background:#0a2a1f; color:#c6e94a; border-radius:6px; font-size:18px; direction:rtl; text-align:right; font-family:serif;">البوابة الخضراء <span style="font-family:sans-serif; font-size:15px; color:#8fc9b0;">· منطقة الشرق الأوسط وشمال إفريقيا</span></div>
+    </div>
+  </div>
+</div>
+
+<p style="margin-top:20px; color:#6b7280; font-size:13px;">✱ This affects the Arabic (/ar) locale only. English typography is unchanged.</p>
