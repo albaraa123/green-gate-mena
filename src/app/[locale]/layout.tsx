@@ -1,0 +1,116 @@
+import type { Metadata } from 'next'
+import type { ReactNode } from 'react'
+import { Fraunces, Manrope, JetBrains_Mono } from 'next/font/google'
+import { NextIntlClientProvider } from 'next-intl'
+import { getMessages, setRequestLocale } from 'next-intl/server'
+import { notFound } from 'next/navigation'
+import { routing } from '@/i18n/routing'
+import '../globals.css'
+
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-fraunces',
+  display: 'swap',
+  axes: ['opsz', 'SOFT', 'WONK'],
+})
+
+const manrope = Manrope({
+  subsets: ['latin'],
+  variable: '--font-manrope',
+  display: 'swap',
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-jetbrains',
+  display: 'swap',
+})
+
+export const metadata: Metadata = {
+  title: {
+    default: 'Green Gate MENA — The Gateway to Green Opportunities',
+    template: '%s | Green Gate MENA',
+  },
+  description:
+    'Green Gate MENA connects youth, NGOs, and institutions with climate and environmental opportunities across 22 MENA countries.',
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? 'https://greengate-mena.org'
+  ),
+}
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }))
+}
+
+export default async function LocaleLayout({
+  children,
+  params,
+}: {
+  children: ReactNode
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
+
+  if (!routing.locales.includes(locale as 'en' | 'ar')) {
+    notFound()
+  }
+
+  setRequestLocale(locale)
+
+  const messages = await getMessages()
+
+  const dir = locale === 'ar' ? 'rtl' : 'ltr'
+
+  return (
+    <html
+      lang={locale}
+      dir={dir}
+      className={`${fraunces.variable} ${manrope.variable} ${jetbrainsMono.variable} h-full`}
+    >
+      <head>
+        {/* Self-hosted Thmanyah Sans — Arabic locale only */}
+        {locale === 'ar' && (
+          <style>{`
+            @font-face {
+              font-family: 'ThmanyahSans';
+              src: url('/fonts/thmanyah/thmanyahsans-Regular.woff2') format('woff2');
+              font-weight: 400;
+              font-style: normal;
+              font-display: swap;
+            }
+            @font-face {
+              font-family: 'ThmanyahSans';
+              src: url('/fonts/thmanyah/thmanyahsans-Medium.woff2') format('woff2');
+              font-weight: 500;
+              font-style: normal;
+              font-display: swap;
+            }
+            @font-face {
+              font-family: 'ThmanyahSans';
+              src: url('/fonts/thmanyah/thmanyahsans-Bold.woff2') format('woff2');
+              font-weight: 700;
+              font-style: normal;
+              font-display: swap;
+            }
+            @font-face {
+              font-family: 'ThmanyahSans';
+              src: url('/fonts/thmanyah/thmanyahsans-Black.woff2') format('woff2');
+              font-weight: 900;
+              font-style: normal;
+              font-display: swap;
+            }
+            :root { --font-thmanyah: 'ThmanyahSans'; }
+          `}</style>
+        )}
+      </head>
+      <body className="min-h-full flex flex-col bg-paper text-ink antialiased">
+        <a href="#main-content" className="skip-to-content">
+          {locale === 'ar' ? 'انتقل إلى المحتوى الرئيسي' : 'Skip to main content'}
+        </a>
+        <NextIntlClientProvider messages={messages}>
+          {children}
+        </NextIntlClientProvider>
+      </body>
+    </html>
+  )
+}
