@@ -12,6 +12,37 @@
 
 ---
 
+## Sitemap (Updated — from user-approved sitemap image)
+
+| Route | Purpose |
+|-------|---------|  
+| `/` | Home — mission statement, impact counters, CTA |
+| `/about` | About Us — story, team, values, partners |
+| `/services` | Services overview (audience-segmented) |
+| `/services/youth` | For Youth — fellowships, capacity-building, mentorship |
+| `/services/ngos` | For NGOs — program design, partnerships, grants support |
+| `/services/consultants` | For Consultants — network, project pipeline, collaboration |
+| `/services/businesses` | For Businesses — ESG partnerships, talent, sponsorships |
+| `/ecosystem` | Ecosystem Hub overview |
+| `/ecosystem/opportunities` | Opportunities — filterable listing + detail pages |
+| `/ecosystem/opportunities/[slug]` | Opportunity detail |
+| `/ecosystem/opportunities/submit` | Submit an opportunity (4-step form) |
+| `/ecosystem/directory` | Network Directory (filterable profiles) |
+| `/ecosystem/directory/join` | Join the directory form |
+| `/ecosystem/events` | Events listing + detail |
+| `/knowledge` | Knowledge & Blog — articles, resources |
+| `/knowledge/[slug]` | Article/resource detail |
+| `/impact` | Impact & Stories — metrics, timeline, testimonials |
+| `/get-involved` | Get Involved hub (4 pathways) |
+| `/get-involved/youth` | Join as Youth |
+| `/get-involved/ngos` | List your NGO |
+| `/get-involved/consultants` | Be a Consultant |
+| `/get-involved/partners` | Partner with Us |
+| `/contact` | Contact us + FAQ |
+| `/privacy`, `/terms`, `/accessibility` | Legal |
+
+---
+
 ## Phase Overview (check-in after each)
 
 | Phase | Deliverable |
@@ -19,10 +50,10 @@
 | **1** | Next.js scaffold + Tailwind design system + fonts + i18n + UI primitives + layout |
 | **2** | Data layer: TS types + 30+ opportunities + 20+ directory profiles + all seed data |
 | **3** | Homepage: all 12 sections assembled and animated |
-| **4** | Opportunities Hub (filters) + Detail template + Submit form + Directory + Join form |
-| **5** | About · Mission · Programs · GreenX · Partners · Services · Impact |
-| **6** | Community · Resources · News · Contact · Join hub |
-| **7** | All 8 forms wired to API routes with full Zod validation |
+| **4** | Ecosystem Hub: Opportunities (list + detail + submit) + Directory (list + join) + Events |
+| **5** | About · Services (4 audience pages) · Impact & Stories |
+| **6** | Knowledge & Blog · Get Involved (4 pathways) · Contact |
+| **7** | All forms wired to API routes with full Zod validation |
 | **8** | Legal pages + full SEO (metadata, JSON-LD, OG images, sitemap) |
 | **9** | Accessibility audit + performance pass |
 | **10** | All /docs written + `npm run build` clean + delivery summary |
