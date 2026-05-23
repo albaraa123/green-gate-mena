@@ -9,8 +9,8 @@ export default async function HomePage({
   setRequestLocale(locale)
 
   return (
-    <main id="main-content">
-      <p>Homepage — Phase 3 will build this out.</p>
-    </main>
+    <div className="section-padding">
+      <p className="text-center text-ink-soft">Homepage — Phase 3 will build this out.</p>
+    </div>
   )
 }

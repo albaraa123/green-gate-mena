@@ -5,6 +5,8 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
+import { Header } from '@/components/layout/Header'
+import { Footer } from '@/components/layout/Footer'
 import '../globals.css'
 
 const fraunces = Fraunces({
@@ -108,7 +110,11 @@ export default async function LocaleLayout({
           {locale === 'ar' ? 'انتقل إلى المحتوى الرئيسي' : 'Skip to main content'}
         </a>
         <NextIntlClientProvider messages={messages}>
-          {children}
+          <Header />
+          <main id="main-content" className="flex-1 pt-16 md:pt-18">
+            {children}
+          </main>
+          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>
