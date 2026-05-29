@@ -24,7 +24,7 @@ export async function Footer() {
   const tNav = await getTranslations('nav')
 
   return (
-    <footer className="bg-teal-900 text-white/90 grain-overlay">
+    <footer className="bg-teal-700 text-white/90 grain-overlay">
       <Container className="py-14 md:py-20">
         {/* Top: logo + tagline + newsletter */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12 pb-12 border-b border-white/10">
@@ -40,6 +40,45 @@ export async function Footer() {
             <p className="text-white/60 text-sm leading-relaxed max-w-sm">
               {t('tagline')}
             </p>
+            <div className="flex items-center gap-4 mt-5">
+              <a
+                href="https://instagram.com/GreenGateMENA"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="text-white/40 hover:text-lime transition-colors"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                  <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/>
+                </svg>
+              </a>
+              <a
+                href="https://linkedin.com/company/green-gate-mena"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="text-white/40 hover:text-lime transition-colors"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                  <rect x="2" y="9" width="4" height="12"/>
+                  <circle cx="4" cy="4" r="2"/>
+                </svg>
+              </a>
+              <a
+                href="https://twitter.com/GreenGateMENA"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="X / Twitter"
+                className="text-white/40 hover:text-lime transition-colors"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.731-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </a>
+            </div>
           </div>
 
           <div className="lg:pt-2">

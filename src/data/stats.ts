@@ -19,32 +19,44 @@ export const impactStats: ImpactStat[] = [
   {
     value: '500+',
     label: 'Youth Members',
+    labelAr: 'أعضاء الشباب',
     description: 'Active members across 22 MENA countries',
+    descriptionAr: 'أعضاء نشطون في 22 دولة في منطقة MENA',
   },
   {
     value: '40K+',
     label: 'Social Media Followers',
+    labelAr: 'متابع على التواصل الاجتماعي',
     description: 'Engaged community across Instagram, LinkedIn, and X',
+    descriptionAr: 'مجتمع متفاعل عبر إنستغرام ولينكدإن وإكس',
   },
   {
     value: '22',
     label: 'Countries Reached',
+    labelAr: 'دولة مشمولة',
     description: 'Covering the full MENA region from Morocco to Oman',
+    descriptionAr: 'تغطية كاملة لمنطقة MENA من المغرب إلى عُمان',
   },
   {
     value: '180+',
     label: 'GreenX 2025 Participants',
+    labelAr: 'مشارك في GreenX 2025',
     description: 'Youth who joined our flagship environmental summit',
+    descriptionAr: 'شباب شاركوا في قمتنا البيئية الرائدة',
   },
   {
     value: '60+',
     label: 'Opportunities Listed',
+    labelAr: 'فرصة مدرجة',
     description: 'Fellowships, grants, events and internships aggregated',
+    descriptionAr: 'زمالات ومنح وفعاليات وتدريب مجمّعة',
   },
   {
     value: '30+',
     label: 'Partner Organizations',
+    labelAr: 'منظمة شريكة',
     description: 'NGOs, institutions, and funders supporting our ecosystem',
+    descriptionAr: 'منظمات ومؤسسات وجهات تمويل تدعم منظومتنا',
   },
 ]
 
@@ -52,26 +64,36 @@ export const impactTimeline = [
   {
     year: '2022',
     title: 'Green Gate MENA Founded',
+    titleAr: 'تأسيس Green Gate MENA',
     description: 'Launched as a youth-led initiative to connect MENA youth with climate opportunities.',
+    descriptionAr: 'انطلقت كمبادرة شبابية لربط شباب MENA بالفرص المناخية.',
   },
   {
     year: '2023',
     title: 'First 500 Community Members',
+    titleAr: 'أول 500 عضو في المجتمع',
     description: 'Grew to 500+ active youth members across 15 MENA countries within the first year.',
+    descriptionAr: 'وصلنا إلى 500+ عضو شباب نشط في 15 دولة من MENA خلال العام الأول.',
   },
   {
     year: '2024',
     title: 'Regional Partnerships',
+    titleAr: 'الشراكات الإقليمية',
     description: 'Established formal partnerships with 30+ NGOs, UN agencies, and regional institutions.',
+    descriptionAr: 'أرسينا شراكات رسمية مع 30+ منظمة غير حكومية ووكالات أممية ومؤسسات إقليمية.',
   },
   {
     year: '2025',
     title: 'GreenX 2025 Summit',
+    titleAr: 'قمة GreenX 2025',
     description: '180+ participants from 22 countries gathered for the region\'s premier youth climate summit.',
+    descriptionAr: 'اجتمع 180+ مشارك من 22 دولة في قمة المناخ الشبابية الرائدة في المنطقة.',
   },
   {
     year: '2026',
     title: 'Platform Launch',
+    titleAr: 'إطلاق المنصة',
     description: 'Launching the comprehensive digital ecosystem connecting every green actor in MENA.',
+    descriptionAr: 'إطلاق المنظومة الرقمية الشاملة التي تربط كل فاعل أخضر في MENA.',
   },
 ]

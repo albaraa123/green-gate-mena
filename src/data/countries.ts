@@ -37,6 +37,8 @@ export const countryOptions = countries.map((c) => ({
   label: c.name,
 }))
 
-export function getCountryName(code: string): string {
-  return countries.find((c) => c.code === code)?.name ?? code
+export function getCountryName(code: string, locale?: string): string {
+  const country = countries.find((c) => c.code === code)
+  if (!country) return code
+  return locale === 'ar' ? country.nameAr : country.name
 }

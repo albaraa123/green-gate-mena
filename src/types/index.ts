@@ -110,8 +110,10 @@ export interface Story {
   id: string
   name: string
   role: string
+  roleAr?: string
   country: string
   quote: string
+  quoteAr?: string
   avatar?: string
   opportunityTitle?: string
 }
@@ -119,7 +121,9 @@ export interface Story {
 export interface ImpactStat {
   value: string
   label: string
+  labelAr?: string
   description?: string
+  descriptionAr?: string
 }
 
 // ─── Partners ────────────────────────────────────────────────────────────────

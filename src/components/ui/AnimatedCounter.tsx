@@ -50,7 +50,11 @@ export function AnimatedCounter({
   }, [target, duration, hasAnimated])
 
   return (
-    <span ref={ref} className={cn('tabular-nums', className)}>
+    <span
+      ref={ref}
+      className={cn('tabular-nums', className)}
+      aria-label={`${prefix}${target.toLocaleString()}${suffix}`}
+    >
       {prefix}
       {count.toLocaleString()}
       {suffix}

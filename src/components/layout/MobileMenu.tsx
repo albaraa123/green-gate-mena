@@ -21,7 +21,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       className="fixed inset-0 z-50 lg:hidden"
       role="dialog"
       aria-modal="true"
-      aria-label="Navigation menu"
+      aria-label={t('menuAriaLabel')}
     >
       {/* Backdrop */}
       <div
@@ -34,11 +34,11 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       <div className="absolute inset-y-0 end-0 w-full max-w-sm bg-paper shadow-2xl flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-sand-200">
-          <span className="font-display text-lg text-teal-800 font-semibold">Menu</span>
+          <span className="font-display text-lg text-teal-800 font-semibold">{t('menuLabel')}</span>
           <button
             onClick={onClose}
             className="p-2 rounded-lg hover:bg-sand-100 transition-colors"
-            aria-label="Close menu"
+            aria-label={t('closeMenu')}
           >
             <X className="h-5 w-5 text-ink" />
           </button>
@@ -78,7 +78,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         <div className="px-6 py-5 border-t border-sand-200 flex items-center justify-between">
           <LanguageSwitcher />
           <Button size="sm" asChild>
-            <Link href="/get-involved" onClick={onClose}>
+            <Link href="/get-involved/youth" onClick={onClose}>
               {t('getInvolved')}
             </Link>
           </Button>

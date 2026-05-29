@@ -1,32 +1,23 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
-import { Fraunces, Manrope, JetBrains_Mono } from 'next/font/google'
+import { Manrope } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
+import { ScrollToTop } from '@/components/ui/ScrollToTop'
 import '../globals.css'
-
-const fraunces = Fraunces({
-  subsets: ['latin'],
-  variable: '--font-fraunces',
-  display: 'swap',
-  axes: ['opsz', 'SOFT', 'WONK'],
-})
 
 const manrope = Manrope({
   subsets: ['latin'],
   variable: '--font-manrope',
   display: 'swap',
+  weight: ['300', '400', '500', '600', '700', '800'],
 })
 
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  variable: '--font-jetbrains',
-  display: 'swap',
-})
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://greengate-mena.org'
 
 export const metadata: Metadata = {
   title: {
@@ -35,9 +26,41 @@ export const metadata: Metadata = {
   },
   description:
     'Green Gate MENA connects youth, NGOs, and institutions with climate and environmental opportunities across 22 MENA countries.',
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? 'https://greengate-mena.org'
-  ),
+  metadataBase: new URL(siteUrl),
+  openGraph: {
+    type: 'website',
+    siteName: 'Green Gate MENA',
+    title: 'Green Gate MENA — The Gateway to Green Opportunities',
+    description:
+      'Green Gate MENA connects youth, NGOs, and institutions with climate and environmental opportunities across 22 MENA countries.',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@GreenGateMENA',
+    title: 'Green Gate MENA — The Gateway to Green Opportunities',
+    description:
+      'Green Gate MENA connects youth, NGOs, and institutions with climate and environmental opportunities across 22 MENA countries.',
+  },
+  icons: {
+    icon: [
+      { url: '/logo/favicon.ico', sizes: 'any' },
+      { url: '/logo/logo-mark-color.svg', type: 'image/svg+xml' },
+    ],
+    apple: '/logo/logo-mark-color.svg',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
+  },
+  alternates: {
+    canonical: siteUrl,
+    languages: {
+      'en': `${siteUrl}/en`,
+      'ar': `${siteUrl}/ar`,
+    },
+  },
 }
 
 export function generateStaticParams() {
@@ -67,7 +90,7 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       dir={dir}
-      className={`${fraunces.variable} ${manrope.variable} ${jetbrainsMono.variable} h-full`}
+      className={`${manrope.variable} h-full`}
     >
       <head>
         {/* Self-hosted Thmanyah Sans — Arabic locale only */}
@@ -111,10 +134,11 @@ export default async function LocaleLayout({
         </a>
         <NextIntlClientProvider messages={messages}>
           <Header />
-          <main id="main-content" className="flex-1 pt-16 md:pt-18">
+          <div className="flex-1 pt-16 md:pt-18">
             {children}
-          </main>
+          </div>
           <Footer />
+          <ScrollToTop />
         </NextIntlClientProvider>
       </body>
     </html>
