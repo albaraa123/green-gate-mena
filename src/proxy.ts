@@ -9,8 +9,13 @@ const intlMiddleware = createMiddleware(routing)
 export default async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // Admin routes: verify Supabase session (skip login page)
-  if (pathname.startsWith('/admin') && !pathname.startsWith('/admin/login')) {
+  // Admin routes: bypass intl middleware entirely
+  if (pathname.startsWith('/admin')) {
+    // Allow login page through without auth check
+    if (pathname.startsWith('/admin/login')) {
+      return NextResponse.next({ request: { headers: request.headers } })
+    }
+
     const response = NextResponse.next({
       request: { headers: request.headers },
     })
