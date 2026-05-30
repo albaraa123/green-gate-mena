@@ -4,6 +4,7 @@ import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { getCountryName } from '@/data/countries'
 import { getStories } from '@/lib/supabase/queries'
+import { AnimateIn, StaggerIn, StaggerItem } from '@/components/ui/AnimateIn'
 
 export async function StoriesSection() {
   const t = await getTranslations('impact')
@@ -16,30 +17,32 @@ export async function StoriesSection() {
   return (
     <section className="section-padding bg-paper">
       <Container>
-        <SectionHeader
-          eyebrow={t('eyebrow')}
-          heading={
-            <>
-              {t('heading')}{' '}
-              <span className="relative inline-block">
-                <em className="not-italic font-display italic text-teal-700">{t('headingItalic')}</em>
-                <span
-                  className="absolute -bottom-1 left-0 right-0 h-2.5 bg-lime -skew-x-6 -z-10 rounded-sm"
-                  aria-hidden
-                />
-              </span>
-            </>
-          }
-          align="center"
-        />
+        <AnimateIn>
+          <SectionHeader
+            eyebrow={t('eyebrow')}
+            heading={
+              <>
+                {t('heading')}{' '}
+                <span className="relative inline-block">
+                  <em className="not-italic font-display italic text-teal-700">{t('headingItalic')}</em>
+                  <span
+                    className="absolute -bottom-1 left-0 right-0 h-2.5 bg-lime -skew-x-6 -z-10 rounded-sm"
+                    aria-hidden
+                  />
+                </span>
+              </>
+            }
+            align="center"
+          />
+        </AnimateIn>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+        <StaggerIn className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12" delayStart={0.1}>
           {featured.map((story, i) => {
             const quote = isAr && story.quoteAr ? story.quoteAr : story.quote
             const role = isAr && story.roleAr ? story.roleAr : story.role
             return (
+              <StaggerItem key={story.id}>
               <blockquote
-                key={story.id}
                 className={[
                   'relative rounded-2xl p-6 flex flex-col gap-5',
                   i === 1
@@ -92,9 +95,10 @@ export async function StoriesSection() {
                   </div>
                 </footer>
               </blockquote>
+              </StaggerItem>
             )
           })}
-        </div>
+        </StaggerIn>
       </Container>
     </section>
   )

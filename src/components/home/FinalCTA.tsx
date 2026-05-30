@@ -3,6 +3,7 @@ import { ArrowRight, Leaf } from 'lucide-react'
 import { Link } from '@/i18n/navigation'
 import { Container } from '@/components/ui/Container'
 import { Button } from '@/components/ui/Button'
+import { AnimateIn } from '@/components/ui/AnimateIn'
 
 export async function FinalCTA() {
   const t = await getTranslations('getInvolved')
@@ -20,6 +21,7 @@ export async function FinalCTA() {
       />
 
       <Container className="relative z-10 text-center">
+        <AnimateIn>
         <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-lime/20 backdrop-blur-sm">
           <Leaf className="h-7 w-7 text-lime" />
         </div>
@@ -55,6 +57,7 @@ export async function FinalCTA() {
         <p className="mt-10 text-xs text-teal-400/60 font-mono tracking-wide">
           {t('trustLine')}
         </p>
+        </AnimateIn>
       </Container>
     </section>
   )

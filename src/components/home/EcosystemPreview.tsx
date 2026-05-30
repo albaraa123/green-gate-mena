@@ -6,6 +6,7 @@ import { SectionHeader } from '@/components/ui/SectionHeader'
 import { Badge } from '@/components/ui/Badge'
 import { getFeaturedOpportunities } from '@/lib/supabase/queries'
 import { formatDeadline } from '@/lib/utils'
+import { AnimateIn } from '@/components/ui/AnimateIn'
 
 export async function EcosystemPreview() {
   const t = await getTranslations('ecosystem')
@@ -16,17 +17,19 @@ export async function EcosystemPreview() {
   return (
     <section className="section-padding bg-paper-warm grain-overlay">
       <Container>
-        <SectionHeader
-          eyebrow={t('eyebrow')}
-          heading={
-            <>
-              {t('heading')}{' '}
-              <em className="not-italic font-display italic text-teal-700">{t('headingItalic')}</em>
-            </>
-          }
-        />
+        <AnimateIn>
+          <SectionHeader
+            eyebrow={t('eyebrow')}
+            heading={
+              <>
+                {t('heading')}{' '}
+                <em className="not-italic font-display italic text-teal-700">{t('headingItalic')}</em>
+              </>
+            }
+          />
+        </AnimateIn>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-10">
+        <AnimateIn delay={0.15} className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-10">
           {/* Opportunities column — featured cards */}
           <div className="lg:col-span-2 flex flex-col gap-4">
             <div className="flex items-center justify-between mb-1">
@@ -115,7 +118,7 @@ export async function EcosystemPreview() {
               </Link>
             </div>
           </div>
-        </div>
+        </AnimateIn>
       </Container>
     </section>
   )

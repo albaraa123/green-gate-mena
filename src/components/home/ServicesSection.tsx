@@ -3,6 +3,7 @@ import { GraduationCap, Building2, Briefcase, BarChart3, ArrowRight } from 'luci
 import { Link } from '@/i18n/navigation'
 import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
+import { AnimateIn, StaggerIn, StaggerItem } from '@/components/ui/AnimateIn'
 
 interface ServiceCard {
   icon: React.ElementType
@@ -50,23 +51,25 @@ export async function ServicesSection() {
   return (
     <section className="section-padding bg-paper">
       <Container>
-        <SectionHeader
-          eyebrow={t('eyebrow')}
-          heading={
-            <>
-              {t('heading')}{' '}
-              <em className="not-italic font-display italic text-teal-700">{t('headingItalic')}</em>
-            </>
-          }
-          align="center"
-        />
+        <AnimateIn>
+          <SectionHeader
+            eyebrow={t('eyebrow')}
+            heading={
+              <>
+                {t('heading')}{' '}
+                <em className="not-italic font-display italic text-teal-700">{t('headingItalic')}</em>
+              </>
+            }
+            align="center"
+          />
+        </AnimateIn>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-12">
+        <StaggerIn className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-12" delayStart={0.1}>
           {cards.map(({ icon: Icon, titleKey, descKey, href, accent }) => {
             const isDark = accent.includes('teal-900')
             return (
+              <StaggerItem key={href} className="h-full">
               <Link
-                key={href}
                 href={href}
                 className={[
                   'group relative flex flex-col gap-5 rounded-2xl border p-6 transition-all duration-200',
@@ -116,9 +119,10 @@ export async function ServicesSection() {
                   <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
                 </div>
               </Link>
+              </StaggerItem>
             )
           })}
-        </div>
+        </StaggerIn>
       </Container>
     </section>
   )

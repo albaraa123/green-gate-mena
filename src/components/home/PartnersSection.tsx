@@ -4,6 +4,7 @@ import { Link } from '@/i18n/navigation'
 import { Container } from '@/components/ui/Container'
 import { Button } from '@/components/ui/Button'
 import { getPartners } from '@/lib/supabase/queries'
+import { AnimateIn } from '@/components/ui/AnimateIn'
 
 export async function PartnersSection() {
   const t = await getTranslations('partners')
@@ -25,7 +26,7 @@ export async function PartnersSection() {
   return (
     <section className="section-padding bg-paper-warm grain-overlay">
       <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <AnimateIn className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left — copy */}
           <div className="flex flex-col gap-6">
             <p className="eyebrow">{t('eyebrow')}</p>
@@ -78,7 +79,7 @@ export async function PartnersSection() {
               <p className="text-sm text-teal-700/50 font-mono">شركاؤنا قادمون قريباً</p>
             </div>
           )}
-        </div>
+        </AnimateIn>
       </Container>
     </section>
   )

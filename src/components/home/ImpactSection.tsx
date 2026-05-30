@@ -3,6 +3,7 @@ import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { AnimatedCounter } from '@/components/ui/AnimatedCounter'
 import { impactStats, impactTimeline } from '@/data/stats'
+import { AnimateIn } from '@/components/ui/AnimateIn'
 
 export async function ImpactSection() {
   const t = await getTranslations('impact')
@@ -12,18 +13,21 @@ export async function ImpactSection() {
   return (
     <section className="section-padding bg-teal-700 text-white grain-overlay overflow-hidden">
       <Container>
-        <SectionHeader
-          eyebrow={t('eyebrow')}
-          heading={
-            <>
-              {t('heading')}{' '}
-              <em className="not-italic font-display italic text-lime">{t('headingItalic')}</em>
-            </>
-          }
-          className="[&_h2]:text-white [&_p]:text-teal-300/80"
-        />
+        <AnimateIn>
+          <SectionHeader
+            eyebrow={t('eyebrow')}
+            heading={
+              <>
+                {t('heading')}{' '}
+                <em className="not-italic font-display italic text-lime">{t('headingItalic')}</em>
+              </>
+            }
+            className="[&_h2]:text-white [&_p]:text-teal-300/80"
+          />
+        </AnimateIn>
 
         {/* Stats grid */}
+        <AnimateIn delay={0.15}>
         <dl className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-12 mb-16">
           {impactStats.map((stat) => {
             const label = isAr && stat.labelAr ? stat.labelAr : stat.label
@@ -51,8 +55,10 @@ export async function ImpactSection() {
             )
           })}
         </dl>
+        </AnimateIn>
 
         {/* Timeline */}
+        <AnimateIn delay={0.1}>
         <div className="relative">
           <div className="absolute start-4 top-0 bottom-0 w-px bg-white/10 hidden md:block" aria-hidden />
 
@@ -79,6 +85,7 @@ export async function ImpactSection() {
             })}
           </div>
         </div>
+        </AnimateIn>
       </Container>
     </section>
   )
