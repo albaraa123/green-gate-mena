@@ -16,6 +16,7 @@ export async function POST(req: NextRequest) {
     // Send welcome email to subscriber
     await resend.emails.send({
       from: 'Green Gate MENA <onboarding@resend.dev>',
+      replyTo: 'greengate4menayouth@gmail.com',
       to: email,
       subject: 'مرحباً بك في Green Gate MENA 🌿',
       html: `
