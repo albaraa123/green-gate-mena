@@ -41,7 +41,7 @@ export function NewsletterSignup({ className, compact = false }: NewsletterSignu
   if (status === 'success') {
     return (
       <p className={cn('text-sm text-leaf font-medium', className)}>
-        ✓ You&apos;re subscribed! Check your inbox for a confirmation.
+        ✓ {t('success')}
       </p>
     )
   }

@@ -15,7 +15,6 @@ const organizationSchema = {
   ],
   areaServed: { '@type': 'Place', name: 'MENA Region' },
 }
-import { TrustBar } from '@/components/home/TrustBar'
 import { ServicesSection } from '@/components/home/ServicesSection'
 import { EcosystemPreview } from '@/components/home/EcosystemPreview'
 import { ImpactSection } from '@/components/home/ImpactSection'
@@ -40,7 +39,6 @@ export default async function HomePage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
       <HeroSection />
-      <TrustBar />
       <ServicesSection />
       <EcosystemPreview />
       <ImpactSection />

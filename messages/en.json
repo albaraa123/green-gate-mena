@@ -28,7 +28,9 @@
     "newsletter": {
       "placeholder": "Your email address",
       "button": "Subscribe",
-      "label": "Stay updated on the latest climate opportunities across MENA"
+      "label": "Stay updated on the latest climate opportunities across MENA",
+      "success": "You're subscribed! Check your inbox for a confirmation.",
+      "error": "Something went wrong. Please try again."
     },
     "columns": {
       "explore": "Explore",
@@ -80,12 +82,12 @@
   },
   "hero": {
     "eyebrow": "Now serving 22 MENA countries",
-    "h1Part1": "The MENA Region's",
+    "h1Part1": "Gateway for the Arab World",
     "h1Italic": "Gateway",
     "h1Part2": "to",
-    "h1Highlight": "Green",
+    "h1Highlight": "Green Economy",
     "h1Part3": "Opportunities.",
-    "subhead": "Green Gate MENA connects youth with climate opportunities, environmental networks, and programs across the Arab region and beyond — one trusted regional platform, built by youth, for youth.",
+    "subhead": "Connecting youth and organizations with climate opportunities across 22 Arab countries — free and trusted.",
     "cta1": "Explore Opportunities",
     "cta2": "Get Involved",
     "stat1": "500+",
@@ -93,7 +95,7 @@
     "stat2": "40K+",
     "stat2Label": "Followers",
     "stat3": "180+",
-    "stat3Label": "GreenX Participants",
+    "stat3Label": "event participants",
     "stat4": "22",
     "stat4Label": "MENA Countries",
     "mapTitle": "22 Countries,",
@@ -104,7 +106,7 @@
     "card1Country": "🇪🇬 Egypt",
     "card2Type": "Grant",
     "card2Title": "MENA Green Innovation Grant",
-    "card2Country": "🌍 Pan-MENA",
+    "card2Country": "🌍 Arab Region",
     "card3Type": "Internship",
     "card3Title": "Masdar Clean Energy Internship",
     "card3Country": "🇦🇪 UAE"

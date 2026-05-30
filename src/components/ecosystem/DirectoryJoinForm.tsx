@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { ArrowLeft, Send, CheckCircle } from 'lucide-react'
+import { useLocale } from 'next-intl'
 import { Link } from '@/i18n/navigation'
 import { Container } from '@/components/ui/Container'
 import { Button } from '@/components/ui/Button'
@@ -18,6 +19,14 @@ const COUNTRY_NAMES: Record<string, string> = {
   PS: 'Palestine', IQ: 'Iraq', SA: 'Saudi Arabia', AE: 'UAE', KW: 'Kuwait',
   QA: 'Qatar', BH: 'Bahrain', OM: 'Oman', YE: 'Yemen', DJ: 'Djibouti',
   SO: 'Somalia', KM: 'Comoros',
+}
+
+const COUNTRY_NAMES_AR: Record<string, string> = {
+  MA: 'المغرب', DZ: 'الجزائر', TN: 'تونس', LY: 'ليبيا', EG: 'مصر',
+  SD: 'السودان', MR: 'موريتانيا', LB: 'لبنان', SY: 'سوريا', JO: 'الأردن',
+  PS: 'فلسطين', IQ: 'العراق', SA: 'المملكة العربية السعودية', AE: 'الإمارات',
+  KW: 'الكويت', QA: 'قطر', BH: 'البحرين', OM: 'عُمان', YE: 'اليمن',
+  DJ: 'جيبوتي', SO: 'الصومال', KM: 'جزر القمر',
 }
 
 interface FormState {
@@ -37,6 +46,65 @@ const EMPTY: FormState = {
 }
 
 export function DirectoryJoinForm() {
+  const locale = useLocale()
+  const isAr = locale === 'ar'
+
+  const ui = {
+    back: isAr ? 'الدليل' : 'Directory',
+    heroTitle1: isAr ? 'انضم إلى' : 'Join the',
+    heroTitleItalic: isAr ? 'الدليل' : 'Directory',
+    heroSubhead: isAr
+      ? 'أضف منظمتك أو مجموعتك — مجاني، يُراجع خلال 5 أيام.'
+      : 'List your NGO, group, or organization — free to join, reviewed within 5 days.',
+    sectionOrgDetails: isAr ? 'تفاصيل المنظمة' : 'Organization details',
+    sectionContact: isAr ? 'التواصل' : 'Contact',
+    labelName: isAr ? 'الاسم *' : 'Name *',
+    placeholderName: isAr ? 'الاسم الكامل لمنظمتك' : "Your organization's full name",
+    labelType: isAr ? 'النوع *' : 'Type *',
+    selectType: isAr ? 'اختر نوعاً' : 'Select type',
+    labelCountry: isAr ? 'الدولة *' : 'Country *',
+    selectCountry: isAr ? 'اختر دولة' : 'Select country',
+    labelCity: isAr ? 'المدينة (اختياري)' : 'City (optional)',
+    placeholderCity: isAr ? 'مثال: القاهرة' : 'e.g. Cairo',
+    labelDescription: isAr ? 'الوصف *' : 'Description *',
+    placeholderDescription: isAr
+      ? 'صف مهمة منظمتك وعملها...'
+      : "Describe your organization's mission and work...",
+    labelThemes: isAr ? 'المحاور' : 'Themes',
+    labelEmail: isAr ? 'البريد الإلكتروني *' : 'Email *',
+    placeholderEmail: isAr ? 'تواصل@منظمتك.org' : 'contact@organization.org',
+    labelWebsite: isAr ? 'الموقع الإلكتروني (اختياري)' : 'Website (optional)',
+    btnSubmit: isAr ? 'أرسل الملف الشخصي' : 'Submit Profile',
+    btnSubmitting: isAr ? 'جاري الإرسال...' : 'Submitting…',
+    errorGeneric: isAr ? 'حدث خطأ. حاول مجدداً.' : 'Something went wrong. Please try again.',
+    successTitle: isAr ? 'تم استلام طلبك!' : 'Application submitted!',
+    successBody: isAr
+      ? 'سنراجع ملفك الشخصي وننشره في الدليل خلال 5 أيام عمل.'
+      : "We'll review your profile and publish it to the directory within 5 business days.",
+    successBtn: isAr ? 'تصفح الدليل' : 'Browse Directory',
+    errName: isAr ? 'الاسم مطلوب' : 'Name is required',
+    errType: isAr ? 'اختر نوعاً' : 'Select a type',
+    errCountry: isAr ? 'اختر دولة' : 'Select a country',
+    errDesc: isAr ? 'الوصف يجب أن يكون 50 حرفاً على الأقل' : 'Description must be at least 50 characters',
+    errEmail: isAr ? 'بريد إلكتروني صحيح مطلوب' : 'Valid email required',
+  }
+
+  const TYPE_LABELS: Record<string, string> = isAr ? {
+    ngo: 'منظمة غير حكومية',
+    'youth-group': 'مجموعة شبابية',
+    individual: 'فرد',
+    institution: 'مؤسسة',
+    business: 'شركة',
+  } : {
+    ngo: 'NGO',
+    'youth-group': 'Youth Group',
+    individual: 'Individual',
+    institution: 'Institution',
+    business: 'Business',
+  }
+
+  const countryMap = isAr ? COUNTRY_NAMES_AR : COUNTRY_NAMES
+
   const [form, setForm] = useState<FormState>(EMPTY)
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({})
@@ -57,13 +125,13 @@ export function DirectoryJoinForm() {
 
   function validate(): boolean {
     const e: Partial<Record<keyof FormState, string>> = {}
-    if (!form.name.trim()) e.name = 'Name is required'
-    if (!form.type) e.type = 'Select a type'
-    if (!form.country) e.country = 'Select a country'
+    if (!form.name.trim()) e.name = ui.errName
+    if (!form.type) e.type = ui.errType
+    if (!form.country) e.country = ui.errCountry
     if (!form.description.trim() || form.description.length < 50)
-      e.description = 'Description must be at least 50 characters'
+      e.description = ui.errDesc
     if (!form.email.trim() || !form.email.includes('@'))
-      e.email = 'Valid email required'
+      e.email = ui.errEmail
     setErrors(e)
     return Object.keys(e).length === 0
   }
@@ -91,12 +159,12 @@ export function DirectoryJoinForm() {
           <div className="h-16 w-16 rounded-full bg-leaf/20 flex items-center justify-center">
             <CheckCircle className="h-8 w-8 text-leaf" />
           </div>
-          <h1 className="font-display text-3xl font-semibold text-teal-800">Application submitted!</h1>
+          <h1 className="font-display text-3xl font-semibold text-teal-800">{ui.successTitle}</h1>
           <p className="text-ink-soft max-w-sm">
-            We&apos;ll review your profile and publish it to the directory within 5 business days.
+            {ui.successBody}
           </p>
           <Button asChild>
-            <Link href="/ecosystem/directory">Browse Directory</Link>
+            <Link href="/ecosystem/directory">{ui.successBtn}</Link>
           </Button>
         </Container>
       </main>
@@ -111,14 +179,14 @@ export function DirectoryJoinForm() {
             href="/ecosystem/directory"
             className="inline-flex items-center gap-1.5 text-sm text-teal-300/70 hover:text-white transition-colors mb-4"
           >
-            <ArrowLeft className="h-4 w-4" /> Directory
+            <ArrowLeft className="h-4 w-4" /> {ui.back}
           </Link>
           <h1 className="font-display text-display-lg text-white">
-            Join the{' '}
-            <em className="not-italic italic text-lime">Directory</em>
+            {ui.heroTitle1}{' '}
+            <em className="not-italic italic text-lime">{ui.heroTitleItalic}</em>
           </h1>
           <p className="mt-2 text-teal-300/80 max-w-lg">
-            List your NGO, group, or organization — free to join, reviewed within 5 days.
+            {ui.heroSubhead}
           </p>
         </Container>
       </div>
@@ -127,69 +195,69 @@ export function DirectoryJoinForm() {
         <Container className="py-10 max-w-2xl">
           <form onSubmit={handleSubmit} className="flex flex-col gap-6">
             <div className="rounded-2xl bg-white border border-sand-200 p-6 flex flex-col gap-5">
-              <h2 className="font-display text-lg font-semibold text-teal-800">Organization details</h2>
+              <h2 className="font-display text-lg font-semibold text-teal-800">{ui.sectionOrgDetails}</h2>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-sm font-medium text-ink" htmlFor="name">Name *</label>
+                <label className="text-sm font-medium text-ink" htmlFor="name">{ui.labelName}</label>
                 <Input
                   id="name"
                   value={form.name}
                   onChange={(e) => set('name', e.target.value)}
-                  placeholder="Your organization's full name"
+                  placeholder={ui.placeholderName}
                 />
                 {errors.name && <p className="text-xs text-red-600">{errors.name}</p>}
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-medium text-ink" htmlFor="type">Type *</label>
+                  <label className="text-sm font-medium text-ink" htmlFor="type">{ui.labelType}</label>
                   <Select
                     id="type"
                     value={form.type}
                     onChange={(e) => set('type', e.target.value)}
-                    placeholder="Select type"
-                    options={TYPES.map((t) => ({ value: t, label: t.replace('-', ' ').replace(/^\w/, (c) => c.toUpperCase()) }))}
+                    placeholder={ui.selectType}
+                    options={TYPES.map((t) => ({ value: t, label: TYPE_LABELS[t] ?? t }))}
                   />
                   {errors.type && <p className="text-xs text-red-600">{errors.type}</p>}
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-medium text-ink" htmlFor="country">Country *</label>
+                  <label className="text-sm font-medium text-ink" htmlFor="country">{ui.labelCountry}</label>
                   <Select
                     id="country"
                     value={form.country}
                     onChange={(e) => set('country', e.target.value)}
-                    placeholder="Select country"
-                    options={Object.entries(COUNTRY_NAMES).map(([code, name]) => ({ value: code, label: name }))}
+                    placeholder={ui.selectCountry}
+                    options={Object.entries(countryMap).map(([code, name]) => ({ value: code, label: name }))}
                   />
                   {errors.country && <p className="text-xs text-red-600">{errors.country}</p>}
                 </div>
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-sm font-medium text-ink" htmlFor="city">City (optional)</label>
+                <label className="text-sm font-medium text-ink" htmlFor="city">{ui.labelCity}</label>
                 <Input
                   id="city"
                   value={form.city}
                   onChange={(e) => set('city', e.target.value)}
-                  placeholder="e.g. Cairo"
+                  placeholder={ui.placeholderCity}
                 />
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-sm font-medium text-ink" htmlFor="description">Description *</label>
+                <label className="text-sm font-medium text-ink" htmlFor="description">{ui.labelDescription}</label>
                 <Textarea
                   id="description"
                   rows={4}
                   value={form.description}
                   onChange={(e) => set('description', e.target.value)}
-                  placeholder="Describe your organization's mission and work..."
+                  placeholder={ui.placeholderDescription}
                 />
                 {errors.description && <p className="text-xs text-red-600">{errors.description}</p>}
               </div>
 
               {/* Themes */}
               <div className="flex flex-col gap-2">
-                <p className="text-sm font-medium text-ink">Themes</p>
+                <p className="text-sm font-medium text-ink">{ui.labelThemes}</p>
                 <div className="flex flex-wrap gap-2">
                   {THEMES.map((theme) => (
                     <button
@@ -211,22 +279,22 @@ export function DirectoryJoinForm() {
             </div>
 
             <div className="rounded-2xl bg-white border border-sand-200 p-6 flex flex-col gap-5">
-              <h2 className="font-display text-lg font-semibold text-teal-800">Contact</h2>
+              <h2 className="font-display text-lg font-semibold text-teal-800">{ui.sectionContact}</h2>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-sm font-medium text-ink" htmlFor="email">Email *</label>
+                <label className="text-sm font-medium text-ink" htmlFor="email">{ui.labelEmail}</label>
                 <Input
                   id="email"
                   type="email"
                   value={form.email}
                   onChange={(e) => set('email', e.target.value)}
-                  placeholder="contact@organization.org"
+                  placeholder={ui.placeholderEmail}
                 />
                 {errors.email && <p className="text-xs text-red-600">{errors.email}</p>}
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-sm font-medium text-ink" htmlFor="website">Website (optional)</label>
+                <label className="text-sm font-medium text-ink" htmlFor="website">{ui.labelWebsite}</label>
                 <Input
                   id="website"
                   type="url"
@@ -238,12 +306,12 @@ export function DirectoryJoinForm() {
             </div>
 
             {status === 'error' && (
-              <p className="text-sm text-red-600 text-center">Something went wrong. Please try again.</p>
+              <p className="text-sm text-red-600 text-center">{ui.errorGeneric}</p>
             )}
 
             <Button type="submit" size="lg" disabled={status === 'loading'} className="self-start">
-              {status === 'loading' ? 'Submitting…' : (
-                <><Send className="me-2 h-4 w-4" /> Submit Profile</>
+              {status === 'loading' ? ui.btnSubmitting : (
+                <><Send className="me-2 h-4 w-4" /> {ui.btnSubmit}</>
               )}
             </Button>
           </form>
