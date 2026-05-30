@@ -8,6 +8,7 @@ import { routing } from '@/i18n/routing'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { ScrollToTop } from '@/components/ui/ScrollToTop'
+import { IntroAnimation } from '@/components/ui/IntroAnimation'
 import '../globals.css'
 
 const manrope = Manrope({
@@ -133,6 +134,7 @@ export default async function LocaleLayout({
           {locale === 'ar' ? 'انتقل إلى المحتوى الرئيسي' : 'Skip to main content'}
         </a>
         <NextIntlClientProvider messages={messages}>
+          <IntroAnimation />
           <Header />
           <div className="flex-1 pt-16 md:pt-18">
             {children}
