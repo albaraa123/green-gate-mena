@@ -1,3 +1,4 @@
+import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { AdminSidebar } from './_components/AdminSidebar'
@@ -9,6 +10,13 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode
 }) {
+  const headersList = await headers()
+  const isLoginPage = headersList.get('x-admin-page') === 'login'
+
+  if (isLoginPage) {
+    return <>{children}</>
+  }
+
   const supabase = await createClient()
   const {
     data: { user },

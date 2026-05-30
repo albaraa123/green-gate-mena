@@ -13,7 +13,9 @@ export default async function proxy(request: NextRequest) {
   if (pathname.startsWith('/admin')) {
     // Allow login page through without auth check
     if (pathname.startsWith('/admin/login')) {
-      return NextResponse.next({ request: { headers: request.headers } })
+      const reqHeaders = new Headers(request.headers)
+      reqHeaders.set('x-admin-page', 'login')
+      return NextResponse.next({ request: { headers: reqHeaders } })
     }
 
     const response = NextResponse.next({
