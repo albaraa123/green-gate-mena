@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { createPartner, updatePartner } from '../../_actions/partners'
+import { ImageUpload } from '@/components/admin/ImageUpload'
 
 const TIERS = ['strategic', 'program', 'media', 'community'] as const
 
@@ -48,6 +49,8 @@ export function PartnerForm({ row }: Props) {
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<FormValues, unknown, FormValues>({
     resolver: zodResolver(schema),
@@ -108,9 +111,16 @@ export function PartnerForm({ row }: Props) {
         <input {...register('name')} className={inputCls} />
       </Field>
 
-      <Field label="Logo URL *" error={errors.logo?.message}>
-        <input {...register('logo')} type="url" className={inputCls} />
-      </Field>
+      <div className="flex flex-col gap-1.5">
+        <ImageUpload
+          value={watch('logo')}
+          onChange={(url) => setValue('logo', url, { shouldValidate: true })}
+          folder="partners"
+          label="شعار الشريك *"
+          recommended="400 × 200 بكسل"
+        />
+        {errors.logo && <p className="text-xs text-red-600">{errors.logo.message}</p>}
+      </div>
 
       <Field label="Website" error={errors.website?.message}>
         <input {...register('website')} type="url" className={inputCls} />

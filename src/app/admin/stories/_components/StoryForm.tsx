@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { createStory, updateStory } from '../../_actions/stories'
+import { ImageUpload } from '@/components/admin/ImageUpload'
 
 const schema = z.object({
   id: z.string().min(1, 'Required'),
@@ -52,6 +53,8 @@ export function StoryForm({ row }: Props) {
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<FormValues, unknown, FormValues>({
     resolver: zodResolver(schema),
@@ -141,9 +144,16 @@ export function StoryForm({ row }: Props) {
         <textarea {...register('quote_ar')} rows={4} className={inputCls} dir="rtl" />
       </Field>
 
-      <Field label="Avatar URL" error={errors.avatar?.message}>
-        <input {...register('avatar')} type="url" className={inputCls} />
-      </Field>
+      <div className="flex flex-col gap-1.5">
+        <ImageUpload
+          value={watch('avatar') ?? undefined}
+          onChange={(url) => setValue('avatar', url, { shouldValidate: true })}
+          folder="stories"
+          label="صورة الشخص"
+          recommended="400 × 400 بكسل"
+        />
+        {errors.avatar && <p className="text-xs text-red-600">{errors.avatar.message}</p>}
+      </div>
 
       <Field label="Opportunity Title" error={errors.opportunity_title?.message}>
         <input {...register('opportunity_title')} className={inputCls} />

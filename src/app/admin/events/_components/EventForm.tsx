@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { createEvent, updateEvent } from '../../_actions/events'
+import { ImageUpload } from '@/components/admin/ImageUpload'
 
 const THEMES = ['climate', 'energy', 'water', 'biodiversity', 'waste', 'sustainability', 'policy', 'finance', 'agriculture', 'urban', 'oceans', 'youth'] as const
 const FORMATS = ['in-person', 'online', 'hybrid'] as const
@@ -216,9 +217,16 @@ export function EventForm({ row }: Props) {
         <input {...register('link')} type="url" className={inputCls} />
       </Field>
 
-      <Field label="Image URL" error={errors.image?.message}>
-        <input {...register('image')} type="url" className={inputCls} />
-      </Field>
+      <div className="flex flex-col gap-1.5">
+        <ImageUpload
+          value={watch('image') ?? undefined}
+          onChange={(url) => setValue('image', url, { shouldValidate: true })}
+          folder="events"
+          label="صورة الفعالية"
+          recommended="1200 × 630 بكسل"
+        />
+        {errors.image && <p className="text-xs text-red-600">{errors.image.message}</p>}
+      </div>
 
       <div className="flex gap-6">
         <label className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">

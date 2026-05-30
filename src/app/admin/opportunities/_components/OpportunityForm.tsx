@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { createOpportunity, updateOpportunity } from '../../_actions/opportunities'
+import { ImageUpload } from '@/components/admin/ImageUpload'
 
 const THEMES = ['climate', 'energy', 'water', 'biodiversity', 'waste', 'sustainability', 'policy', 'finance', 'agriculture', 'urban', 'oceans', 'youth'] as const
 const FORMATS = ['in-person', 'online', 'hybrid'] as const
@@ -232,9 +233,16 @@ export function OpportunityForm({ row }: Props) {
         <input {...register('link')} type="url" className={inputCls} />
       </Field>
 
-      <Field label="Logo URL" error={errors.logo?.message}>
-        <input {...register('logo')} className={inputCls} />
-      </Field>
+      <div className="flex flex-col gap-1.5">
+        <ImageUpload
+          value={watch('logo') ?? undefined}
+          onChange={(url) => setValue('logo', url, { shouldValidate: true })}
+          folder="opportunities"
+          label="شعار المنظمة"
+          recommended="400 × 400 بكسل"
+        />
+        {errors.logo && <p className="text-xs text-red-600">{errors.logo.message}</p>}
+      </div>
 
       <div className="flex gap-6">
         <label className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
