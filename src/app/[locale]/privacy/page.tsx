@@ -89,8 +89,8 @@ export default async function PrivacyPage({ params }: Props) {
             <p>
               {isAr ? 'لأي أسئلة تتعلق بالخصوصية:' : 'For any privacy questions:'}
               {' '}
-              <a href="mailto:hello@greengate-mena.org" className="text-teal-700 underline hover:text-teal-800">
-                hello@greengate-mena.org
+              <a href="mailto:greengate4menayouth@gmail.com" className="text-teal-700 underline hover:text-teal-800">
+                greengate4menayouth@gmail.com
               </a>
             </p>
           </section>

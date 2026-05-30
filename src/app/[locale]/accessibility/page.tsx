@@ -78,8 +78,8 @@ export default async function AccessibilityPage({ params }: Props) {
                 ? 'إذا كنت تواجه صعوبة في الوصول إلى أي جزء من الموقع، تواصل معنا:'
                 : 'If you experience difficulty accessing any part of the site, please contact us:'}
               {' '}
-              <a href="mailto:hello@greengate-mena.org" className="text-teal-700 underline hover:text-teal-800">
-                hello@greengate-mena.org
+              <a href="mailto:greengate4menayouth@gmail.com" className="text-teal-700 underline hover:text-teal-800">
+                greengate4menayouth@gmail.com
               </a>
             </p>
           </section>
