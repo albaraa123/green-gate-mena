@@ -116,10 +116,10 @@ export function ContactPageContent() {
                       {t('emailLabel')}
                     </p>
                     <a
-                      href="mailto:hello@greengate-mena.org"
+                      href="mailto:greengate4menayouth@gmail.com"
                       className="text-sm text-teal-700 hover:text-teal-800 font-medium transition-colors"
                     >
-                      hello@greengate-mena.org
+                      greengate4menayouth@gmail.com
                     </a>
                   </div>
                 </div>
