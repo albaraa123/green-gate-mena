@@ -4,8 +4,8 @@ import type { ImpactStat } from '@/types'
 export const heroStats = [
   { value: '500', suffix: '+', label: 'Youth Members' },
   { value: '40', suffix: 'K+', label: 'Social Followers' },
-  { value: '22', suffix: '', label: 'MENA Countries' },
-  { value: '180', suffix: '+', label: 'GreenX Participants' },
+  { value: '22', suffix: '', label: 'Arab Countries' },
+  { value: '180', suffix: '+', label: 'Event Participants' },
 ]
 
 export const trustBarStats = [
@@ -20,8 +20,8 @@ export const impactStats: ImpactStat[] = [
     value: '500+',
     label: 'Youth Members',
     labelAr: 'أعضاء الشباب',
-    description: 'Active members across 22 MENA countries',
-    descriptionAr: 'أعضاء نشطون في 22 دولة في منطقة MENA',
+    description: 'Active members across 22 Arab countries',
+    descriptionAr: 'أعضاء نشطون في 22 دولة عربية',
   },
   {
     value: '40K+',
@@ -34,13 +34,13 @@ export const impactStats: ImpactStat[] = [
     value: '22',
     label: 'Countries Reached',
     labelAr: 'دولة مشمولة',
-    description: 'Covering the full MENA region from Morocco to Oman',
-    descriptionAr: 'تغطية كاملة لمنطقة MENA من المغرب إلى عُمان',
+    description: 'Full coverage across the Arab region',
+    descriptionAr: 'تغطية شاملة لأرجاء المنطقة العربية',
   },
   {
     value: '180+',
     label: 'GreenX 2025 Participants',
-    labelAr: 'مشارك في GreenX 2025',
+    labelAr: 'مشارك في الفعاليات',
     description: 'Youth who joined our flagship environmental summit',
     descriptionAr: 'شباب شاركوا في قمتنا البيئية الرائدة',
   },
@@ -66,14 +66,14 @@ export const impactTimeline = [
     title: 'Green Gate MENA Founded',
     titleAr: 'تأسيس Green Gate MENA',
     description: 'Launched as a youth-led initiative to connect MENA youth with climate opportunities.',
-    descriptionAr: 'انطلقت كمبادرة شبابية لربط شباب MENA بالفرص المناخية.',
+    descriptionAr: 'انطلقت كمبادرة شبابية لربط الشباب العربي بالفرص المناخية.',
   },
   {
     year: '2023',
     title: 'First 500 Community Members',
     titleAr: 'أول 500 عضو في المجتمع',
     description: 'Grew to 500+ active youth members across 15 MENA countries within the first year.',
-    descriptionAr: 'وصلنا إلى 500+ عضو شباب نشط في 15 دولة من MENA خلال العام الأول.',
+    descriptionAr: 'وصلنا إلى 500+ عضو شباب نشط في أرجاء المنطقة العربية خلال العام الأول.',
   },
   {
     year: '2024',
@@ -94,6 +94,6 @@ export const impactTimeline = [
     title: 'Platform Launch',
     titleAr: 'إطلاق المنصة',
     description: 'Launching the comprehensive digital ecosystem connecting every green actor in MENA.',
-    descriptionAr: 'إطلاق المنظومة الرقمية الشاملة التي تربط كل فاعل أخضر في MENA.',
+    descriptionAr: 'إطلاق المنظومة الرقمية الشاملة التي تربط كل فاعل أخضر في المنطقة العربية.',
   },
 ]
