@@ -46,3 +46,5 @@ next-env.d.ts
 
 # Font source zip (extracted to public/fonts/)
 Thmanyah-Font-Family*
+
+.vercel

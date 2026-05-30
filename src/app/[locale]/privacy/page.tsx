@@ -53,7 +53,7 @@ export default async function PrivacyPage({ params }: Props) {
               {isAr ? 'كيف نستخدم معلوماتك' : 'How we use your information'}
             </h2>
             <ul className="list-disc ps-5 space-y-2">
-              <li>{isAr ? 'إرسال نشرة الفرص الخضراء الدورية (بموافقتك فقط)' : 'Send our periodic green opportunities newsletter (only with your consent)'}</li>
+              <li>{isAr ? 'إرسال نشرة Green Gate MENA الدورية (بموافقتك فقط)' : 'Send our periodic Green Gate MENA newsletter (only with your consent)'}</li>
               <li>{isAr ? 'الرد على استفساراتك' : 'Respond to your enquiries'}</li>
               <li>{isAr ? 'مراجعة طلبات الانضمام إلى الدليل أو إضافة الفرص' : 'Review directory join or opportunity submission requests'}</li>
               <li>{isAr ? 'تحسين موقعنا وخدماتنا' : 'Improve our website and services'}</li>

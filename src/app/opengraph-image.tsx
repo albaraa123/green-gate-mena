@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
-export const alt = 'Green Gate MENA — The Gateway to Green Opportunities'
+export const alt = 'Green Gate MENA — MENA\'s Climate & Environment Gateway'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -71,7 +71,7 @@ export default function OGImage() {
             maxWidth: 820,
           }}
         >
-          The Gateway to Green Opportunities
+          MENA&apos;s Climate &amp; Environment Gateway
         </h1>
 
         {/* Subhead */}

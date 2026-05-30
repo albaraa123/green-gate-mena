@@ -21,7 +21,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://greengate-mena.org'
 
 export const metadata: Metadata = {
   title: {
-    default: 'Green Gate MENA — The Gateway to Green Opportunities',
+    default: 'Green Gate MENA — MENA's Climate & Environment Gateway',
     template: '%s | Green Gate MENA',
   },
   description:
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     siteName: 'Green Gate MENA',
-    title: 'Green Gate MENA — The Gateway to Green Opportunities',
+    title: 'Green Gate MENA — MENA's Climate & Environment Gateway',
     description:
       'Green Gate MENA connects youth, NGOs, and institutions with climate and environmental opportunities across 22 MENA countries.',
     locale: 'en_US',
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     site: '@GreenGateMENA',
-    title: 'Green Gate MENA — The Gateway to Green Opportunities',
+    title: 'Green Gate MENA — MENA's Climate & Environment Gateway',
     description:
       'Green Gate MENA connects youth, NGOs, and institutions with climate and environmental opportunities across 22 MENA countries.',
   },
