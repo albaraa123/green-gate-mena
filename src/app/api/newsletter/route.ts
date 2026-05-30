@@ -13,6 +13,13 @@ export async function POST(req: NextRequest) {
     const body = await req.json() as unknown
     const { email } = schema.parse(body)
 
+    // Add to audience (mailing list)
+    await resend.contacts.create({
+      audienceId: process.env.RESEND_AUDIENCE_ID!,
+      email,
+      unsubscribed: false,
+    })
+
     // Send welcome email to subscriber
     await resend.emails.send({
       from: 'Green Gate MENA <onboarding@resend.dev>',
