@@ -139,7 +139,12 @@ export async function Footer() {
 
         {/* Bottom bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-white/10">
-          <p className="text-xs text-white/40">{t('legal.copyright')}</p>
+          <div className="flex items-center gap-4">
+            <p className="text-xs text-white/40">{t('legal.copyright')}</p>
+            <a href="/admin/login" className="text-xs text-white/60 hover:text-white border border-white/20 hover:border-white/40 rounded px-2 py-0.5 transition-colors">
+              Admin
+            </a>
+          </div>
           <div className="flex items-center gap-5">
             <Link href="/privacy" className="text-xs text-white/40 hover:text-white/70 transition-colors">
               {t('legal.privacy')}
@@ -150,9 +155,6 @@ export async function Footer() {
             <Link href="/accessibility" className="text-xs text-white/40 hover:text-white/70 transition-colors">
               {t('legal.accessibility')}
             </Link>
-            <a href="/admin/login" className="text-xs text-white/40 hover:text-white/70 transition-colors">
-              Admin
-            </a>
           </div>
         </div>
       </Container>
