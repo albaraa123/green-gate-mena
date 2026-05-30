@@ -150,7 +150,7 @@ export async function Footer() {
             <Link href="/accessibility" className="text-xs text-white/40 hover:text-white/70 transition-colors">
               {t('legal.accessibility')}
             </Link>
-            <a href="/admin/login" className="text-xs text-white/20 hover:text-white/50 transition-colors">
+            <a href="/admin/login" className="text-xs text-white/40 hover:text-white/70 transition-colors">
               Admin
             </a>
           </div>
