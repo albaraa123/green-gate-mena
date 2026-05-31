@@ -26,7 +26,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.08 }}
-            className="font-display text-display-xl text-ink leading-[1.2] text-balance"
+            className="font-display text-display-xl text-ink leading-[1.4] text-balance"
           >
             {t('h1Part1')}{' '}
             <span className="text-teal-700">{t('h1Italic')}</span>
