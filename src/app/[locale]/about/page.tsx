@@ -163,7 +163,7 @@ export default async function AboutPage({ params }: Props) {
       {team.length > 0 && (
         <section className="section-padding bg-paper">
           <Container>
-            <div className="text-center mb-12">
+            <div className="text-center mb-14">
               <p className="eyebrow mb-4">{t('teamEyebrow')}</p>
               <h2 className="font-display text-display-lg text-teal-800 text-balance">
                 {t('teamHeadingPre')}{' '}
@@ -173,22 +173,40 @@ export default async function AboutPage({ params }: Props) {
                 {t('teamSubhead')}
               </p>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5">
-              {team.map((member) => (
-                <div
-                  key={member.id}
-                  className="flex flex-col items-center gap-3 rounded-2xl bg-paper-warm border border-sand-200 p-5 text-center"
-                >
-                  <div className="h-16 w-16 rounded-full bg-teal-100 flex items-center justify-center font-display text-xl font-semibold text-teal-700">
-                    {member.name.charAt(0)}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8">
+              {team.map((member) => {
+                const role = isAr && member.roleAr ? member.roleAr : member.role
+                const name = isAr && member.nameAr ? member.nameAr : member.name
+                return (
+                  <div key={member.id} className="group flex flex-col gap-4">
+                    {/* Portrait photo */}
+                    <div className="relative overflow-hidden rounded-2xl bg-teal-50" style={{ aspectRatio: '3/4' }}>
+                      {member.avatar ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={member.avatar}
+                          alt={name}
+                          className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <span className="font-display text-6xl font-bold text-teal-300 select-none">
+                            {name.charAt(0)}
+                          </span>
+                        </div>
+                      )}
+                      {/* Subtle gradient overlay at bottom */}
+                      <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/20 to-transparent" />
+                    </div>
+                    {/* Info */}
+                    <div className="flex flex-col gap-1">
+                      <p className="font-display font-semibold text-ink text-base leading-snug">{name}</p>
+                      <p className="text-sm text-teal-700 leading-snug">{role}</p>
+                      <p className="text-xs text-ink-soft/50 mt-0.5">{getCountryName(member.country, locale)}</p>
+                    </div>
                   </div>
-                  <div className="flex flex-col gap-0.5">
-                    <p className="font-semibold text-ink text-sm leading-snug">{member.name}</p>
-                    <p className="text-xs text-teal-700 leading-snug">{member.role}</p>
-                    <p className="text-xs text-ink-soft/60 mt-0.5">{getCountryName(member.country, locale)}</p>
-                  </div>
-                </div>
-              ))}
+                )
+              })}
             </div>
           </Container>
         </section>
