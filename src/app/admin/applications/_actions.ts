@@ -97,19 +97,29 @@ export async function updateApplicationStatus(
     // 2. Auto-create directory profile for consultants, NGOs, and partners
     if (['consultant', 'ngo', 'partner'].includes(app.pathway as string)) {
       const slug = generateSlug(app.name as string)
-      await supabase.from('directory_profiles').insert({
+      const description = (app.bio as string | null)?.trim()
+        || `${PATHWAY_LABELS_AR[app.pathway as string] ?? app.pathway} في Green Gate MENA`
+
+      const { error: dirError } = await supabase.from('directory_profiles').insert({
         slug,
         name: app.name,
         type: DIRECTORY_TYPES[app.pathway as string] ?? 'individual',
         country: app.country,
-        description: app.bio ?? '',
-        themes: [],
+        city: null,
+        description,
+        themes: [] as string[],
         email: app.email,
-        website: app.linkedin ?? null,
-        logo: app.avatar ?? null,
+        website: (app.linkedin as string | null) ?? null,
+        logo: (app.avatar as string | null) ?? null,
         verified: true,
-        tags: [app.pathway],
+        tags: [app.pathway as string],
+        founded: null,
+        members: null,
       })
+
+      if (dirError) {
+        console.error('[applications] Directory profile creation failed:', dirError.message, dirError.details)
+      }
     }
   }
 
