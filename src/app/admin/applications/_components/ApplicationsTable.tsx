@@ -9,8 +9,12 @@ interface Application {
   pathwayLabel: string
   name: string
   email: string
+  phone: string | null
   organization: string | null
   country: string
+  linkedin: string | null
+  bio: string | null
+  avatar: string | null
   message: string | null
   status: string
   created_at: string
@@ -135,27 +139,45 @@ export function ApplicationsTable({ applications }: { applications: Application[
               {/* Expanded details */}
               {expanded === app.id && (
                 <div className="px-5 pb-5 border-t border-gray-100 pt-4 flex flex-col gap-4">
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
-                    {app.organization && (
-                      <div>
-                        <p className="text-xs text-gray-400 mb-0.5">Organization</p>
-                        <p className="text-gray-700">{app.organization}</p>
-                      </div>
+                  <div className="flex items-start gap-4">
+                    {app.avatar && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={app.avatar} alt={app.name} className="h-14 w-14 rounded-full object-cover border border-gray-200 shrink-0" />
                     )}
-                    <div>
-                      <p className="text-xs text-gray-400 mb-0.5">Country</p>
-                      <p className="text-gray-700">{app.country}</p>
-                    </div>
-                    <div>
-                      <p className="text-xs text-gray-400 mb-0.5">Type</p>
-                      <p className="text-gray-700 capitalize">{app.pathway}</p>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm flex-1">
+                      <div>
+                        <p className="text-xs text-gray-400 mb-0.5">Country</p>
+                        <p className="text-gray-700">{app.country}</p>
+                      </div>
+                      {app.phone && (
+                        <div>
+                          <p className="text-xs text-gray-400 mb-0.5">WhatsApp / Phone</p>
+                          <a href={`https://wa.me/${app.phone.replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer" className="text-teal-700 hover:underline">
+                            {app.phone}
+                          </a>
+                        </div>
+                      )}
+                      {app.organization && (
+                        <div>
+                          <p className="text-xs text-gray-400 mb-0.5">Organization</p>
+                          <p className="text-gray-700">{app.organization}</p>
+                        </div>
+                      )}
+                      {app.linkedin && (
+                        <div>
+                          <p className="text-xs text-gray-400 mb-0.5">LinkedIn</p>
+                          <a href={app.linkedin} target="_blank" rel="noopener noreferrer" className="text-teal-700 hover:underline text-xs truncate block">
+                            View Profile
+                          </a>
+                        </div>
+                      )}
                     </div>
                   </div>
 
-                  {app.message && (
+                  {app.bio && (
                     <div>
-                      <p className="text-xs text-gray-400 mb-1">Message</p>
-                      <p className="text-sm text-gray-700 bg-gray-50 rounded-lg p-3 leading-relaxed">{app.message}</p>
+                      <p className="text-xs text-gray-400 mb-1">Bio</p>
+                      <p className="text-sm text-gray-700 bg-gray-50 rounded-lg p-3 leading-relaxed">{app.bio}</p>
                     </div>
                   )}
 
