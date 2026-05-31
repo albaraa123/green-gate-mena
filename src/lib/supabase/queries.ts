@@ -254,3 +254,16 @@ function mapStory(row: Record<string, unknown>): Story {
     opportunityTitle: opportunity_title,
   } as unknown as Story
 }
+
+// ── Site Settings ─────────────────────────────────────────────────────────────
+
+export async function getSiteSetting(key: string): Promise<string | null> {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('site_settings')
+    .select('value')
+    .eq('key', key)
+    .single()
+  if (error) return null
+  return (data?.value as string) || null
+}

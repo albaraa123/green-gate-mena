@@ -1,5 +1,6 @@
 import { setRequestLocale } from 'next-intl/server'
 import { HeroSection } from '@/components/home/HeroSection'
+import { getSiteSetting } from '@/lib/supabase/queries'
 
 const organizationSchema = {
   '@context': 'https://schema.org',
@@ -32,13 +33,15 @@ export default async function HomePage({
   const { locale } = await params
   setRequestLocale(locale)
 
+  const heroImage = await getSiteSetting('hero_image')
+
   return (
     <main id="main-content">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
-      <HeroSection />
+      <HeroSection heroImage={heroImage ?? undefined} />
       <ServicesSection />
       <EcosystemPreview />
       <ImpactSection />

@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { MapPin, ExternalLink } from 'lucide-react'
 import { Link } from '@/i18n/navigation'
 import type { Event } from '@/types'
@@ -42,12 +43,29 @@ export function EventCard({ event: ev, isPast = false, locale = 'en' }: Props) {
   return (
     <article
       className={[
-        'flex flex-col gap-4 rounded-2xl border p-5 transition-all',
+        'flex flex-col gap-4 rounded-2xl border overflow-hidden transition-all',
         isPast
           ? 'bg-sand-50 border-sand-200 opacity-70'
           : 'bg-white border-sand-200 hover:border-teal-200 hover:shadow-md',
       ].join(' ')}
     >
+      {/* Cover image */}
+      {ev.image && (
+        <div className="relative h-44 w-full overflow-hidden">
+          <Image
+            src={ev.image}
+            alt={ev.title}
+            fill
+            sizes="(max-width: 768px) 100vw, 400px"
+            className="object-cover object-center"
+          />
+          {isPast && (
+            <div className="absolute inset-0 bg-gray-900/30" aria-hidden />
+          )}
+        </div>
+      )}
+
+      <div className="flex flex-col gap-4 p-5 pt-0">
       {/* Date + format */}
       <div className="flex items-start justify-between gap-3">
         <div className="flex flex-col">
@@ -107,6 +125,7 @@ export function EventCard({ event: ev, isPast = false, locale = 'en' }: Props) {
             {t}
           </span>
         ))}
+      </div>
       </div>
     </article>
   )
