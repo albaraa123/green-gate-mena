@@ -21,17 +21,6 @@ export function HeroSection() {
       <Container className="relative z-10 py-24">
         <div className="max-w-2xl flex flex-col gap-8">
 
-          {/* Eyebrow */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="inline-flex items-center gap-2 self-start rounded-full border border-teal-200 bg-teal-50 px-4 py-1.5"
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-lime animate-pulse-dot" />
-            <span className="eyebrow text-teal-700">{t('eyebrow')}</span>
-          </motion.div>
-
           {/* H1 */}
           <motion.h1
             initial={{ opacity: 0, y: 18 }}
