@@ -4,88 +4,115 @@ This document covers everything that must be done before the site goes live.
 
 ---
 
-## 1. Content That Must Be Replaced
+## 1. Supabase Setup (Required — site won't work without this)
 
-### Team Members (`src/data/team.ts`)
-All 6 team members are placeholders. Replace with real names, roles, countries, and bios before launch. See `docs/CONTENT_GUIDE.md` for photo specs.
+### Database Schema
+Run the full schema SQL in Supabase Dashboard → SQL Editor. The SQL is in `docs/superpowers/plans/2026-05-28-admin-panel.md` → Task 2.
 
-### Partner Logos
-Partner logo images do not exist yet. The `logo` field in `src/data/partners.ts` points to `/images/partners/*.svg`. Either:
-- Add real SVG logo files to `public/images/partners/`
-- Or replace the text-placeholder cells in `PartnersSection.tsx` and the About page with `<Image>` tags
+Additionally, run this for site settings:
+```sql
+create table if not exists site_settings (
+  key text primary key,
+  value text not null,
+  updated_at timestamptz not null default now()
+);
+alter table site_settings enable row level security;
+create policy "Public read" on site_settings for select using (true);
+create policy "Auth write" on site_settings for all using (auth.role() = 'authenticated');
+```
 
-### Contact Email
-The contact page shows `hello@greengate-mena.org`. Update this in `src/app/[locale]/contact/page.tsx` and in the API routes once a real email is set up.
+### Admin Users
+In Supabase Dashboard → Authentication → Users → "Invite user" — add admin email addresses.
 
-### Social Handle
-Twitter/X card uses `@GreenGateMENA`. Update in `src/app/[locale]/layout.tsx` → `twitter.site` if the handle differs.
+### Storage Bucket
+Create a public storage bucket named `media` in Supabase Dashboard → Storage. Enable public access. This is used for image uploads in the admin panel.
 
 ---
 
 ## 2. Environment Variables
 
-Set these on your hosting platform (Vercel, etc.):
+Set these on your hosting platform (Vercel → Settings → Environment Variables):
 
 ```env
 NEXT_PUBLIC_SITE_URL=https://greengate-mena.org
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+RESEND_API_KEY=your-resend-key
+ADMIN_EMAIL=hello@greengate-mena.org
 ```
 
 ---
 
-## 3. API Routes — Wire to Real Services
+## 3. Content to Add via Admin Panel
 
-All 5 API routes currently log to console and return `{ ok: true }`. Before launch:
+All content is managed through `/admin` (requires Supabase auth):
+
+| Section | Admin URL | Notes |
+| ------- | --------- | ----- |
+| Opportunities | `/admin/opportunities` | Add real opportunities |
+| Events | `/admin/events` | Add upcoming events |
+| Resources | `/admin/resources` | Add knowledge resources |
+| Directory | `/admin/directory` | Add climate organizations |
+| Partners | `/admin/partners` | Add partner logos |
+| Team | `/admin/team` | Replace placeholder team members |
+| Stories | `/admin/stories` | Add youth impact stories |
+| Hero Image | `/admin/settings` | Upload homepage hero background |
+
+---
+
+## 4. API Routes — Wire to Real Services
 
 | Route | What to wire |
 | ----- | ------------ |
-| `/api/newsletter` | Mailchimp / ConvertKit / Resend list |
-| `/api/contact` | Resend / SendGrid → `hello@greengate-mena.org` |
-| `/api/opportunities/submit` | Email notification + Airtable / Notion DB |
-| `/api/directory/submit` | Email notification + review queue |
-| `/api/get-involved` | CRM / Mailchimp tag by pathway |
+| `/api/newsletter` | Resend / Mailchimp list |
+| `/api/contact` | Resend → `hello@greengate-mena.org` |
+| `/api/opportunities/submit` | Email notification |
+| `/api/directory/submit` | Email notification + auto-creates directory_profiles entry |
+| `/api/get-involved` | CRM tag by pathway |
 
-See the comment `// REPLACE WITH: Resend email to ADMIN_EMAIL` in each route file.
-
----
-
-## 4. Data → CMS Migration
-
-All data is currently in static TypeScript files under `src/data/`. Each file has a comment at the top:
-
-```ts
-// REPLACE WITH: CMS API CALL — see docs/CMS_INTEGRATION.md
-```
-
-See `docs/CMS_INTEGRATION.md` for the full migration plan.
+See `// REPLACE WITH:` comments in each route file.
 
 ---
 
-## 5. Domain & DNS
+## 5. Contact Email
+
+The contact page and API routes use `hello@greengate-mena.org`. Update in:
+- `src/app/[locale]/contact/page.tsx`
+- `src/app/api/contact/route.ts`
+
+---
+
+## 6. Domain & DNS
 
 - Point `greengate-mena.org` to your Vercel project
 - Ensure `www` redirects to apex (or vice versa)
-- Set `NEXT_PUBLIC_SITE_URL` to the final domain before deploying
+- Set `NEXT_PUBLIC_SITE_URL` to the final domain
 
 ---
 
-## 6. Analytics
+## 7. Analytics
 
-No analytics are wired yet. Recommended options:
+No analytics wired yet. Recommended:
 - **Vercel Analytics** — zero-config, privacy-friendly
-- **Plausible** — open source, GDPR compliant, good for MENA audience
-- Add the script in `src/app/[locale]/layout.tsx` inside `<head>`
+- **Plausible** — GDPR compliant
+
+Add script in `src/app/[locale]/layout.tsx` inside `<head>`.
 
 ---
 
-## 7. Final Checks Before Go-Live
+## 8. Final Checks Before Go-Live
 
-- [ ] All team placeholder names replaced
-- [ ] Partner logos added to `public/images/partners/`
-- [ ] Contact email confirmed and API route wired
+- [ ] Supabase schema created (all tables + site_settings)
+- [ ] Admin users invited and passwords set
+- [ ] Storage bucket `media` created as public
+- [ ] All env vars set in Vercel
+- [ ] Add real content via `/admin` (team, partners, opportunities)
+- [ ] Upload hero background image via `/admin/settings`
 - [ ] `NEXT_PUBLIC_SITE_URL` set to production domain
 - [ ] Run `npm run build` — must be 0 errors
-- [ ] Verify `/en/sitemap.xml` resolves correctly
+- [ ] Verify `/sitemap.xml` resolves correctly
 - [ ] Test RTL layout at `/ar` on mobile
-- [ ] Test all 5 form submissions (newsletter, contact, opportunity submit, directory join, get-involved)
+- [ ] Test all form submissions (newsletter, contact, opportunity submit, directory join, get-involved)
 - [ ] Set up error monitoring (Sentry recommended)
 - [ ] Configure Vercel preview branch protection
