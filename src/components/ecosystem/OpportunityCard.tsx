@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { MapPin, Calendar, ExternalLink } from 'lucide-react'
 import { Link } from '@/i18n/navigation'
 import { Badge } from '@/components/ui/Badge'
@@ -84,14 +85,27 @@ export function OpportunityCard({ opportunity: opp, locale = 'en' }: Props) {
       </div>
 
       {/* Title + org */}
-      <div className="flex flex-col gap-1">
-        <Link
-          href={`/ecosystem/opportunities/${opp.slug}`}
-          className="font-display font-semibold text-ink leading-snug hover:text-teal-700 transition-colors line-clamp-2"
-        >
-          {opp.title}
-        </Link>
-        <p className="text-sm text-ink-soft">{opp.organization}</p>
+      <div className="flex items-start gap-3">
+        {opp.logo && (
+          <div className="relative h-9 w-9 shrink-0 rounded-lg bg-gray-50 border border-sand-200 overflow-hidden">
+            <Image
+              src={opp.logo}
+              alt={opp.organization}
+              fill
+              sizes="36px"
+              className="object-contain p-1"
+            />
+          </div>
+        )}
+        <div className="flex flex-col gap-0.5 min-w-0">
+          <Link
+            href={`/ecosystem/opportunities/${opp.slug}`}
+            className="font-display font-semibold text-ink leading-snug hover:text-teal-700 transition-colors line-clamp-2"
+          >
+            {opp.title}
+          </Link>
+          <p className="text-sm text-ink-soft">{opp.organization}</p>
+        </div>
       </div>
 
       {/* Description */}

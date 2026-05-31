@@ -1,4 +1,5 @@
-import { Globe, Mail, BadgeCheck, Users } from 'lucide-react'
+import Image from 'next/image'
+import { Globe, Mail, BadgeCheck } from 'lucide-react'
 import { Link } from '@/i18n/navigation'
 import type { DirectoryProfile } from '@/types'
 
@@ -37,8 +38,18 @@ export function DirectoryCard({ profile: p, locale = 'en' }: Props) {
     <article className="flex flex-col gap-4 rounded-2xl bg-white border border-sand-200 p-5 hover:border-teal-200 hover:shadow-md transition-all">
       {/* Header */}
       <div className="flex items-start justify-between gap-3">
-        <div className="h-11 w-11 rounded-xl bg-teal-100 flex items-center justify-center font-display text-lg font-semibold text-teal-700 shrink-0">
-          {p.name.charAt(0)}
+        <div className="h-11 w-11 rounded-xl bg-teal-100 flex items-center justify-center font-display text-lg font-semibold text-teal-700 shrink-0 overflow-hidden relative">
+          {p.logo ? (
+            <Image
+              src={p.logo}
+              alt={p.name}
+              fill
+              sizes="44px"
+              className="object-contain p-1"
+            />
+          ) : (
+            p.name.charAt(0)
+          )}
         </div>
         <div className="flex flex-col items-end gap-1.5">
           <span

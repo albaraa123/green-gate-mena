@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { getTranslations } from 'next-intl/server'
 import { ArrowRight } from 'lucide-react'
 import { Link } from '@/i18n/navigation'
@@ -65,12 +66,22 @@ export async function PartnersSection() {
               {strategic.slice(0, 9).map((partner) => (
                 <div
                   key={partner.id}
-                  className="flex items-center justify-center rounded-xl bg-white border border-sand-200 px-4 py-5 h-20"
+                  className="relative flex items-center justify-center rounded-xl bg-white border border-sand-200 px-4 py-5 h-20 overflow-hidden"
                   title={partner.name}
                 >
-                  <span className="text-xs font-mono text-ink-soft/60 text-center leading-tight">
-                    {partner.name}
-                  </span>
+                  {partner.logo ? (
+                    <Image
+                      src={partner.logo}
+                      alt={partner.name}
+                      fill
+                      sizes="(max-width: 768px) 33vw, 15vw"
+                      className="object-contain p-3"
+                    />
+                  ) : (
+                    <span className="text-xs font-mono text-ink-soft/60 text-center leading-tight">
+                      {partner.name}
+                    </span>
+                  )}
                 </div>
               ))}
             </div>
