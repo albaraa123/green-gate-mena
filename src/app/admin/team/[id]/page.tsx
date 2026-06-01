@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { TeamForm } from '../_components/TeamForm'
 
 interface Props {
@@ -10,7 +10,7 @@ export const metadata = { title: 'Edit Team Member' }
 
 export default async function EditTeamMemberPage({ params }: Props) {
   const { id } = await params
-  const supabase = await createClient()
+  const supabase = createAdminClient()
   const { data: row } = await supabase.from('team_members').select('*').eq('id', id).single()
   if (!row) notFound()
   return (

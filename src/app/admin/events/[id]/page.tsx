@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { EventForm } from '../_components/EventForm'
 
 interface Props {
@@ -10,7 +10,7 @@ export const metadata = { title: 'Edit Event' }
 
 export default async function EditEventPage({ params }: Props) {
   const { id } = await params
-  const supabase = await createClient()
+  const supabase = createAdminClient()
   const { data: row } = await supabase.from('events').select('*').eq('id', id).single()
   if (!row) notFound()
   return (

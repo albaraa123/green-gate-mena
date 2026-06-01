@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { ResourceForm } from '../_components/ResourceForm'
 
 interface Props {
@@ -10,7 +10,7 @@ export const metadata = { title: 'Edit Resource' }
 
 export default async function EditResourcePage({ params }: Props) {
   const { id } = await params
-  const supabase = await createClient()
+  const supabase = createAdminClient()
   const { data: row } = await supabase.from('resources').select('*').eq('id', id).single()
   if (!row) notFound()
   return (

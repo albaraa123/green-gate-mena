@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { DirectoryForm } from '../_components/DirectoryForm'
 
 interface Props {
@@ -10,7 +10,7 @@ export const metadata = { title: 'Edit Directory Profile' }
 
 export default async function EditDirectoryPage({ params }: Props) {
   const { id } = await params
-  const supabase = await createClient()
+  const supabase = createAdminClient()
   const { data: row } = await supabase.from('directory_profiles').select('*').eq('id', id).single()
   if (!row) notFound()
   return (

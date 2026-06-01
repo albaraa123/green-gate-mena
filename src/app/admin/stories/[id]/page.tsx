@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { StoryForm } from '../_components/StoryForm'
 
 interface Props {
@@ -10,7 +10,7 @@ export const metadata = { title: 'Edit Story' }
 
 export default async function EditStoryPage({ params }: Props) {
   const { id } = await params
-  const supabase = await createClient()
+  const supabase = createAdminClient()
   const { data: row } = await supabase.from('stories').select('*').eq('id', id).single()
   if (!row) notFound()
   return (

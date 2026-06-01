@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { OpportunityForm } from '../_components/OpportunityForm'
 
 interface Props {
@@ -10,7 +10,7 @@ export const metadata = { title: 'Edit Opportunity' }
 
 export default async function EditOpportunityPage({ params }: Props) {
   const { id } = await params
-  const supabase = await createClient()
+  const supabase = createAdminClient()
   const { data: row } = await supabase.from('opportunities').select('*').eq('id', id).single()
   if (!row) notFound()
   return (
