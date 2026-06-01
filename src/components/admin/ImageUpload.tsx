@@ -16,6 +16,53 @@ type UploadStatus = 'idle' | 'uploading' | 'success' | 'error'
 
 const ACCEPTED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml']
 const MAX_SIZE = 10 * 1024 * 1024 // 10MB
+const MAX_DIMENSION = 1600 // longest edge after compression
+
+// Compress + resize an image in the browser to keep uploads small and fast.
+// SVGs are passed through untouched. Anything else becomes a JPEG ≤ ~1MB.
+async function compressImage(file: File): Promise<File> {
+  if (file.type === 'image/svg+xml') return file
+
+  const dataUrl: string = await new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = () => resolve(reader.result as string)
+    reader.onerror = () => reject(new Error('read failed'))
+    reader.readAsDataURL(file)
+  })
+
+  const img: HTMLImageElement = await new Promise((resolve, reject) => {
+    const image = new window.Image()
+    image.onload = () => resolve(image)
+    image.onerror = () => reject(new Error('image decode failed'))
+    image.src = dataUrl
+  })
+
+  let { width, height } = img
+  if (width > MAX_DIMENSION || height > MAX_DIMENSION) {
+    if (width >= height) {
+      height = Math.round((height / width) * MAX_DIMENSION)
+      width = MAX_DIMENSION
+    } else {
+      width = Math.round((width / height) * MAX_DIMENSION)
+      height = MAX_DIMENSION
+    }
+  }
+
+  const canvas = document.createElement('canvas')
+  canvas.width = width
+  canvas.height = height
+  const ctx = canvas.getContext('2d')
+  if (!ctx) return file
+  ctx.drawImage(img, 0, 0, width, height)
+
+  const blob: Blob | null = await new Promise((resolve) =>
+    canvas.toBlob((b) => resolve(b), 'image/jpeg', 0.85)
+  )
+  if (!blob) return file
+
+  const baseName = file.name.replace(/\.[^.]+$/, '') || 'image'
+  return new File([blob], `${baseName}.jpg`, { type: 'image/jpeg' })
+}
 
 export function ImageUpload({
   value,
@@ -31,18 +78,12 @@ export function ImageUpload({
   const [progress, setProgress] = useState(0)
   const [isDragging, setIsDragging] = useState(false)
 
-  async function uploadFile(file: File) {
+  async function uploadFile(originalFile: File) {
     setErrorMsg(null)
 
-    if (!ACCEPTED_TYPES.includes(file.type)) {
+    if (!ACCEPTED_TYPES.includes(originalFile.type)) {
       setStatus('error')
       setErrorMsg('صيغة الملف غير مدعومة. الصيغ المقبولة: JPG, PNG, WebP, SVG')
-      return
-    }
-
-    if (file.size > MAX_SIZE) {
-      setStatus('error')
-      setErrorMsg('حجم الملف كبير جداً. الحد الأقصى 10 ميغابايت')
       return
     }
 
@@ -50,19 +91,39 @@ export function ImageUpload({
     setProgress(10)
 
     try {
-      const supabase = createClient()
-      const path = `${folder}/${Date.now()}-${file.name.replace(/\s+/g, '-')}`
+      // Compress + resize in the browser so the original file size never matters.
+      let file = originalFile
+      try {
+        file = await compressImage(originalFile)
+      } catch {
+        // If compression fails, fall back to the original file.
+        file = originalFile
+      }
 
-      setProgress(40)
+      setProgress(30)
+
+      // Safety check after compression (compressed JPEGs are tiny, so this rarely trips).
+      if (file.size > MAX_SIZE) {
+        setStatus('error')
+        setErrorMsg('حجم الملف كبير جداً حتى بعد الضغط. جرّب صورة أصغر.')
+        setProgress(0)
+        return
+      }
+
+      const supabase = createClient()
+      const path = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.jpg`
+
+      setProgress(50)
 
       const { error } = await supabase.storage.from('uploads').upload(path, file, {
         cacheControl: '3600',
-        upsert: false,
+        upsert: true,
+        contentType: file.type,
       })
 
       if (error) throw error
 
-      setProgress(80)
+      setProgress(85)
 
       const { data } = supabase.storage.from('uploads').getPublicUrl(path)
       const publicUrl = data.publicUrl
@@ -70,9 +131,10 @@ export function ImageUpload({
       setProgress(100)
       setStatus('success')
       onChange(publicUrl)
-    } catch {
+    } catch (err) {
       setStatus('error')
-      setErrorMsg('فشل الرفع. حاول مجدداً')
+      const msg = err instanceof Error ? err.message : 'فشل الرفع. حاول مجدداً'
+      setErrorMsg(`فشل الرفع: ${msg}`)
       setProgress(0)
     }
   }
