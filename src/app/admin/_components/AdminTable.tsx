@@ -75,7 +75,7 @@ export function AdminTable<T extends { id: string }>({
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-3">
                       <Link
-                        href={`${editBase}/${row.id}`}
+                        href={`${editBase}/${encodeURIComponent(row.id)}`}
                         className="text-teal-700 hover:text-teal-900 text-sm"
                       >
                         Edit

@@ -9,7 +9,8 @@ interface Props {
 export const metadata = { title: 'Edit Story' }
 
 export default async function EditStoryPage({ params }: Props) {
-  const { id } = await params
+  const { id: rawId } = await params
+  const id = decodeURIComponent(rawId)
   const supabase = createAdminClient()
   const { data: row } = await supabase.from('stories').select('*').eq('id', id).single()
   if (!row) notFound()

@@ -9,7 +9,8 @@ interface Props {
 export const metadata = { title: 'Edit Resource' }
 
 export default async function EditResourcePage({ params }: Props) {
-  const { id } = await params
+  const { id: rawId } = await params
+  const id = decodeURIComponent(rawId)
   const supabase = createAdminClient()
   const { data: row } = await supabase.from('resources').select('*').eq('id', id).single()
   if (!row) notFound()

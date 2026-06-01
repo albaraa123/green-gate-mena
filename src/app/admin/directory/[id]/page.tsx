@@ -9,7 +9,8 @@ interface Props {
 export const metadata = { title: 'Edit Directory Profile' }
 
 export default async function EditDirectoryPage({ params }: Props) {
-  const { id } = await params
+  const { id: rawId } = await params
+  const id = decodeURIComponent(rawId)
   const supabase = createAdminClient()
   const { data: row } = await supabase.from('directory_profiles').select('*').eq('id', id).single()
   if (!row) notFound()
