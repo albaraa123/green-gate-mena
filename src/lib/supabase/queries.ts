@@ -220,7 +220,11 @@ export async function getPartners(): Promise<Partner[]> {
 
 export async function getTeam(): Promise<TeamMember[]> {
   const supabase = await createClient()
-  const { data, error } = await supabase.from('team_members').select('*').order('created_at')
+  const { data, error } = await supabase
+    .from('team_members')
+    .select('*')
+    .order('sort_order', { ascending: true })
+    .order('created_at', { ascending: true })
   if (error) {
     console.error('[getTeam]', error.message)
     return []

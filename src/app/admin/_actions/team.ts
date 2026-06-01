@@ -50,3 +50,14 @@ export async function deleteTeamMember(id: string) {
   revalidatePath('/en/about')
   revalidatePath('/ar/about')
 }
+
+export async function swapTeamOrder(idA: string, orderA: number, idB: string, orderB: number) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) throw new Error('Unauthorized')
+  await supabase.from('team_members').update({ sort_order: orderB }).eq('id', idA)
+  await supabase.from('team_members').update({ sort_order: orderA }).eq('id', idB)
+  revalidatePath('/admin/team')
+  revalidatePath('/en/about')
+  revalidatePath('/ar/about')
+}

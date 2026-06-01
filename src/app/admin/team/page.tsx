@@ -1,28 +1,15 @@
-import { createClient } from '@/lib/supabase/server'
-import { AdminTable } from '../_components/AdminTable'
-import { deleteTeamMember } from '../_actions/team'
+import { createAdminClient } from '@/lib/supabase/admin'
+import { TeamOrderTable } from './_components/TeamOrderTable'
 
 export const metadata = { title: 'Team' }
 
 export default async function TeamAdminPage() {
-  const supabase = await createClient()
+  const supabase = createAdminClient()
   const { data: rows } = await supabase
     .from('team_members')
-    .select('*')
-    .order('created_at', { ascending: false })
+    .select('id, name, role, country, sort_order')
+    .order('sort_order', { ascending: true })
+    .order('created_at', { ascending: true })
 
-  return (
-    <AdminTable
-      title="Team"
-      rows={rows ?? []}
-      addHref="/admin/team/new"
-      editBase="/admin/team"
-      deleteAction={deleteTeamMember}
-      columns={[
-        { key: 'name', label: 'Name' },
-        { key: 'role', label: 'Role' },
-        { key: 'country', label: 'Country' },
-      ]}
-    />
-  )
+  return <TeamOrderTable members={rows ?? []} />
 }
