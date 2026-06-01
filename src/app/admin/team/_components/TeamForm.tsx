@@ -150,7 +150,7 @@ export function TeamForm({ row }: Props) {
           onChange={(url) => setValue('avatar', url, { shouldValidate: true })}
           folder="team"
           label="صورة عضو الفريق"
-          recommended="400 × 400 بكسل"
+          recommended="1080 × 1440 بكسل (بورتريه)"
         />
         {errors.avatar && <p className="text-xs text-red-600">{errors.avatar.message}</p>}
       </div>

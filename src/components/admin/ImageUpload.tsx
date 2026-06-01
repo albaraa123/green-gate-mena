@@ -15,7 +15,7 @@ interface ImageUploadProps {
 type UploadStatus = 'idle' | 'uploading' | 'success' | 'error'
 
 const ACCEPTED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml']
-const MAX_SIZE = 5 * 1024 * 1024 // 5MB
+const MAX_SIZE = 10 * 1024 * 1024 // 10MB
 
 export function ImageUpload({
   value,
@@ -42,7 +42,7 @@ export function ImageUpload({
 
     if (file.size > MAX_SIZE) {
       setStatus('error')
-      setErrorMsg('حجم الملف كبير جداً. الحد الأقصى 5 ميغابايت')
+      setErrorMsg('حجم الملف كبير جداً. الحد الأقصى 10 ميغابايت')
       return
     }
 
@@ -209,7 +209,7 @@ export function ImageUpload({
                 اسحب الصورة هنا أو اضغط للرفع
               </p>
               <p className="text-xs text-gray-400">JPG, PNG, WebP, SVG</p>
-              <p className="text-xs text-gray-400">الحد الأقصى 5 ميغابايت</p>
+              <p className="text-xs text-gray-400">الحد الأقصى 10 ميغابايت</p>
             </>
           )}
         </div>
