@@ -28,11 +28,15 @@ export function TeamCarousel({ members, isAr }: Props) {
   const CARD_WIDTH = 260 // px per card
   const GAP = 24
 
+  // Works in both LTR and RTL. In RTL, scrollLeft is negative in modern browsers,
+  // so we use the absolute distance from the start edge.
   const updateButtons = useCallback(() => {
     const el = trackRef.current
     if (!el) return
-    setCanPrev(el.scrollLeft > 8)
-    setCanNext(el.scrollLeft < el.scrollWidth - el.clientWidth - 8)
+    const maxScroll = el.scrollWidth - el.clientWidth
+    const fromStart = Math.abs(el.scrollLeft) // distance scrolled from the start edge
+    setCanPrev(fromStart > 8)
+    setCanNext(fromStart < maxScroll - 8)
   }, [])
 
   useEffect(() => {
@@ -45,25 +49,33 @@ export function TeamCarousel({ members, isAr }: Props) {
       el.removeEventListener('scroll', updateButtons)
       window.removeEventListener('resize', updateButtons)
     }
-  }, [updateButtons])
+  }, [updateButtons, members.length])
 
-  function scroll(dir: 'left' | 'right') {
+  // dir: 'prev' moves toward the start, 'next' moves toward the end —
+  // regardless of text direction. scrollBy with a sign matching scroll direction
+  // handles both LTR (positive = forward) and RTL (negative = forward) automatically.
+  function scroll(dir: 'prev' | 'next') {
     const el = trackRef.current
     if (!el) return
     const amount = (CARD_WIDTH + GAP) * 2
-    el.scrollBy({ left: dir === 'right' ? amount : -amount, behavior: 'smooth' })
+    const rtl = getComputedStyle(el).direction === 'rtl'
+    // In RTL, "next" (toward end) means scrolling left (negative).
+    const forwardSign = rtl ? -1 : 1
+    const delta = dir === 'next' ? amount * forwardSign : -amount * forwardSign
+    el.scrollBy({ left: delta, behavior: 'smooth' })
   }
 
   return (
-    <div className="relative">
-      {/* Left arrow */}
+    <div className="relative" dir={isAr ? 'rtl' : 'ltr'}>
+      {/* Start-side arrow (visually on the start edge) → goes to previous */}
       <button
-        onClick={() => scroll(isAr ? 'right' : 'left')}
-        disabled={isAr ? !canNext : !canPrev}
-        aria-label={isAr ? 'التالي' : 'Previous'}
-        className="absolute start-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 h-11 w-11 rounded-full bg-white border border-sand-200 shadow-md flex items-center justify-center text-ink hover:border-teal-300 hover:text-teal-700 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+        onClick={() => scroll('prev')}
+        disabled={!canPrev}
+        aria-label={isAr ? 'السابق' : 'Previous'}
+        className="absolute start-0 top-1/2 -translate-y-1/2 z-10 h-11 w-11 rounded-full bg-white border border-sand-200 shadow-md flex items-center justify-center text-ink hover:border-teal-300 hover:text-teal-700 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+        style={{ insetInlineStart: '-1rem' }}
       >
-        <ChevronLeft className="h-5 w-5" />
+        {isAr ? <ChevronRight className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
       </button>
 
       {/* Track */}
@@ -116,14 +128,15 @@ export function TeamCarousel({ members, isAr }: Props) {
         })}
       </div>
 
-      {/* Right arrow */}
+      {/* End-side arrow (visually on the end edge) → goes to next */}
       <button
-        onClick={() => scroll(isAr ? 'left' : 'right')}
-        disabled={isAr ? !canPrev : !canNext}
-        aria-label={isAr ? 'السابق' : 'Next'}
-        className="absolute end-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 h-11 w-11 rounded-full bg-white border border-sand-200 shadow-md flex items-center justify-center text-ink hover:border-teal-300 hover:text-teal-700 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+        onClick={() => scroll('next')}
+        disabled={!canNext}
+        aria-label={isAr ? 'التالي' : 'Next'}
+        className="absolute end-0 top-1/2 -translate-y-1/2 z-10 h-11 w-11 rounded-full bg-white border border-sand-200 shadow-md flex items-center justify-center text-ink hover:border-teal-300 hover:text-teal-700 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+        style={{ insetInlineEnd: '-1rem' }}
       >
-        <ChevronRight className="h-5 w-5" />
+        {isAr ? <ChevronLeft className="h-5 w-5" /> : <ChevronRight className="h-5 w-5" />}
       </button>
     </div>
   )
