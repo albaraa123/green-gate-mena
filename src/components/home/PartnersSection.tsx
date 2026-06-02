@@ -87,7 +87,7 @@ export async function PartnersSection() {
             </div>
           ) : (
             <div className="flex items-center justify-center rounded-2xl bg-teal-50 border border-teal-100 h-48">
-              <p className="text-sm text-teal-700/50 font-mono">شركاؤنا قادمون قريباً</p>
+              <p className="text-sm text-teal-700/50 font-mono">{t('comingSoon')}</p>
             </div>
           )}
         </AnimateIn>
