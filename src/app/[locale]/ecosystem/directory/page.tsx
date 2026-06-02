@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { UserPlus } from 'lucide-react'
+import { UserPlus, Users } from 'lucide-react'
+import { EmptyState } from '@/components/ui/EmptyState'
 import { Link } from '@/i18n/navigation'
 import { Container } from '@/components/ui/Container'
 import { Button } from '@/components/ui/Button'
@@ -69,10 +70,11 @@ export default async function DirectoryPage({ params, searchParams }: Props) {
           </div>
 
           {filtered.length === 0 ? (
-            <div className="py-20 text-center text-ink-soft">
-              <p className="font-display text-lg font-semibold text-teal-800 mb-2">{t('noResults')}</p>
-              <p className="text-sm">{t('noResultsHint')}</p>
-            </div>
+            <EmptyState
+              icon={Users}
+              title={t('noResults')}
+              description={t('noResultsHint')}
+            />
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
               {filtered.map((profile) => (

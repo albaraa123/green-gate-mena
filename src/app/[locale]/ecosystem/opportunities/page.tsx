@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { Plus } from 'lucide-react'
+import { Plus, Compass } from 'lucide-react'
 import { Link } from '@/i18n/navigation'
 import { Container } from '@/components/ui/Container'
 import { Button } from '@/components/ui/Button'
+import { EmptyState } from '@/components/ui/EmptyState'
 import { OpportunityCard } from '@/components/ecosystem/OpportunityCard'
 import { OpportunityFilters } from '@/components/ecosystem/OpportunityFilters'
 import { getOpportunities } from '@/lib/supabase/queries'
@@ -71,10 +72,13 @@ export default async function OpportunitiesPage({ params, searchParams }: Props)
           </div>
 
           {filtered.length === 0 ? (
-            <div className="py-20 text-center text-ink-soft">
-              <p className="font-display text-lg font-semibold text-teal-800 mb-2">{t('noResults')}</p>
-              <p className="text-sm">{t('noResultsHint')}</p>
-            </div>
+            <EmptyState
+              icon={Compass}
+              title={t('noResults')}
+              description={t('noResultsHint')}
+              actionLabel={t('submit')}
+              actionHref="/ecosystem/opportunities/submit"
+            />
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
               {filtered.map((opp) => (

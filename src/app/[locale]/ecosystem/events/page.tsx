@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { CalendarDays } from 'lucide-react'
+import { EmptyState } from '@/components/ui/EmptyState'
 import { Container } from '@/components/ui/Container'
 import { EventCard } from '@/components/ecosystem/EventCard'
 import { getUpcomingEvents, getPastEvents } from '@/lib/supabase/queries'
@@ -54,7 +55,7 @@ export default async function EventsPage({ params }: Props) {
             </div>
 
             {upcoming.length === 0 ? (
-              <p className="text-ink-soft text-sm py-10">{t('noUpcoming')}</p>
+              <EmptyState icon={CalendarDays} title={t('noUpcoming')} />
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
                 {upcoming.map((ev) => (
