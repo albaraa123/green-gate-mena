@@ -88,24 +88,6 @@ export function HeroSection({ heroImage }: Props) {
           {/* Text column */}
           <div className="flex flex-col gap-7 text-center lg:text-start">
 
-            {/* Eyebrow badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              className="mx-auto lg:mx-0"
-            >
-              <span
-                className={[
-                  'inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium',
-                  heroImage ? 'bg-white/15 text-white' : 'bg-teal-100/70 text-teal-800',
-                ].join(' ')}
-              >
-                <span className="h-2 w-2 rounded-full bg-lime animate-pulse" />
-                {t('eyebrow')}
-              </span>
-            </motion.div>
-
             {/* H1 */}
             <motion.h1
               initial={{ opacity: 0, y: 18 }}
