@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
 
     // Notify admin
     await resend.emails.send({
-      from: 'Green Gate MENA <onboarding@resend.dev>',
+      from: 'Green Gate <newsletter@send.greengatemena.com>',
       replyTo: data.email,
       to: 'greengate4menayouth@gmail.com',
       subject: `طلب انضمام جديد: ${PATHWAY_LABELS[data.pathway]} — ${data.name}`,

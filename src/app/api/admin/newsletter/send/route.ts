@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
     const results = await Promise.allSettled(
       activeContacts.map((contact: { email: string }) =>
         resend.emails.send({
-          from: 'Green Gate MENA <onboarding@resend.dev>',
+          from: 'Green Gate <newsletter@send.greengatemena.com>',
           replyTo: 'greengate4menayouth@gmail.com',
           to: contact.email,
           subject,
