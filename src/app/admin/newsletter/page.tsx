@@ -1,4 +1,5 @@
 import { Resend } from 'resend'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { NewsletterComposer } from './_components/NewsletterComposer'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
@@ -18,6 +19,14 @@ export default async function NewsletterPage() {
     // fail silently
   }
 
+  const supabase = createAdminClient()
+  const { data: setting } = await supabase
+    .from('site_settings')
+    .select('value')
+    .eq('key', 'newsletter_header')
+    .maybeSingle()
+  const headerImage = (setting?.value as string) || ''
+
   return (
     <div className="max-w-3xl">
       <h1 className="text-2xl font-semibold text-gray-900 mb-8">Newsletter</h1>
@@ -35,7 +44,7 @@ export default async function NewsletterPage() {
       </div>
 
       {/* Composer */}
-      <NewsletterComposer activeCount={activeContacts} />
+      <NewsletterComposer activeCount={activeContacts} headerImage={headerImage} />
     </div>
   )
 }

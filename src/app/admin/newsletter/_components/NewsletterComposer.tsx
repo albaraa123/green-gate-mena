@@ -6,9 +6,10 @@ import type { Block } from './BlockEditor'
 
 interface Props {
   activeCount: number
+  headerImage?: string
 }
 
-export function NewsletterComposer({ activeCount }: Props) {
+export function NewsletterComposer({ activeCount, headerImage }: Props) {
   const [subject, setSubject] = useState('')
   const [previewText, setPreviewText] = useState('')
   const [blocks, setBlocks] = useState<Block[]>([])
@@ -132,10 +133,18 @@ export function NewsletterComposer({ activeCount }: Props) {
             <div className="bg-gray-100 px-4 py-2 text-xs text-gray-500 font-mono">معاينة الإيميل</div>
             <div className="p-6 bg-gray-50">
               <div className="max-w-lg mx-auto">
-                <div style={{ background: '#00796b', borderRadius: 12, padding: 24, textAlign: 'center', marginBottom: 20 }}>
-                  <p style={{ color: '#c6e94a', fontWeight: 700, fontSize: 18, margin: 0 }}>Green Gate MENA</p>
-                  {previewText && <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: 13, margin: '4px 0 0' }}>{previewText}</p>}
-                </div>
+                {headerImage ? (
+                  <div style={{ borderRadius: 12, overflow: 'hidden', marginBottom: 20 }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={headerImage} alt="header" style={{ display: 'block', width: '100%' }} />
+                    {previewText && <p style={{ color: '#6b7280', fontSize: 13, margin: '8px 0 0', textAlign: 'center' }}>{previewText}</p>}
+                  </div>
+                ) : (
+                  <div style={{ background: '#00796b', borderRadius: 12, padding: 24, textAlign: 'center', marginBottom: 20 }}>
+                    <p style={{ color: '#c6e94a', fontWeight: 700, fontSize: 18, margin: 0 }}>Green Gate</p>
+                    {previewText && <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: 13, margin: '4px 0 0' }}>{previewText}</p>}
+                  </div>
+                )}
                 <div
                   className="bg-white rounded-xl p-6"
                   dangerouslySetInnerHTML={{ __html: contentHtml }}

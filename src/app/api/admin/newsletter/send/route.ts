@@ -31,18 +31,33 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No active subscribers' }, { status: 400 })
     }
 
+    // Fetch the custom newsletter header image (if set)
+    const { data: setting } = await supabase
+      .from('site_settings')
+      .select('value')
+      .eq('key', 'newsletter_header')
+      .maybeSingle()
+    const headerImage = (setting?.value as string) || ''
+
+    const headerHtml = headerImage
+      ? `<div style="border-radius: 12px; overflow: hidden; margin-bottom: 24px;">
+           <img src="${headerImage}" alt="Green Gate" style="display: block; width: 100%; max-width: 600px;" />
+           ${previewText ? `<p style="color: #6b7280; margin: 12px 0 0; font-size: 14px; text-align: center;">${previewText}</p>` : ''}
+         </div>`
+      : `<div style="background: #00796b; border-radius: 12px; padding: 32px; text-align: center; margin-bottom: 24px;">
+           <h1 style="color: #c6e94a; font-size: 24px; margin: 0 0 8px;">Green Gate</h1>
+           ${previewText ? `<p style="color: rgba(255,255,255,0.8); margin: 0; font-size: 14px;">${previewText}</p>` : ''}
+         </div>`
+
     // Send to all active subscribers
     const emailHtml = `
       <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 32px; background: #f9fafb;">
-        <div style="background: #00796b; border-radius: 12px; padding: 32px; text-align: center; margin-bottom: 24px;">
-          <h1 style="color: #c6e94a; font-size: 24px; margin: 0 0 8px;">Green Gate MENA</h1>
-          ${previewText ? `<p style="color: rgba(255,255,255,0.8); margin: 0; font-size: 14px;">${previewText}</p>` : ''}
-        </div>
+        ${headerHtml}
         <div style="background: white; border-radius: 12px; padding: 32px; margin-bottom: 16px; white-space: pre-wrap;">
           ${content.replace(/\n/g, '<br>')}
         </div>
         <p style="color: #9ca3af; font-size: 12px; text-align: center; margin: 0;">
-          Green Gate MENA · للإلغاء الاشتراك تواصل معنا على greengate4menayouth@gmail.com
+          Green Gate · للإلغاء الاشتراك تواصل معنا على greengate4menayouth@gmail.com
         </p>
       </div>
     `

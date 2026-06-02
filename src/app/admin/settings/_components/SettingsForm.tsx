@@ -10,6 +10,7 @@ interface Props {
 
 export function SettingsForm({ settings }: Props) {
   const [heroImage, setHeroImage] = useState(settings['hero_image'] ?? '')
+  const [newsletterHeader, setNewsletterHeader] = useState(settings['newsletter_header'] ?? '')
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
 
@@ -17,6 +18,7 @@ export function SettingsForm({ settings }: Props) {
     setSaving(true)
     setSaved(false)
     await saveSiteSetting('hero_image', heroImage)
+    await saveSiteSetting('newsletter_header', newsletterHeader)
     setSaving(false)
     setSaved(true)
     setTimeout(() => setSaved(false), 3000)
@@ -52,18 +54,45 @@ export function SettingsForm({ settings }: Props) {
           </div>
         )}
 
-        <div className="flex items-center gap-3">
-          <button
-            onClick={handleSave}
-            disabled={saving}
-            className="bg-teal-700 text-white rounded-lg px-5 py-2.5 text-sm font-medium hover:bg-teal-800 disabled:opacity-50 transition-colors"
-          >
-            {saving ? 'Saving...' : 'Save Changes'}
-          </button>
-          {saved && (
-            <span className="text-sm text-green-600 font-medium">✓ Saved successfully</span>
-          )}
+      </div>
+
+      {/* Newsletter header image */}
+      <div className="bg-white rounded-xl border border-gray-200 p-6 flex flex-col gap-5">
+        <div>
+          <h2 className="font-semibold text-base text-gray-900">Newsletter Header Image</h2>
+          <p className="text-sm text-gray-500 mt-1">
+            The banner shown at the top of every newsletter email. Recommended: 1200×300px (4:1). If left empty, the green text header is used.
+          </p>
         </div>
+
+        <ImageUpload
+          value={newsletterHeader}
+          onChange={setNewsletterHeader}
+          folder="site"
+          label="Newsletter Header"
+          recommended="1200 × 300 px"
+        />
+
+        {newsletterHeader && (
+          <div className="rounded-xl overflow-hidden border border-gray-200">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={newsletterHeader} alt="Newsletter header preview" className="w-full object-contain" />
+          </div>
+        )}
+      </div>
+
+      {/* Save button */}
+      <div className="flex items-center gap-3">
+        <button
+          onClick={handleSave}
+          disabled={saving}
+          className="bg-teal-700 text-white rounded-lg px-5 py-2.5 text-sm font-medium hover:bg-teal-800 disabled:opacity-50 transition-colors"
+        >
+          {saving ? 'Saving...' : 'Save Changes'}
+        </button>
+        {saved && (
+          <span className="text-sm text-green-600 font-medium">✓ Saved successfully</span>
+        )}
       </div>
 
     </div>
