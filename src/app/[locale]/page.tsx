@@ -73,10 +73,7 @@ export default async function HomePage({
   const { locale } = await params
   setRequestLocale(locale)
 
-  const [heroImage, heroLogo] = await Promise.all([
-    getSiteSetting('hero_image'),
-    getSiteSetting('hero_logo'),
-  ])
+  const heroImage = await getSiteSetting('hero_image')
 
   return (
     <main id="main-content">
@@ -84,7 +81,7 @@ export default async function HomePage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
-      <HeroSection heroImage={heroImage ?? undefined} heroLogo={heroLogo ?? undefined} />
+      <HeroSection heroImage={heroImage ?? undefined} />
       <ServicesSection />
       <EcosystemPreview />
       <ImpactSection />
