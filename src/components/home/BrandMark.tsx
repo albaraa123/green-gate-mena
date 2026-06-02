@@ -2,19 +2,29 @@
 
 import { motion } from 'framer-motion'
 
-// Official Green Gate brand mark — transparent SVG, real colors.
-// Rotates slowly. #00796b (teal) + #4caf50 (green).
-export function BrandMark({ className }: { className?: string }) {
+interface BrandMarkProps {
+  className?: string
+  // Single color override (e.g. "#ffffff"). If omitted, uses real brand colors.
+  mono?: string
+  // Rotation duration in seconds. Default 70 (slow). Lower = faster.
+  duration?: number
+}
+
+// Official Green Gate brand mark — transparent SVG, real colors by default.
+// Pass `mono` to render the whole mark in one color (e.g. white loader).
+export function BrandMark({ className, mono, duration = 70 }: BrandMarkProps) {
+  const colorA = mono ?? '#00796b'
+  const colorB = mono ?? '#4caf50'
   return (
     <motion.svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 1080 1080"
       className={className}
       animate={{ rotate: 360 }}
-      transition={{ duration: 70, ease: 'linear', repeat: Infinity }}
+      transition={{ duration, ease: 'linear', repeat: Infinity }}
       aria-label="Green Gate"
     >
-      <g fill="#00796b">
+      <g fill={colorA}>
         <path d="M607.17,928.96c-.97.03-1.96.03-2.93,0-7.33-.24-27.03-7.09-33.67-11.72-52.94-36.85-7.11-113.22,56.58-91.98,43.35,14.45,49.55,74.55,8.4,95.48-4.28,2.18-24.67,8.1-28.38,8.22Z"/>
         <path d="M100.97,462.19c33.39-32.44,38.03,42.01,0,8.81v-8.81Z"/>
         <path d="M422.07,172.27c93.01-15.96,96.58,105.15,14.41,103.84-69.86-1.12-74.94-93.46-14.41-103.84Z"/>
@@ -35,7 +45,7 @@ export function BrandMark({ className }: { className?: string }) {
         <path d="M960.37,571.31c23.27-6.89,25.34,28.63,2.99,25.41-14.62-2.11-14.59-21.97-2.99-25.41Z"/>
         <path d="M275.55,621.18c21.8-7.65,27.98,19.65,9.85,24.78-14.47,4.1-23.74-19.91-9.85-24.78Z"/>
       </g>
-      <g fill="#4caf50">
+      <g fill={colorB}>
         <path d="M610.1,151.02c17.25,11.78,9.08,28.56-10.28,26.69-10.32-1-9.86-23.15,1.5-26.69h8.78Z"/>
         <path d="M161.64,580.33c86.87-14.65,94.28,114.83,2.56,104.63-63.01-7-65.58-94-2.56-104.63Z"/>
         <path d="M849.26,421.79c39.85-6.8,75.61,16.18,70.98,59.5-5.17,48.32-75.17,60.04-103.94,22.08-23.23-30.65-4.08-75.26,32.96-81.58Z"/>
