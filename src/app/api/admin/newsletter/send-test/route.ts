@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
     `
 
     await resend.emails.send({
-      from: 'Green Gate <newsletter@send.greengatemena.com>',
+      from: 'Green Gate <newsletter@greengatemena.com>',
       to: 'greengate4menayouth@gmail.com',
       subject: `[TEST] ${subject}`,
       html: emailHtml,

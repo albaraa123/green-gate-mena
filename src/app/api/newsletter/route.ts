@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
 
     // Send welcome email to subscriber
     await resend.emails.send({
-      from: 'Green Gate <newsletter@send.greengatemena.com>',
+      from: 'Green Gate <newsletter@greengatemena.com>',
       replyTo: 'greengate4menayouth@gmail.com',
       to: email,
       subject: 'مرحباً بك في Green Gate MENA 🌿',
@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
 
     // Notify admin
     await resend.emails.send({
-      from: 'Green Gate <newsletter@send.greengatemena.com>',
+      from: 'Green Gate <newsletter@greengatemena.com>',
       to: 'greengate4menayouth@gmail.com',
       subject: `مشترك جديد في النشرة: ${email}`,
       html: `<p>مشترك جديد: <strong>${email}</strong></p>`,

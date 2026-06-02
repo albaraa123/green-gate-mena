@@ -56,7 +56,7 @@ export async function updateApplicationStatus(
   if (status === 'approved' && app) {
     // 1. Send acceptance email to applicant
     await resend.emails.send({
-      from: 'Green Gate <newsletter@send.greengatemena.com>',
+      from: 'Green Gate <newsletter@greengatemena.com>',
       replyTo: 'greengate4menayouth@gmail.com',
       to: app.email as string,
       subject: `🌿 تهانينا! تم قبول طلبك في Green Gate MENA`,
