@@ -10,6 +10,7 @@ interface Props {
 
 export function SettingsForm({ settings }: Props) {
   const [heroImage, setHeroImage] = useState(settings['hero_image'] ?? '')
+  const [heroLogo, setHeroLogo] = useState(settings['hero_logo'] ?? '')
   const [newsletterHeader, setNewsletterHeader] = useState(settings['newsletter_header'] ?? '')
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
@@ -18,6 +19,7 @@ export function SettingsForm({ settings }: Props) {
     setSaving(true)
     setSaved(false)
     await saveSiteSetting('hero_image', heroImage)
+    await saveSiteSetting('hero_logo', heroLogo)
     await saveSiteSetting('newsletter_header', newsletterHeader)
     setSaving(false)
     setSaved(true)
@@ -54,6 +56,31 @@ export function SettingsForm({ settings }: Props) {
           </div>
         )}
 
+      </div>
+
+      {/* Hero logo (animated brand mark) */}
+      <div className="bg-white rounded-xl border border-gray-200 p-6 flex flex-col gap-5">
+        <div>
+          <h2 className="font-semibold text-base text-gray-900">Hero Logo (Brand Mark)</h2>
+          <p className="text-sm text-gray-500 mt-1">
+            Your circular logo, shown animated beside the headline on the homepage. Use a transparent PNG. Recommended: 800×800px. If empty, the default animated dot-ring is used.
+          </p>
+        </div>
+
+        <ImageUpload
+          value={heroLogo}
+          onChange={setHeroLogo}
+          folder="site"
+          label="Hero Logo"
+          recommended="800 × 800 px (transparent PNG)"
+        />
+
+        {heroLogo && (
+          <div className="rounded-xl border border-gray-200 p-6 flex items-center justify-center bg-gradient-to-br from-white to-teal-50">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={heroLogo} alt="Logo preview" className="w-40 h-40 object-contain" />
+          </div>
+        )}
       </div>
 
       {/* Newsletter header image */}

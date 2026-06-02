@@ -11,6 +11,7 @@ import { HeroOrbit } from './HeroOrbit'
 
 interface Props {
   heroImage?: string
+  heroLogo?: string
 }
 
 // Small decorative floating dots scattered around the hero.
@@ -22,7 +23,7 @@ const FLOAT_DOTS = [
   { bottom: '28%', right: '6%', size: 16, color: 'bg-teal-600', delay: 0.6 },
 ]
 
-export function HeroSection({ heroImage }: Props) {
+export function HeroSection({ heroImage, heroLogo }: Props) {
   const t = useTranslations('hero')
 
   return (
@@ -167,7 +168,7 @@ export function HeroSection({ heroImage }: Props) {
             transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
             className="hidden lg:flex justify-center"
           >
-            <HeroOrbit />
+            <HeroOrbit logo={heroLogo} />
           </motion.div>
 
         </div>

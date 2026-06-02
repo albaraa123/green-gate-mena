@@ -33,7 +33,11 @@ function buildRing(count: number, radius: number, center: number, rBase: number)
   return dots
 }
 
-export function HeroOrbit() {
+interface Props {
+  logo?: string
+}
+
+export function HeroOrbit({ logo }: Props) {
   const size = 460
   const center = size / 2
 
@@ -44,6 +48,29 @@ export function HeroOrbit() {
       ...buildRing(10, 95, center, 6),
     ]
   }, [center])
+
+  // If a custom logo is uploaded, show it with gentle rotation + glow.
+  if (logo) {
+    return (
+      <div className="relative w-full max-w-[460px] aspect-square mx-auto">
+        <div className="absolute inset-8 rounded-full bg-lime/20 blur-3xl" aria-hidden />
+        <div className="absolute inset-16 rounded-full bg-teal-200/40 blur-2xl" aria-hidden />
+        <motion.img
+          src={logo}
+          alt="Green Gate"
+          className="relative w-full h-full object-contain p-6"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 70, ease: 'linear', repeat: Infinity }}
+        />
+        <motion.div
+          className="absolute inset-0 rounded-full"
+          animate={{ scale: [1, 1.04, 1], opacity: [0.9, 1, 0.9] }}
+          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+          aria-hidden
+        />
+      </div>
+    )
+  }
 
   return (
     <div className="relative w-full max-w-[460px] aspect-square mx-auto">
