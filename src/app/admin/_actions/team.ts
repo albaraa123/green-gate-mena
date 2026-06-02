@@ -51,12 +51,20 @@ export async function deleteTeamMember(id: string) {
   revalidatePath('/ar/about')
 }
 
-export async function swapTeamOrder(idA: string, orderA: number, idB: string, orderB: number) {
+// Persist a full reordering: orderedIds is the new top-to-bottom order.
+// Each member gets a fresh, unique sort_order (10, 20, 30, …) so the order
+// is always well-defined even if previous values were duplicated.
+export async function reorderTeam(orderedIds: string[]) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) throw new Error('Unauthorized')
-  await supabase.from('team_members').update({ sort_order: orderB }).eq('id', idA)
-  await supabase.from('team_members').update({ sort_order: orderA }).eq('id', idB)
+
+  await Promise.all(
+    orderedIds.map((id, index) =>
+      supabase.from('team_members').update({ sort_order: (index + 1) * 10 }).eq('id', id)
+    )
+  )
+
   revalidatePath('/admin/team')
   revalidatePath('/en/about')
   revalidatePath('/ar/about')

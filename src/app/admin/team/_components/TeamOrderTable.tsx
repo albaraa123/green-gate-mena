@@ -1,8 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { useTransition } from 'react'
-import { swapTeamOrder, deleteTeamMember } from '../../_actions/team'
+import { useState, useTransition } from 'react'
+import { reorderTeam, deleteTeamMember } from '../../_actions/team'
 
 interface Member {
   id: string
@@ -16,18 +16,28 @@ interface Props {
   members: Member[]
 }
 
-export function TeamOrderTable({ members }: Props) {
+export function TeamOrderTable({ members: initialMembers }: Props) {
+  const [members, setMembers] = useState<Member[]>(initialMembers)
   const [isPending, startTransition] = useTransition()
 
   function move(index: number, dir: -1 | 1) {
-    const a = members[index]
-    const b = members[index + dir]
-    if (!a || !b) return
-    startTransition(() => swapTeamOrder(a.id, a.sort_order, b.id, b.sort_order))
+    const target = index + dir
+    if (target < 0 || target >= members.length) return
+
+    // Reorder locally first for instant feedback.
+    const updated = [...members]
+    const tmp = updated[index]!
+    updated[index] = updated[target]!
+    updated[target] = tmp
+    setMembers(updated)
+
+    // Persist the full new order.
+    startTransition(() => reorderTeam(updated.map((m) => m.id)))
   }
 
   function handleDelete(id: string) {
     if (!confirm('Delete this team member?')) return
+    setMembers((prev) => prev.filter((m) => m.id !== id))
     startTransition(() => deleteTeamMember(id))
   }
 
