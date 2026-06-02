@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useMemo } from 'react'
+import { TransparentLogo } from './TransparentLogo'
 
 // A circular ring of dots (like the brand mark), animated.
 // Pure SVG + Framer Motion — no images, scales crisply.
@@ -50,24 +51,13 @@ export function HeroOrbit({ logo }: Props) {
   }, [center])
 
   // If a custom logo is uploaded, show it with gentle rotation + glow.
+  // The black background is stripped to transparent on a canvas.
   if (logo) {
     return (
       <div className="relative w-full max-w-[460px] aspect-square mx-auto">
         <div className="absolute inset-8 rounded-full bg-lime/20 blur-3xl" aria-hidden />
         <div className="absolute inset-16 rounded-full bg-teal-200/40 blur-2xl" aria-hidden />
-        <motion.img
-          src={logo}
-          alt="Green Gate"
-          className="relative w-full h-full object-contain p-6"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 70, ease: 'linear', repeat: Infinity }}
-        />
-        <motion.div
-          className="absolute inset-0 rounded-full"
-          animate={{ scale: [1, 1.04, 1], opacity: [0.9, 1, 0.9] }}
-          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-          aria-hidden
-        />
+        <TransparentLogo src={logo} className="relative w-full h-full object-contain p-6" />
       </div>
     )
   }
