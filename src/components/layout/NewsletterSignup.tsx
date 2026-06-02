@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
+import { useToast } from '@/components/ui/Toast'
 import { cn } from '@/lib/utils'
 
 interface NewsletterSignupProps {
@@ -13,6 +14,7 @@ interface NewsletterSignupProps {
 
 export function NewsletterSignup({ className, compact = false }: NewsletterSignupProps) {
   const t = useTranslations('footer.newsletter')
+  const { toast } = useToast()
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
 
@@ -30,11 +32,14 @@ export function NewsletterSignup({ className, compact = false }: NewsletterSignu
       if (res.ok) {
         setStatus('success')
         setEmail('')
+        toast(t('success'), 'success')
       } else {
-        setStatus('error')
+        setStatus('idle')
+        toast(t('error'), 'error')
       }
     } catch {
-      setStatus('error')
+      setStatus('idle')
+      toast(t('error'), 'error')
     }
   }
 
