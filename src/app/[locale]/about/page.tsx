@@ -10,10 +10,9 @@ export const metadata: Metadata = {
 import { Link } from '@/i18n/navigation'
 import { Container } from '@/components/ui/Container'
 import { Button } from '@/components/ui/Button'
-import { AnimatedCounter } from '@/components/ui/AnimatedCounter'
 import { TeamCarousel } from '@/components/ui/TeamCarousel'
 import { getTeam, getPartners } from '@/lib/supabase/queries'
-import { impactTimeline, impactStats } from '@/data/stats'
+import { impactTimeline } from '@/data/stats'
 import { getCountryName } from '@/data/countries'
 
 interface Props {
@@ -38,54 +37,37 @@ export default async function AboutPage({ params }: Props) {
 
   return (
     <main id="main-content">
-      {/* Hero */}
-      <div className="bg-teal-700 text-white grain-overlay py-20">
-        <Container>
-          <div className="max-w-3xl">
-            <p className="eyebrow text-teal-300/70 mb-4">{t('heroEyebrow')}</p>
-            <h1 className="font-display text-display-lg text-white text-balance leading-tight">
-              {t('heroHeadingPre')}{' '}
-              <span className="relative inline-block">
-                <em className="not-italic font-display italic text-lime">{t('heroHeadingItalic')}</em>
-                <span
-                  className="absolute -bottom-1 left-0 right-0 h-2.5 bg-lime/20 -skew-x-6 -z-10 rounded-sm"
-                  aria-hidden
-                />
-              </span>{' '}
-              {t('heroHeadingPost')}
-            </h1>
-            <p className="mt-6 text-teal-300/80 text-lg leading-relaxed max-w-xl">
-              {t('heroSubhead')}
-            </p>
-          </div>
-        </Container>
-      </div>
 
-      {/* Quick stats */}
-      <div className="bg-teal-700 border-b border-teal-700/50">
-        <Container>
-          <dl className="grid grid-cols-2 md:grid-cols-4 divide-x divide-teal-700/40">
-            {impactStats.slice(0, 4).map((stat) => {
-              const label = isAr ? (stat.labelAr ?? stat.label) : stat.label
-              const numericPart = stat.value.replace(/[^0-9]/g, '')
-              const suffix = stat.value.replace(/[0-9]/g, '')
-              const target = parseInt(numericPart, 10)
-              return (
-                <div key={stat.label} className="flex flex-col items-center py-8 px-6 text-center gap-1">
-                  <dt className="font-display text-3xl font-semibold text-white">
-                    {!isNaN(target) ? (
-                      <AnimatedCounter target={target} suffix={suffix} />
-                    ) : (
-                      stat.value
-                    )}
-                  </dt>
-                  <dd className="text-xs text-teal-300/70 font-medium">{label}</dd>
-                </div>
-              )
-            })}
-          </dl>
-        </Container>
-      </div>
+      {/* Team */}
+      {team.length > 0 && (
+        <section className="section-padding bg-paper pt-28">
+          <Container>
+            <div className="text-center mb-14">
+              <p className="eyebrow mb-4">{t('teamEyebrow')}</p>
+              <h2 className="font-display text-display-lg text-teal-800 text-balance">
+                {t('teamHeadingPre')}{' '}
+                <em className="not-italic italic text-teal-700">{t('teamHeadingItalic')}</em>
+              </h2>
+              <p className="text-ink-soft mt-4 max-w-xl mx-auto leading-relaxed">
+                {t('teamSubhead')}
+              </p>
+            </div>
+            <TeamCarousel
+              isAr={isAr}
+              members={team.map((m) => ({
+                id: m.id,
+                name: m.name,
+                nameAr: m.nameAr ?? null,
+                role: m.role,
+                roleAr: m.roleAr ?? null,
+                country: m.country,
+                avatar: m.avatar ?? null,
+                countryLabel: getCountryName(m.country, locale),
+              }))}
+            />
+          </Container>
+        </section>
+      )}
 
       {/* Mission */}
       <section className="section-padding bg-paper">
@@ -159,37 +141,6 @@ export default async function AboutPage({ params }: Props) {
           </div>
         </Container>
       </section>
-
-      {/* Team */}
-      {team.length > 0 && (
-        <section className="section-padding bg-paper">
-          <Container>
-            <div className="text-center mb-14">
-              <p className="eyebrow mb-4">{t('teamEyebrow')}</p>
-              <h2 className="font-display text-display-lg text-teal-800 text-balance">
-                {t('teamHeadingPre')}{' '}
-                <em className="not-italic italic text-teal-700">{t('teamHeadingItalic')}</em>
-              </h2>
-              <p className="text-ink-soft mt-4 max-w-xl mx-auto leading-relaxed">
-                {t('teamSubhead')}
-              </p>
-            </div>
-            <TeamCarousel
-              isAr={isAr}
-              members={team.map((m) => ({
-                id: m.id,
-                name: m.name,
-                nameAr: m.nameAr ?? null,
-                role: m.role,
-                roleAr: m.roleAr ?? null,
-                country: m.country,
-                avatar: m.avatar ?? null,
-                countryLabel: getCountryName(m.country, locale),
-              }))}
-            />
-          </Container>
-        </section>
-      )}
 
       {/* Partners */}
       {strategic.length > 0 && (
