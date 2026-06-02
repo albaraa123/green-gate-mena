@@ -7,6 +7,7 @@ import { Container } from '@/components/ui/Container'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Textarea } from '@/components/ui/Textarea'
+import { useToast } from '@/components/ui/Toast'
 
 interface FormState {
   name: string
@@ -41,6 +42,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 
 export function ContactPageContent() {
   const t = useTranslations('contact')
+  const { toast } = useToast()
   const [form, setForm] = useState<FormState>(EMPTY)
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [errors, setErrors] = useState<Partial<FormState>>({})
@@ -79,9 +81,16 @@ export function ContactPageContent() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       })
-      setStatus(res.ok ? 'success' : 'error')
+      if (res.ok) {
+        setStatus('success')
+        toast(t('success'), 'success')
+      } else {
+        setStatus('error')
+        toast(t('errorGeneric'), 'error')
+      }
     } catch {
       setStatus('error')
+      toast(t('errorGeneric'), 'error')
     }
   }
 

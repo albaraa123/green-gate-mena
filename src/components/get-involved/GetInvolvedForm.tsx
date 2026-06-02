@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Textarea } from '@/components/ui/Textarea'
 import { Select } from '@/components/ui/Select'
+import { useToast } from '@/components/ui/Toast'
 import { createClient } from '@/lib/supabase/client'
 
 const COUNTRY_EN: Record<string, string> = {
@@ -53,6 +54,7 @@ const EMPTY: FormState = {
 
 export function GetInvolvedForm({ pathway, showOrg = false, orgLabel, messagePlaceholder }: Props) {
   const locale = useLocale()
+  const { toast } = useToast()
   const isAr = locale === 'ar'
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [uploading, setUploading] = useState(false)
@@ -143,23 +145,67 @@ export function GetInvolvedForm({ pathway, showOrg = false, orgLabel, messagePla
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ pathway, ...form }),
       })
-      setStatus(res.ok ? 'success' : 'error')
+      if (res.ok) {
+        setStatus('success')
+      } else {
+        setStatus('error')
+        toast(ui.errorGeneric, 'error')
+      }
     } catch {
       setStatus('error')
+      toast(ui.errorGeneric, 'error')
     }
   }
 
   if (status === 'success') {
+    const steps = isAr
+      ? [
+          'سيتواصل معك فريقنا خلال 5 أيام عمل',
+          'ترقّب رسالة القبول على بريدك الإلكتروني',
+          'استكشف الفرص والفعاليات في انتظارك',
+        ]
+      : [
+          'Our team will reach out within 5 business days',
+          'Watch for an acceptance email in your inbox',
+          'Explore the opportunities and events waiting for you',
+        ]
     return (
-      <div className="rounded-2xl bg-white border border-sand-200 p-8 flex flex-col items-center gap-5 text-center">
-        <div className="h-14 w-14 rounded-full bg-leaf/20 flex items-center justify-center">
-          <CheckCircle className="h-7 w-7 text-leaf" />
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-teal-700 to-teal-800 grain-overlay p-8 sm:p-10 flex flex-col items-center gap-6 text-center text-white">
+        {/* Decorative glow */}
+        <div className="absolute -top-16 -end-16 w-48 h-48 rounded-full bg-lime/10 blur-3xl" aria-hidden />
+
+        <div className="relative h-20 w-20 rounded-full bg-lime/20 flex items-center justify-center animate-pulse-dot">
+          <CheckCircle className="h-10 w-10 text-lime" />
         </div>
-        <h3 className="font-display text-xl font-semibold text-teal-800">{ui.successTitle}</h3>
-        <p className="text-ink-soft text-sm max-w-sm">{ui.successBody}</p>
-        <Button asChild variant="ghost">
-          <Link href="/ecosystem/opportunities">{ui.browseOpps}</Link>
-        </Button>
+
+        <div className="relative flex flex-col gap-2">
+          <h3 className="font-display text-2xl font-semibold text-white">{ui.successTitle}</h3>
+          <p className="text-teal-100/80 text-sm max-w-sm leading-relaxed">{ui.successBody}</p>
+        </div>
+
+        {/* Next steps */}
+        <div className="relative w-full max-w-sm bg-white/10 rounded-xl p-5 flex flex-col gap-3 text-start">
+          <p className="text-xs font-semibold text-lime uppercase tracking-wide">
+            {isAr ? 'الخطوات التالية' : 'Next steps'}
+          </p>
+          {steps.map((step, i) => (
+            <div key={i} className="flex items-start gap-3">
+              <span className="shrink-0 mt-0.5 h-5 w-5 rounded-full bg-lime/20 text-lime text-xs font-bold flex items-center justify-center">
+                {i + 1}
+              </span>
+              <span className="text-sm text-teal-50/90 leading-snug">{step}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className="relative flex flex-wrap justify-center gap-3">
+          <Button asChild variant="lime">
+            <Link href="/ecosystem/opportunities">{ui.browseOpps}</Link>
+          </Button>
+          <Button asChild variant="outline" className="border-white/30 text-white hover:bg-white/10 hover:border-white/50">
+            <Link href="/">{isAr ? 'العودة للرئيسية' : 'Back to home'}</Link>
+          </Button>
+        </div>
       </div>
     )
   }
