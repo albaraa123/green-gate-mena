@@ -24,18 +24,18 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://greengatemena.com'
 
 export const metadata: Metadata = {
   title: {
-    default: 'Green Gate MENA — Climate & Environment Gateway for MENA',
-    template: '%s | Green Gate MENA',
+    default: 'Green Gate (بوابة خضراء) — The Arab World\'s Gateway to Environmental Opportunities',
+    template: '%s | Green Gate',
   },
   description:
-    'Green Gate MENA connects youth, NGOs, and institutions with climate and environmental opportunities across 22 MENA countries.',
+    'Green Gate (بوابة خضراء) connects youth, NGOs, and institutions with climate and environmental opportunities across 22 Arab countries.',
   metadataBase: new URL(siteUrl),
   openGraph: {
     type: 'website',
-    siteName: 'Green Gate MENA',
-    title: 'Green Gate MENA — Climate & Environment Gateway for MENA',
+    siteName: 'Green Gate',
+    title: 'Green Gate (بوابة خضراء) — The Arab World\'s Gateway to Environmental Opportunities',
     description:
-      'Green Gate MENA connects youth, NGOs, and institutions with climate and environmental opportunities across 22 MENA countries.',
+      'Green Gate (بوابة خضراء) connects youth, NGOs, and institutions with climate and environmental opportunities across 22 Arab countries.',
     locale: 'en_US',
   },
   twitter: {
@@ -57,6 +57,10 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
   },
+  // Add your Google Search Console verification code in NEXT_PUBLIC_GOOGLE_VERIFICATION
+  ...(process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION
+    ? { verification: { google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION } }
+    : {}),
   alternates: {
     canonical: siteUrl,
     languages: {
