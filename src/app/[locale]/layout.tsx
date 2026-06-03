@@ -20,7 +20,7 @@ const manrope = Manrope({
   weight: ['300', '400', '500', '600', '700', '800'],
 })
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://greengate-mena.org'
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://greengatemena.com'
 
 export const metadata: Metadata = {
   title: {

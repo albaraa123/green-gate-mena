@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { getOpportunities, getResources } from '@/lib/supabase/queries'
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://greengate-mena.org'
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://greengatemena.com'
 const locales = ['en', 'ar'] as const
 
 function url(path: string) {

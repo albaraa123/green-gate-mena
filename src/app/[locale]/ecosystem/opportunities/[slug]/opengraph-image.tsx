@@ -69,7 +69,7 @@ export default async function OGImage({ params }: Props) {
         {/* Footer */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <span style={{ fontSize: 18, color: 'rgba(255,255,255,0.6)', fontWeight: 500 }}>{org}</span>
-          <span style={{ fontSize: 16, color: 'rgba(198,233,74,0.7)', fontFamily: 'monospace' }}>greengate-mena.org</span>
+          <span style={{ fontSize: 16, color: 'rgba(198,233,74,0.7)', fontFamily: 'monospace' }}>greengatemena.com</span>
         </div>
       </div>
     ),

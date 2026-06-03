@@ -22,7 +22,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      url: `https://greengate-mena.org/${locale}`,
+      url: `https://greengatemena.com/${locale}`,
       siteName: 'Green Gate MENA',
       locale: isAr ? 'ar_AR' : 'en_US',
       type: 'website',
@@ -33,10 +33,10 @@ export async function generateMetadata({
       description,
     },
     alternates: {
-      canonical: `https://greengate-mena.org/${locale}`,
+      canonical: `https://greengatemena.com/${locale}`,
       languages: {
-        en: 'https://greengate-mena.org/en',
-        ar: 'https://greengate-mena.org/ar',
+        en: 'https://greengatemena.com/en',
+        ar: 'https://greengatemena.com/ar',
       },
     },
   }
@@ -46,7 +46,7 @@ const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'Green Gate MENA',
-  url: 'https://greengate-mena.org',
+  url: 'https://greengatemena.com',
   description:
     "The MENA region's gateway to climate and environmental opportunities — connecting youth, NGOs, consultants, and businesses across 22 Arab countries.",
   sameAs: [

@@ -10,6 +10,7 @@ import { OpportunityCard } from '@/components/ecosystem/OpportunityCard'
 import { getOpportunityBySlug, getOpportunities } from '@/lib/supabase/queries'
 import { formatDeadline, isDeadlinePast, isDeadlineSoon } from '@/lib/utils'
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs'
+import { ShareButtons } from '@/components/ui/ShareButtons'
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>
@@ -46,7 +47,7 @@ export default async function OpportunityDetailPage({ params }: Props) {
     .filter((o) => o.slug !== opp.slug && o.theme.some((t) => opp.theme.includes(t)))
     .slice(0, 3)
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://greengate-mena.org'
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://greengatemena.com'
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -57,6 +58,36 @@ export default async function OpportunityDetailPage({ params }: Props) {
     ],
   }
 
+  // Rich structured data so the opportunity can show enhanced results in search.
+  const isEvent = opp.type === 'event'
+  const opportunitySchema = isEvent
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'Event',
+        name: opp.title,
+        description: opp.description,
+        url: `${siteUrl}/${locale}/ecosystem/opportunities/${opp.slug}`,
+        startDate: opp.startDate ?? opp.deadline ?? undefined,
+        eventAttendanceMode:
+          opp.format === 'online'
+            ? 'https://schema.org/OnlineEventAttendanceMode'
+            : opp.format === 'hybrid'
+              ? 'https://schema.org/MixedEventAttendanceMode'
+              : 'https://schema.org/OfflineEventAttendanceMode',
+        organizer: { '@type': 'Organization', name: opp.organization },
+        ...(opp.logo ? { image: opp.logo } : {}),
+      }
+    : {
+        '@context': 'https://schema.org',
+        '@type': 'JobPosting',
+        title: opp.title,
+        description: opp.description,
+        url: `${siteUrl}/${locale}/ecosystem/opportunities/${opp.slug}`,
+        validThrough: opp.deadline ?? undefined,
+        hiringOrganization: { '@type': 'Organization', name: opp.organization },
+        ...(opp.logo ? { image: opp.logo } : {}),
+      }
+
   return (
     <main id="main-content">
       {/* Breadcrumb nav */}
@@ -65,6 +96,10 @@ export default async function OpportunityDetailPage({ params }: Props) {
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(opportunitySchema) }}
           />
           <Breadcrumbs
             crumbs={[
@@ -123,6 +158,11 @@ export default async function OpportunityDetailPage({ params }: Props) {
                   ))}
                 </div>
               )}
+
+              {/* Share */}
+              <div className="pt-2">
+                <ShareButtons title={opp.title} isAr={locale === 'ar'} />
+              </div>
             </div>
 
             {/* Sidebar */}

@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/Button'
 import { getResourceBySlug, getResources } from '@/lib/supabase/queries'
 import type { ResourceType } from '@/types'
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs'
+import { ReadingProgress } from '@/components/ui/ReadingProgress'
+import { ShareButtons } from '@/components/ui/ShareButtons'
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>
@@ -70,7 +72,7 @@ export default async function ResourceDetailPage({ params }: Props) {
     .filter((r) => r.slug !== resource.slug && r.theme === resource.theme)
     .slice(0, 3)
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://greengate-mena.org'
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://greengatemena.com'
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -83,6 +85,7 @@ export default async function ResourceDetailPage({ params }: Props) {
 
   return (
     <main id="main-content">
+      <ReadingProgress />
       {/* Breadcrumb nav */}
       <div className="bg-paper border-b border-sand-200 py-3">
         <Container>
@@ -163,6 +166,11 @@ export default async function ResourceDetailPage({ params }: Props) {
                   ))}
                 </div>
               )}
+
+              {/* Share */}
+              <div className="pt-2">
+                <ShareButtons title={resource.title} isAr={locale === 'ar'} />
+              </div>
             </div>
 
             {/* Sidebar */}
