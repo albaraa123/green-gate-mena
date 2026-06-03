@@ -11,6 +11,7 @@ import { ScrollToTop } from '@/components/ui/ScrollToTop'
 import { IntroAnimation } from '@/components/ui/IntroAnimation'
 import { ToastProvider } from '@/components/ui/Toast'
 import { CursorFollower } from '@/components/ui/CursorFollower'
+import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics'
 import '../globals.css'
 
 const manrope = Manrope({
@@ -136,6 +137,7 @@ export default async function LocaleLayout({
         )}
       </head>
       <body className="min-h-full flex flex-col bg-paper text-ink antialiased">
+        <GoogleAnalytics />
         <a href="#main-content" className="skip-to-content">
           {locale === 'ar' ? 'انتقل إلى المحتوى الرئيسي' : 'Skip to main content'}
         </a>
