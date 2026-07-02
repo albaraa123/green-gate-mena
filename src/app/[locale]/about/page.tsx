@@ -13,6 +13,7 @@ import { Container } from '@/components/ui/Container'
 import { Button } from '@/components/ui/Button'
 import { TeamCarousel } from '@/components/ui/TeamCarousel'
 import { getTeam, getPartners } from '@/lib/supabase/queries'
+import { getGallery } from '@/lib/supabase/gallery'
 import { impactTimeline } from '@/data/stats'
 import { getCountryName } from '@/data/countries'
 
@@ -26,7 +27,7 @@ export default async function AboutPage({ params }: Props) {
   const t = await getTranslations('about')
   const isAr = locale === 'ar'
 
-  const [team, allPartners] = await Promise.all([getTeam(), getPartners()])
+  const [team, allPartners, gallery] = await Promise.all([getTeam(), getPartners(), getGallery()])
   const strategic = allPartners.filter((p) => p.tier === 'strategic' || p.tier === 'program')
 
   // Find the founder's photo from the team (matches by role or name).
@@ -125,8 +126,50 @@ export default async function AboutPage({ params }: Props) {
         </section>
       )}
 
+      {/* Gallery — activities & events */}
+      {gallery.length > 0 && (
+        <section className="section-padding bg-paper-warm grain-overlay">
+          <Container>
+            <div className="text-center mb-12">
+              <p className="eyebrow mb-4">{t('galleryEyebrow')}</p>
+              <h2 className="font-display text-display-lg text-teal-800 text-balance">
+                {t('galleryHeading')}{' '}
+                <em className="not-italic italic text-teal-700">{t('galleryHeadingItalic')}</em>
+              </h2>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {gallery.map((img, i) => (
+                <div
+                  key={img.id}
+                  className={[
+                    'relative overflow-hidden rounded-2xl bg-teal-50 group',
+                    // Make some images span 2 rows for a dynamic masonry feel
+                    i % 6 === 0 ? 'row-span-2 aspect-[3/4]' : 'aspect-[3/2]',
+                  ].join(' ')}
+                >
+                  <Image
+                    src={img.image}
+                    alt={(isAr ? img.captionAr : img.caption) ?? ''}
+                    fill
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                    className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                  />
+                  {(isAr ? img.captionAr : img.caption) && (
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-3 pt-8">
+                      <p className="text-white text-xs font-medium leading-snug">
+                        {isAr ? img.captionAr : img.caption}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </Container>
+        </section>
+      )}
+
       {/* Our Impact */}
-      <section className="section-padding bg-paper-warm grain-overlay">
+      <section className="section-padding bg-paper">
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div className="flex flex-col gap-6">
@@ -168,7 +211,7 @@ export default async function AboutPage({ params }: Props) {
       </section>
 
       {/* Values */}
-      <section className="section-padding bg-paper">
+      <section className="section-padding bg-paper-warm grain-overlay">
         <Container>
           <div className="text-center mb-12">
             <p className="eyebrow mb-4">{t('valuesEyebrow')}</p>

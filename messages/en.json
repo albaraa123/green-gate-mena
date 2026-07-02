@@ -10,6 +10,7 @@
     "opportunities": "Opportunities",
     "directory": "Directory",
     "events": "Events",
+    "programs": "Programs",
     "knowledge": "Knowledge & Blog",
     "impact": "Impact & Stories",
     "getInvolved": "Get Involved",
@@ -175,6 +176,11 @@
       "title": "Events",
       "description": "Conferences, workshops, and climate action events happening across the region.",
       "view": "View Events"
+    },
+    "programs": {
+      "title": "Programs",
+      "description": "Capacity-building programs, fellowships, and initiatives for the region's youth.",
+      "view": "Explore programs"
     }
   },
   "impact": {
@@ -300,7 +306,10 @@
     "impactSectionEyebrow": "Our Impact",
     "impactSectionHeading": "Impact beyond",
     "impactSectionHeadingItalic": "the numbers",
-    "impactSectionSubhead": "From our first summit to a thriving community across 22 countries — this is our journey so far."
+    "impactSectionSubhead": "From our first summit to a thriving community across 22 countries — this is our journey so far.",
+    "galleryEyebrow": "In Action",
+    "galleryHeading": "Moments from",
+    "galleryHeadingItalic": "our journey"
   },
   "impactPage": {
     "heroEyebrow": "Impact & Stories",
@@ -584,6 +593,14 @@
     "themeUrban": "Urban",
     "themeOceans": "Oceans",
     "themeYouth": "Youth"
+  },
+  "programsPage": {
+    "eyebrow": "Programs",
+    "heading": "Our",
+    "headingItalic": "Programs",
+    "subhead": "Capacity-building programs, fellowships, and initiatives designed for MENA youth.",
+    "learnMore": "Learn more",
+    "comingSoon": "Programs coming soon"
   },
   "eventsPage": {
     "eyebrow": "Ecosystem Hub",

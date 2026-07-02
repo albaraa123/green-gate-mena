@@ -105,6 +105,21 @@ export interface Resource {
   tags?: string[]
 }
 
+// ─── Programs ─────────────────────────────────────────────────────────────────
+
+export interface Program {
+  id: string
+  slug: string
+  title: string
+  titleAr?: string
+  description: string
+  descriptionAr?: string
+  image?: string
+  link?: string
+  status?: string
+  sortOrder?: number
+}
+
 // ─── Impact / Stories ─────────────────────────────────────────────────────────
 
 export interface Story {

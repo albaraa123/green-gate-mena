@@ -1,5 +1,5 @@
 import { getTranslations, getLocale } from 'next-intl/server'
-import { Search, Users, CalendarDays, ArrowRight } from 'lucide-react'
+import { Search, Users, CalendarDays, Rocket, ArrowRight } from 'lucide-react'
 import { Link } from '@/i18n/navigation'
 import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
@@ -98,6 +98,23 @@ export async function EcosystemPreview() {
                 className="mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-lime hover:text-lime/80 transition-colors"
               >
                 {t('directory.explore')} <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+
+            {/* Programs card */}
+            <div className="rounded-xl bg-white border border-sand-200 p-5 flex flex-col gap-3">
+              <div className="flex items-center gap-2">
+                <Rocket className="h-4 w-4 text-teal-700" />
+                <h3 className="font-display text-base font-semibold text-teal-800">
+                  {t('programs.title')}
+                </h3>
+              </div>
+              <p className="text-sm text-ink-soft leading-relaxed">{t('programs.description')}</p>
+              <Link
+                href="/ecosystem/programs"
+                className="mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-teal-700 hover:text-teal-800 transition-colors"
+              >
+                {t('programs.view')} <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
 

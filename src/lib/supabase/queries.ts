@@ -7,6 +7,7 @@ import type {
   Partner,
   TeamMember,
   Story,
+  Program,
 } from '@/types'
 
 // ── Opportunities ─────────────────────────────────────────────────────────────
@@ -257,6 +258,32 @@ function mapStory(row: Record<string, unknown>): Story {
     quoteAr: quote_ar,
     opportunityTitle: opportunity_title,
   } as unknown as Story
+}
+
+// ── Programs ──────────────────────────────────────────────────────────────────
+
+export async function getPrograms(): Promise<Program[]> {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('programs')
+    .select('*')
+    .order('sort_order', { ascending: true })
+    .order('created_at', { ascending: true })
+  if (error) {
+    console.error('[getPrograms]', error.message)
+    return []
+  }
+  return (data ?? []).map(mapProgram)
+}
+
+function mapProgram(row: Record<string, unknown>): Program {
+  const { title_ar, description_ar, sort_order, ...rest } = row
+  return {
+    ...rest,
+    titleAr: title_ar,
+    descriptionAr: description_ar,
+    sortOrder: sort_order,
+  } as unknown as Program
 }
 
 // ── Site Settings ─────────────────────────────────────────────────────────────

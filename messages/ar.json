@@ -10,6 +10,7 @@
     "opportunities": "الفرص",
     "directory": "الدليل",
     "events": "الفعاليات",
+    "programs": "البرامج",
     "knowledge": "المعرفة والمدونة",
     "impact": "الأثر والقصص",
     "getInvolved": "شارك معنا",
@@ -175,6 +176,11 @@
       "title": "الفعاليات",
       "description": "مؤتمرات وورش عمل وفعاليات العمل المناخي في جميع أنحاء المنطقة.",
       "view": "عرض الفعاليات"
+    },
+    "programs": {
+      "title": "البرامج",
+      "description": "برامج بناء قدرات وزمالات ومبادرات مصمّمة لشباب المنطقة.",
+      "view": "استكشف البرامج"
     }
   },
   "impact": {
@@ -300,7 +306,10 @@
     "impactSectionEyebrow": "أثرنا",
     "impactSectionHeading": "أثر يتجاوز",
     "impactSectionHeadingItalic": "الأرقام",
-    "impactSectionSubhead": "من أول قمة إلى مجتمع نابض بالحياة عبر 22 دولة، هذه رحلتنا حتى الآن."
+    "impactSectionSubhead": "من أول قمة إلى مجتمع نابض بالحياة عبر 22 دولة، هذه رحلتنا حتى الآن.",
+    "galleryEyebrow": "من حياتنا",
+    "galleryHeading": "لحظات من",
+    "galleryHeadingItalic": "رحلتنا"
   },
   "impactPage": {
     "heroEyebrow": "الأثر والقصص",
@@ -584,6 +593,14 @@
     "themeUrban": "العمران",
     "themeOceans": "المحيطات",
     "themeYouth": "الشباب"
+  },
+  "programsPage": {
+    "eyebrow": "البرامج",
+    "heading": "برامجنا",
+    "headingItalic": "",
+    "subhead": "برامج بناء قدرات وزمالات ومبادرات مصمّمة لشباب منطقة الشرق الأوسط وشمال أفريقيا.",
+    "learnMore": "اعرف أكثر",
+    "comingSoon": "البرامج قادمة قريباً"
   },
   "eventsPage": {
     "eyebrow": "محور المنظومة",
