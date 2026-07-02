@@ -24,6 +24,7 @@ const schema = z.object({
   description: z.string().min(1, 'Required'),
   link: z.string().url('Must be a valid URL'),
   logo: z.string().optional().nullable(),
+  image: z.string().optional().nullable(),
   featured: z.boolean(),
   stipend: z.boolean(),
   funded: z.boolean(),
@@ -45,6 +46,7 @@ interface Row {
   description: string
   link: string
   logo: string | null
+  image: string | null
   featured: boolean
   stipend: boolean
   funded: boolean
@@ -89,6 +91,7 @@ export function OpportunityForm({ row }: Props) {
           description: row.description,
           link: row.link,
           logo: row.logo ?? '',
+          image: row.image ?? '',
           featured: row.featured,
           stipend: row.stipend,
           funded: row.funded,
@@ -106,6 +109,7 @@ export function OpportunityForm({ row }: Props) {
           description: '',
           link: '',
           logo: '',
+          image: '',
           featured: false,
           stipend: false,
           funded: false,
@@ -140,6 +144,7 @@ export function OpportunityForm({ row }: Props) {
         description: data.description,
         link: data.link,
         logo: data.logo || null,
+        image: data.image || null,
         featured: data.featured,
         stipend: data.stipend,
         funded: data.funded,
@@ -232,6 +237,17 @@ export function OpportunityForm({ row }: Props) {
       <Field label="Link *" error={errors.link?.message}>
         <input {...register('link')} type="url" className={inputCls} />
       </Field>
+
+      <div className="flex flex-col gap-1.5">
+        <ImageUpload
+          value={watch('image') ?? undefined}
+          onChange={(url) => setValue('image', url, { shouldValidate: true })}
+          folder="opportunities"
+          label="صورة الغلاف / البانر"
+          recommended="1200 × 480 بكسل"
+        />
+        {errors.image && <p className="text-xs text-red-600">{errors.image.message}</p>}
+      </div>
 
       <div className="flex flex-col gap-1.5">
         <ImageUpload

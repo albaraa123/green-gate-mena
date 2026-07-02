@@ -125,10 +125,14 @@ export function HeroSection({ heroImage }: Props) {
               transition={{ duration: 0.5, delay: 0.28 }}
               className="flex flex-wrap justify-center lg:justify-start gap-3"
             >
-              <Button size="lg" asChild>
+              <Button
+                size="lg"
+                asChild
+                className="text-base sm:text-lg px-8 py-4 h-auto shadow-lg shadow-teal-700/20 hover:scale-[1.03] transition-transform"
+              >
                 <Link href="/ecosystem/opportunities">
                   {t('cta1')}
-                  <ArrowRight className="ms-1.5 h-4 w-4 rtl:rotate-180" />
+                  <ArrowRight className="ms-2 h-5 w-5 rtl:rotate-180" />
                 </Link>
               </Button>
               <Button

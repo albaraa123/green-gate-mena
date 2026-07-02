@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Leaf, Globe, Users, BookOpen, ArrowRight } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'About Us',
   description:
-    'Green Gate MENA is a youth-led platform connecting climate changemakers, NGOs, consultants, and businesses across 22 Arab countries.',
+    'Green Gate MENA is a youth-led platform connecting climate changemakers, NGOs, consultants, and businesses across 22 MENA countries.',
 }
 import { Link } from '@/i18n/navigation'
 import { Container } from '@/components/ui/Container'
@@ -28,6 +29,11 @@ export default async function AboutPage({ params }: Props) {
   const [team, allPartners] = await Promise.all([getTeam(), getPartners()])
   const strategic = allPartners.filter((p) => p.tier === 'strategic' || p.tier === 'program')
 
+  // Find the founder's photo from the team (matches by role or name).
+  const founder = team.find(
+    (m) => /founder|ceo|مؤسس|تنفيذ/i.test(`${m.role} ${m.roleAr ?? ''}`) || /islem|إسلام/i.test(m.name)
+  )
+
   const values = [
     { icon: Leaf, title: t('value1Title'), description: t('value1Desc') },
     { icon: Globe, title: t('value2Title'), description: t('value2Desc') },
@@ -38,9 +44,59 @@ export default async function AboutPage({ params }: Props) {
   return (
     <main id="main-content">
 
+      {/* Our Story */}
+      <section className="section-padding bg-paper pt-28">
+        <Container>
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="eyebrow mb-4">{t('storyEyebrow')}</p>
+            <h1 className="font-display text-display-lg text-teal-800 text-balance leading-tight">
+              {t('storyHeading')}{' '}
+              <em className="not-italic italic text-teal-600">{t('storyHeadingItalic')}</em>
+            </h1>
+            <div className="mt-8 flex flex-col gap-5 text-start">
+              <p className="text-ink-soft leading-relaxed text-lg">{t('storyP1')}</p>
+              <p className="text-ink-soft leading-relaxed text-lg">{t('storyP2')}</p>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Our Founder */}
+      <section className="section-padding bg-paper-warm grain-overlay">
+        <Container>
+          <div className="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-10 lg:gap-14 items-center max-w-4xl mx-auto">
+            {/* Photo */}
+            <div className="relative mx-auto lg:mx-0 w-full max-w-[340px] overflow-hidden rounded-2xl bg-teal-50" style={{ aspectRatio: '3/4' }}>
+              {founder?.avatar ? (
+                <Image
+                  src={founder.avatar}
+                  alt={t('founderName')}
+                  fill
+                  sizes="340px"
+                  className="object-cover object-center"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center">
+                  <span className="font-display text-7xl font-bold text-teal-300">
+                    {t('founderName').charAt(0)}
+                  </span>
+                </div>
+              )}
+            </div>
+            {/* Bio */}
+            <div className="flex flex-col gap-4 text-center lg:text-start">
+              <p className="eyebrow">{t('founderEyebrow')}</p>
+              <h2 className="font-display text-3xl font-semibold text-teal-800">{t('founderName')}</h2>
+              <p className="text-teal-600 font-medium">{t('founderRole')}</p>
+              <p className="text-ink-soft leading-relaxed mt-2">{t('founderBio')}</p>
+            </div>
+          </div>
+        </Container>
+      </section>
+
       {/* Team */}
       {team.length > 0 && (
-        <section className="section-padding bg-paper pt-28">
+        <section className="section-padding bg-paper">
           <Container>
             <div className="text-center mb-14">
               <p className="eyebrow mb-4">{t('teamEyebrow')}</p>
@@ -69,22 +125,20 @@ export default async function AboutPage({ params }: Props) {
         </section>
       )}
 
-      {/* Mission */}
-      <section className="section-padding bg-paper">
+      {/* Our Impact */}
+      <section className="section-padding bg-paper-warm grain-overlay">
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div className="flex flex-col gap-6">
-              <p className="eyebrow">{t('missionEyebrow')}</p>
+              <p className="eyebrow">{t('impactSectionEyebrow')}</p>
               <h2 className="font-display text-display-lg text-teal-800 text-balance">
-                {t('missionHeadingPre')}{' '}
-                <em className="not-italic italic text-teal-600">{t('missionHeadingItalic')}</em>{' '}
-                {t('missionHeadingPost')}
+                {t('impactSectionHeading')}{' '}
+                <em className="not-italic italic text-teal-600">{t('impactSectionHeadingItalic')}</em>
               </h2>
-              <p className="text-ink-soft leading-relaxed">{t('missionP1')}</p>
-              <p className="text-ink-soft leading-relaxed">{t('missionP2')}</p>
-              <Button asChild>
+              <p className="text-ink-soft leading-relaxed text-lg">{t('impactSectionSubhead')}</p>
+              <Button asChild className="self-start">
                 <Link href="/get-involved/youth">
-                  {t('missionCta')} <ArrowRight className="ms-2 h-4 w-4" />
+                  {t('missionCta')} <ArrowRight className="ms-2 h-4 w-4 rtl:rotate-180" />
                 </Link>
               </Button>
             </div>
@@ -114,7 +168,7 @@ export default async function AboutPage({ params }: Props) {
       </section>
 
       {/* Values */}
-      <section className="section-padding bg-paper-warm grain-overlay">
+      <section className="section-padding bg-paper">
         <Container>
           <div className="text-center mb-12">
             <p className="eyebrow mb-4">{t('valuesEyebrow')}</p>

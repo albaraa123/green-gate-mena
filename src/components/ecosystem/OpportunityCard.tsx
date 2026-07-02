@@ -54,7 +54,21 @@ export function OpportunityCard({ opportunity: opp, locale = 'en' }: Props) {
   const stipendLabel = isAr ? 'مكافأة مالية' : 'Stipend'
 
   return (
-    <article className="group flex flex-col gap-4 rounded-2xl bg-white border border-sand-200 p-5 hover:border-teal-200 hover:shadow-md transition-all">
+    <article className="group flex flex-col rounded-2xl bg-white border border-sand-200 overflow-hidden hover:border-teal-200 hover:shadow-md transition-all">
+      {/* Cover banner */}
+      {opp.image && (
+        <div className="relative h-40 w-full overflow-hidden bg-teal-50">
+          <Image
+            src={opp.image}
+            alt={opp.title}
+            fill
+            sizes="(max-width: 768px) 100vw, 400px"
+            className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+          />
+        </div>
+      )}
+
+      <div className="flex flex-col gap-4 p-5">
       {/* Header row */}
       <div className="flex items-start justify-between gap-3">
         <div className="flex flex-wrap gap-2">
@@ -131,6 +145,7 @@ export function OpportunityCard({ opportunity: opp, locale = 'en' }: Props) {
         >
           {detailsLabel} <ExternalLink className="h-3 w-3" />
         </Link>
+      </div>
       </div>
     </article>
   )

@@ -41,6 +41,7 @@ export interface Opportunity {
   description: string
   link: string
   logo?: string
+  image?: string
   featured?: boolean
   tags?: string[]
   stipend?: boolean

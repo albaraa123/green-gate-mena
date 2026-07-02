@@ -100,8 +100,8 @@ export default async function HomePage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
       <HeroSection heroImage={heroImage ?? undefined} />
-      <ServicesSection />
       <EcosystemPreview />
+      <ServicesSection />
       <ImpactSection />
       <StoriesSection />
       <PartnersSection />
