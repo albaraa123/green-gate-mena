@@ -82,11 +82,11 @@ export function HeroSection({ heroImage }: Props) {
         </div>
       )}
 
-      <Container className="relative z-10 py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+      <Container className="relative z-10 py-16 sm:py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-8 items-center">
 
           {/* Text column */}
-          <div className="flex flex-col gap-7 text-center lg:text-start">
+          <div className="flex flex-col gap-6 sm:gap-7 text-center lg:text-start">
 
             {/* H1 */}
             <motion.h1
@@ -123,12 +123,12 @@ export function HeroSection({ heroImage }: Props) {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.28 }}
-              className="flex flex-wrap justify-center lg:justify-start gap-3"
+              className="flex flex-col sm:flex-row flex-wrap justify-center lg:justify-start gap-3 w-full sm:w-auto"
             >
               <Button
                 size="lg"
                 asChild
-                className="text-base sm:text-lg px-8 py-4 h-auto shadow-lg shadow-teal-700/20 hover:scale-[1.03] transition-transform"
+                className="w-full sm:w-auto text-base sm:text-lg px-8 py-4 h-auto shadow-lg shadow-teal-700/20 hover:scale-[1.03] transition-transform"
               >
                 <Link href="/ecosystem/opportunities">
                   {t('cta1')}
@@ -139,7 +139,7 @@ export function HeroSection({ heroImage }: Props) {
                 size="lg"
                 variant="outline"
                 asChild
-                className={heroImage ? 'border-white/40 text-white hover:bg-white/10 hover:border-white/60' : ''}
+                className={['w-full sm:w-auto', heroImage ? 'border-white/40 text-white hover:bg-white/10 hover:border-white/60' : ''].join(' ')}
               >
                 <Link href="/get-involved">{t('cta2')}</Link>
               </Button>

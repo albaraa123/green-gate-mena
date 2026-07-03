@@ -143,8 +143,8 @@ export default async function AboutPage({ params }: Props) {
                   key={img.id}
                   className={[
                     'relative overflow-hidden rounded-2xl bg-teal-50 group',
-                    // Make some images span 2 rows for a dynamic masonry feel
-                    i % 6 === 0 ? 'row-span-2 aspect-[3/4]' : 'aspect-[3/2]',
+                    // On mobile keep uniform; add masonry spanning only on md+
+                    i % 6 === 0 ? 'aspect-[3/2] md:row-span-2 md:aspect-[3/4]' : 'aspect-[3/2]',
                   ].join(' ')}
                 >
                   <Image
