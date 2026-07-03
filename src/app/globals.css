@@ -95,6 +95,27 @@
   .eyebrow {
     @apply font-mono text-eyebrow uppercase tracking-widest text-teal-700;
   }
+  /* Arabic: mono/uppercase/wide-tracking mangle Arabic script — use the
+     Arabic display font, normal casing, and tight letter spacing instead. */
+  [dir='rtl'] .eyebrow {
+    @apply font-arabic normal-case tracking-normal font-semibold;
+  }
+
+  /* Arabic script must never be uppercased (no effect) or letter-spaced
+     (breaks the connected letterforms). Neutralize both globally in RTL,
+     and swap the monospace font for the Arabic UI font. Digits/latin inside
+     an explicit .font-mono still render mono via the fallback stack. */
+  [dir='rtl'] .uppercase {
+    text-transform: none;
+  }
+  [dir='rtl'] .tracking-wide,
+  [dir='rtl'] .tracking-wider,
+  [dir='rtl'] .tracking-widest {
+    letter-spacing: 0;
+  }
+  [dir='rtl'] .font-mono {
+    font-family: var(--font-thmanyah), ui-monospace, monospace;
+  }
 
   /* Smooth color transitions */
   .transition-colors-smooth {
