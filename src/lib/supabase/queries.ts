@@ -290,6 +290,20 @@ export async function getPrograms(): Promise<Program[]> {
   return (data ?? []).map(mapProgram)
 }
 
+export async function getProgramBySlug(slug: string): Promise<Program | null> {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('programs')
+    .select('*')
+    .eq('slug', slug)
+    .maybeSingle()
+  if (error) {
+    console.error('[getProgramBySlug]', error.message)
+    return null
+  }
+  return data ? mapProgram(data as Record<string, unknown>) : null
+}
+
 function mapProgram(row: Record<string, unknown>): Program {
   const { title_ar, description_ar, sort_order, ...rest } = row
   return {

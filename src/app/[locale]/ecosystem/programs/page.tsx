@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { ExternalLink } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
+import { Link } from '@/i18n/navigation'
 import { Container } from '@/components/ui/Container'
 import { getPrograms } from '@/lib/supabase/queries'
 
@@ -73,14 +74,12 @@ export default async function ProgramsPage({ params }: Props) {
                       <p className="text-sm text-ink-soft leading-relaxed line-clamp-3 flex-1">
                         {description}
                       </p>
-                      <a
-                        href={program.link || '#'}
-                        target={program.link ? '_blank' : undefined}
-                        rel={program.link ? 'noopener noreferrer' : undefined}
+                      <Link
+                        href={`/ecosystem/programs/${program.slug}`}
                         className="flex items-center gap-1 text-xs font-semibold text-teal-700 hover:text-teal-800 transition-colors pt-2 border-t border-sand-100"
                       >
-                        {t('learnMore')} <ExternalLink className="h-3 w-3" />
-                      </a>
+                        {t('learnMore')} <ArrowRight className="h-3 w-3 rtl:rotate-180" />
+                      </Link>
                     </div>
                   </article>
                 )

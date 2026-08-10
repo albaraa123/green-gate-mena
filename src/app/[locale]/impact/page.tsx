@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Quote, ArrowRight } from 'lucide-react'
 
@@ -126,12 +127,21 @@ export default async function ImpactPage({ params }: Props) {
                   <footer className="flex items-center gap-3">
                     <div
                       className={[
-                        'h-10 w-10 rounded-full shrink-0 flex items-center justify-center font-display text-sm font-semibold',
+                        'relative h-11 w-11 rounded-full shrink-0 overflow-hidden flex items-center justify-center font-display text-sm font-semibold',
                         dark ? 'bg-teal-700 text-white' : 'bg-teal-100 text-teal-700',
                       ].join(' ')}
-                      aria-hidden
                     >
-                      {story.name.charAt(0)}
+                      {story.avatar ? (
+                        <Image
+                          src={story.avatar}
+                          alt={story.name}
+                          fill
+                          sizes="44px"
+                          className="object-cover object-center"
+                        />
+                      ) : (
+                        story.name.charAt(0)
+                      )}
                     </div>
                     <div>
                       <p className={['font-semibold text-sm', dark ? 'text-white' : 'text-ink'].join(' ')}>
