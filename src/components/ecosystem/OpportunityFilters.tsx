@@ -67,10 +67,6 @@ export function OpportunityFilters({ total, filtered }: Props) {
     router.push(`${pathname}?${params.toString()}`)
   }
 
-  function toggle(key: string, current: string, value: string) {
-    update(key, current === value ? '' : value)
-  }
-
   function clearAll() {
     router.push(pathname)
   }
@@ -95,45 +91,49 @@ export function OpportunityFilters({ total, filtered }: Props) {
         )}
       </div>
 
-      {/* Filter pills row */}
+      {/* Filter dropdowns row */}
       <div className="flex flex-wrap gap-3">
         {/* Type */}
-        <div className="flex flex-wrap gap-1.5">
+        <select
+          value={activeType}
+          onChange={(e) => update('type', e.target.value)}
+          className="border border-sand-200 rounded-lg px-3 py-2 text-sm bg-white text-ink focus:outline-none focus:ring-2 focus:ring-teal-500"
+        >
+          <option value="">{t('allTypes')}</option>
           {TYPES.map((type) => (
-            <button
-              key={type}
-              onClick={() => toggle('type', activeType, type)}
-              className={[
-                'rounded-full px-3 py-1 text-xs font-medium border transition-colors',
-                activeType === type
-                  ? 'bg-teal-700 text-white border-teal-700'
-                  : 'bg-white text-ink-soft border-sand-200 hover:border-teal-300 hover:text-teal-700',
-              ].join(' ')}
-            >
+            <option key={type} value={type}>
               {t(TYPE_KEYS[type])}
-            </button>
+            </option>
           ))}
-        </div>
-
-        <div className="w-px bg-sand-200 self-stretch" aria-hidden />
+        </select>
 
         {/* Format */}
-        {FORMATS.map((fmt) => (
-          <button
-            key={fmt}
-            onClick={() => toggle('format', activeFormat, fmt)}
-            className={[
-              'rounded-full px-3 py-1 text-xs font-medium border transition-colors',
-              activeFormat === fmt
-                ? 'bg-teal-700 text-white border-teal-700'
-                : 'bg-white text-ink-soft border-sand-200 hover:border-teal-300 hover:text-teal-700',
-            ].join(' ')}
-          >
-            {t(FORMAT_KEYS[fmt])}
-          </button>
-        ))}
+        <select
+          value={activeFormat}
+          onChange={(e) => update('format', e.target.value)}
+          className="border border-sand-200 rounded-lg px-3 py-2 text-sm bg-white text-ink focus:outline-none focus:ring-2 focus:ring-teal-500"
+        >
+          <option value="">{t('allFormats')}</option>
+          {FORMATS.map((fmt) => (
+            <option key={fmt} value={fmt}>
+              {t(FORMAT_KEYS[fmt])}
+            </option>
+          ))}
+        </select>
 
-        <div className="w-px bg-sand-200 self-stretch" aria-hidden />
+        {/* Theme */}
+        <select
+          value={activeTheme}
+          onChange={(e) => update('theme', e.target.value)}
+          className="border border-sand-200 rounded-lg px-3 py-2 text-sm bg-white text-ink focus:outline-none focus:ring-2 focus:ring-teal-500"
+        >
+          <option value="">{t('allThemes')}</option>
+          {THEMES.map((theme) => (
+            <option key={theme} value={theme}>
+              {t(THEME_KEYS[theme])}
+            </option>
+          ))}
+        </select>
 
         {/* Funded toggle */}
         <button
@@ -147,25 +147,6 @@ export function OpportunityFilters({ total, filtered }: Props) {
         >
           {t('filterFundedOnly')}
         </button>
-      </div>
-
-      {/* Theme chips */}
-      <div className="flex flex-wrap gap-1.5">
-        <span className="text-xs text-ink-soft/60 self-center me-1">{t('filterThemeLabel')}:</span>
-        {THEMES.map((theme) => (
-          <button
-            key={theme}
-            onClick={() => toggle('theme', activeTheme, theme)}
-            className={[
-              'rounded-full px-2.5 py-0.5 text-xs font-medium border transition-colors',
-              activeTheme === theme
-                ? 'bg-teal-100 text-teal-800 border-teal-300'
-                : 'bg-white text-ink-soft/70 border-sand-100 hover:border-teal-200 hover:text-teal-700',
-            ].join(' ')}
-          >
-            {t(THEME_KEYS[theme])}
-          </button>
-        ))}
       </div>
     </div>
   )

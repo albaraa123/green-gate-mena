@@ -24,7 +24,7 @@ export const impactStats: ImpactStat[] = [
     descriptionAr: 'أعضاء نشطون في 22 دولة عربية',
   },
   {
-    value: '40K+',
+    value: '50K+',
     label: 'Social Media Followers',
     labelAr: 'متابع على التواصل الاجتماعي',
     description: 'Engaged community across Instagram, LinkedIn, and X',

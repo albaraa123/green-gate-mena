@@ -12,7 +12,7 @@ import { Container } from '@/components/ui/Container'
 import { Button } from '@/components/ui/Button'
 import { AnimatedCounter } from '@/components/ui/AnimatedCounter'
 import { getStories, getPartners } from '@/lib/supabase/queries'
-import { impactStats, impactTimeline } from '@/data/stats'
+import { impactStats } from '@/data/stats'
 import { getCountryName } from '@/data/countries'
 
 interface Props {
@@ -149,41 +149,6 @@ export default async function ImpactPage({ params }: Props) {
         </Container>
       </section>
       )}
-
-      {/* Timeline */}
-      <section className="section-padding bg-paper-warm grain-overlay">
-        <Container>
-          <div className="text-center mb-12">
-            <p className="eyebrow mb-4">{t('journeyEyebrow')}</p>
-            <h2 className="font-display text-display-lg text-teal-800 text-balance">
-              {t('journeyHeadingPre')}{' '}
-              <em className="not-italic italic text-teal-700">{t('journeyHeadingItalic')}</em>
-            </h2>
-          </div>
-          <div className="relative max-w-3xl mx-auto">
-            <div className="absolute start-6 top-0 bottom-0 w-px bg-teal-200 hidden md:block" aria-hidden />
-            <div className="flex flex-col gap-10">
-              {impactTimeline.map((entry) => (
-                <div key={entry.year} className="md:flex md:gap-10 md:items-start">
-                  <div className="hidden md:flex items-center gap-4 shrink-0 w-32">
-                    <div className="h-3 w-3 rounded-full bg-teal-700 border-2 border-paper-warm shrink-0 ms-4" />
-                    <span className="font-mono text-sm font-semibold text-teal-700">{entry.year}</span>
-                  </div>
-                  <div className="rounded-2xl bg-white border border-sand-200 p-5 flex flex-col gap-2 flex-1">
-                    <span className="font-mono text-xs font-semibold text-teal-600 md:hidden">{entry.year}</span>
-                    <h3 className="font-display text-base font-semibold text-ink">
-                      {isAr ? (entry.titleAr ?? entry.title) : entry.title}
-                    </h3>
-                    <p className="text-sm text-ink-soft leading-relaxed">
-                      {isAr ? (entry.descriptionAr ?? entry.description) : entry.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </Container>
-      </section>
 
       {/* Partners */}
       {strategic.length > 0 && (

@@ -205,6 +205,20 @@ export async function getDirectoryProfiles(filters?: {
   return (data ?? []) as unknown as DirectoryProfile[]
 }
 
+export async function getProfileBySlug(slug: string): Promise<DirectoryProfile | null> {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('directory_profiles')
+    .select('*')
+    .eq('slug', slug)
+    .maybeSingle()
+  if (error) {
+    console.error('[getProfileBySlug]', error.message)
+    return null
+  }
+  return data ? (data as unknown as DirectoryProfile) : null
+}
+
 // ── Partners ──────────────────────────────────────────────────────────────────
 
 export async function getPartners(): Promise<Partner[]> {

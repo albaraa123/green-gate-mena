@@ -40,7 +40,7 @@ const config: Config = {
         arabic: ['var(--font-thmanyah)', 'sans-serif'],
       },
       fontSize: {
-        'display-xl': ['clamp(2.6rem, 7vw, 6rem)', { lineHeight: '1.05', letterSpacing: '-0.015em' }],
+        'display-xl': ['clamp(2.2rem, 5vw, 4.2rem)', { lineHeight: '1.1', letterSpacing: '-0.015em' }],
         'display-lg': ['clamp(2.5rem, 5vw, 3.9rem)', { lineHeight: '1.15' }],
         'display-md': ['clamp(1.7rem, 3vw, 2.3rem)', { lineHeight: '1.25' }],
         eyebrow: ['0.95rem', { lineHeight: '1.2', letterSpacing: '0.14em' }],
