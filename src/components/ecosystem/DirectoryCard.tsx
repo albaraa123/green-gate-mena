@@ -38,14 +38,19 @@ export function DirectoryCard({ profile: p, locale = 'en' }: Props) {
     <article className="flex flex-col gap-4 rounded-2xl bg-white border border-sand-200 p-5 hover:border-teal-200 hover:shadow-md transition-all">
       {/* Header */}
       <div className="flex items-start justify-between gap-3">
-        <div className="h-11 w-11 rounded-xl bg-teal-100 flex items-center justify-center font-display text-lg font-semibold text-teal-700 shrink-0 overflow-hidden relative">
+        <div
+          className={[
+            'h-14 w-14 rounded-xl flex items-center justify-center font-display text-lg font-semibold text-teal-700 shrink-0 overflow-hidden relative border',
+            p.logo ? 'bg-white border-sand-200' : 'bg-teal-100 border-transparent',
+          ].join(' ')}
+        >
           {p.logo ? (
             <Image
               src={p.logo}
               alt={p.name}
               fill
-              sizes="44px"
-              className="object-contain p-1"
+              sizes="56px"
+              className="object-contain p-1.5"
             />
           ) : (
             p.name.charAt(0)
