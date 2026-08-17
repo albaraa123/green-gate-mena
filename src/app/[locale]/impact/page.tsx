@@ -12,7 +12,8 @@ import { Link } from '@/i18n/navigation'
 import { Container } from '@/components/ui/Container'
 import { Button } from '@/components/ui/Button'
 import { AnimatedCounter } from '@/components/ui/AnimatedCounter'
-import { getStories, getPartners } from '@/lib/supabase/queries'
+import { getStories, getPartners, getImpactHighlights } from '@/lib/supabase/queries'
+import { ImpactHighlights } from '@/components/impact/ImpactHighlights'
 import { impactStats } from '@/data/stats'
 import { getCountryName } from '@/data/countries'
 
@@ -26,7 +27,11 @@ export default async function ImpactPage({ params }: Props) {
   const t = await getTranslations('impactPage')
   const isAr = locale === 'ar'
 
-  const [stories, allPartners] = await Promise.all([getStories(), getPartners()])
+  const [stories, allPartners, highlights] = await Promise.all([
+    getStories(),
+    getPartners(),
+    getImpactHighlights(),
+  ])
   const strategic = allPartners.filter((p) => p.tier === 'strategic' || p.tier === 'program')
 
   return (
@@ -82,6 +87,22 @@ export default async function ImpactPage({ params }: Props) {
           </dl>
         </Container>
       </section>
+
+      {/* Impact highlights (ChangeNOW-style masonry) */}
+      {highlights.length > 0 && (
+        <section className="section-padding bg-paper">
+          <Container>
+            <div className="mb-12 max-w-2xl">
+              <p className="eyebrow mb-4">{t('highlightsEyebrow')}</p>
+              <h2 className="font-display text-display-lg text-teal-800 text-balance">
+                {t('highlightsHeadingPre')}{' '}
+                <em className="not-italic italic text-orange-500">{t('highlightsHeadingItalic')}</em>
+              </h2>
+            </div>
+            <ImpactHighlights highlights={highlights} />
+          </Container>
+        </section>
+      )}
 
       {/* Stories */}
       {stories.length > 0 && (

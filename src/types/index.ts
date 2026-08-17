@@ -157,6 +157,19 @@ export interface ImpactStat {
   descriptionAr?: string
 }
 
+// A ChangeNOW-style impact highlight: big colored headline + body + partner logos.
+export interface ImpactHighlight {
+  id: string
+  title: string
+  titleAr?: string
+  body: string
+  bodyAr?: string
+  accent?: 'teal' | 'orange' | 'lime'
+  logos?: string[]
+  link?: string
+  sortOrder?: number
+}
+
 // ─── Partners ────────────────────────────────────────────────────────────────
 
 export type PartnerTier = 'strategic' | 'program' | 'media' | 'community'

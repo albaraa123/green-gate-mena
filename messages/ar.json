@@ -79,7 +79,8 @@
     "theme": "المحور",
     "deadline": "آخر موعد",
     "applyNow": "تقدّم الآن",
-    "getStarted": "ابدأ الآن"
+    "getStarted": "ابدأ الآن",
+    "readLess": "عرض أقل"
   },
   "hero": {
     "eyebrow": "نخدم الآن 22 دولة في المنطقة",
@@ -329,7 +330,10 @@
     "ctaSubhead": "انضم إلى مجتمع متنامٍ من شباب منطقة الشرق الأوسط وشمال أفريقيا والمنظمات والقادة الذين يبنون مستقبل منطقة الشرق الأوسط وشمال أفريقيا الأخضر، فرصةً تلو فرصة.",
     "ctaExplore": "استكشف الفرص",
     "ctaJoin": "انضم إلى المجتمع",
-    "via": "عبر"
+    "via": "عبر",
+    "highlightsEyebrow": "محطات",
+    "highlightsHeadingPre": "أثرٌ",
+    "highlightsHeadingItalic": "صنعناه"
   },
   "servicesYouth": {
     "heroEyebrow": "الخدمات · للشباب",

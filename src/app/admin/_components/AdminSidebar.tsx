@@ -16,6 +16,7 @@ const NAV = [
   { href: '/admin/team', label: 'Team' },
   { href: '/admin/gallery', label: 'Gallery' },
   { href: '/admin/stories', label: 'Stories' },
+  { href: '/admin/impact-highlights', label: 'Impact Highlights' },
   { href: '/admin/applications', label: 'Applications' },
   { href: '/admin/settings', label: 'Settings' },
   { href: '/admin/newsletter', label: 'Newsletter' },

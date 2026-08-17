@@ -9,6 +9,7 @@ import type {
   Story,
   Program,
   Service,
+  ImpactHighlight,
 } from '@/types'
 
 // ── Opportunities ─────────────────────────────────────────────────────────────
@@ -339,6 +340,32 @@ function mapService(row: Record<string, unknown>): Service {
     descriptionAr: description_ar,
     sortOrder: sort_order,
   } as unknown as Service
+}
+
+// ── Impact Highlights ─────────────────────────────────────────────────────────
+
+export async function getImpactHighlights(): Promise<ImpactHighlight[]> {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('impact_highlights')
+    .select('*')
+    .order('sort_order', { ascending: true })
+    .order('created_at', { ascending: true })
+  if (error) {
+    console.error('[getImpactHighlights]', error.message)
+    return []
+  }
+  return (data ?? []).map(mapImpactHighlight)
+}
+
+function mapImpactHighlight(row: Record<string, unknown>): ImpactHighlight {
+  const { title_ar, body_ar, sort_order, ...rest } = row
+  return {
+    ...rest,
+    titleAr: title_ar,
+    bodyAr: body_ar,
+    sortOrder: sort_order,
+  } as unknown as ImpactHighlight
 }
 
 // ── Site Settings ─────────────────────────────────────────────────────────────

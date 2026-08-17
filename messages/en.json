@@ -79,7 +79,8 @@
     "theme": "Theme",
     "deadline": "Deadline",
     "applyNow": "Apply Now",
-    "getStarted": "Get started"
+    "getStarted": "Get started",
+    "readLess": "Read Less"
   },
   "hero": {
     "eyebrow": "Now serving 22 countries across the region",
@@ -329,7 +330,10 @@
     "ctaSubhead": "Join a growing community of MENA youth, organizations, and leaders building the green future of the MENA region — one opportunity at a time.",
     "ctaExplore": "Explore Opportunities",
     "ctaJoin": "Join the Community",
-    "via": "via"
+    "via": "via",
+    "highlightsEyebrow": "Milestones",
+    "highlightsHeadingPre": "Impact we",
+    "highlightsHeadingItalic": "made happen"
   },
   "servicesYouth": {
     "heroEyebrow": "Services · For Youth",
