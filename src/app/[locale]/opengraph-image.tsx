@@ -1,6 +1,5 @@
 import { ImageResponse } from 'next/og'
 
-export const runtime = 'edge'
 export const alt = 'Green Gate — MENA\'s Gate to Environmental Services'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
@@ -22,23 +21,17 @@ export default function OpengraphImage() {
           fontFamily: 'sans-serif',
         }}
       >
-        {/* leaf mark */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '18px', marginBottom: '32px' }}>
+        {/* brand mark — a lime rounded square, no emoji (edge-safe) */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '32px' }}>
           <div
             style={{
-              width: '64px',
-              height: '64px',
+              width: '60px',
+              height: '60px',
               borderRadius: '18px',
               background: '#c6e94a',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '38px',
             }}
-          >
-            🌿
-          </div>
-          <div style={{ fontSize: '34px', fontWeight: 700, letterSpacing: '-0.5px' }}>
+          />
+          <div style={{ fontSize: '36px', fontWeight: 700, letterSpacing: '-0.5px' }}>
             Green Gate
           </div>
         </div>
