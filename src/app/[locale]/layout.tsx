@@ -38,6 +38,14 @@ export const metadata: Metadata = {
     description:
       'Green Gate (بوابة خضراء) connects youth, NGOs, and institutions with climate and environmental opportunities across 22 Arab countries.',
     locale: 'en_US',
+    images: [
+      {
+        url: '/og.png',
+        width: 1200,
+        height: 630,
+        alt: 'Green Gate — MENA\'s Gate to Environmental Services',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
@@ -45,6 +53,7 @@ export const metadata: Metadata = {
     title: 'Green Gate MENA — Climate & Environment Gateway for MENA',
     description:
       'Green Gate MENA connects youth, NGOs, and institutions with climate and environmental opportunities across 22 MENA countries.',
+    images: ['/og.png'],
   },
   icons: {
     icon: [
