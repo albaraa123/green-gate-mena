@@ -3,10 +3,14 @@ import { Link } from '@/i18n/navigation'
 import { ReadMoreText } from '@/components/ui/ReadMoreText'
 import type { ImpactHighlight } from '@/types'
 
+// Brand-only accents — Green Gate's teal family. No off-brand colors.
 const ACCENT: Record<string, string> = {
   teal: 'text-teal-700',
-  orange: 'text-orange-500',
-  lime: 'text-lime-600',
+  deep: 'text-teal-800',
+  turquoise: 'text-teal-500',
+  // legacy values map back onto the brand palette
+  orange: 'text-teal-700',
+  lime: 'text-teal-500',
 }
 
 interface Props {

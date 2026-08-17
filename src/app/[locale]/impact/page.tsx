@@ -96,7 +96,7 @@ export default async function ImpactPage({ params }: Props) {
               <p className="eyebrow mb-4">{t('highlightsEyebrow')}</p>
               <h2 className="font-display text-display-lg text-teal-800 text-balance">
                 {t('highlightsHeadingPre')}{' '}
-                <em className="not-italic italic text-orange-500">{t('highlightsHeadingItalic')}</em>
+                <em className="not-italic italic text-teal-700">{t('highlightsHeadingItalic')}</em>
               </h2>
             </div>
             <ImpactHighlights highlights={highlights} />
