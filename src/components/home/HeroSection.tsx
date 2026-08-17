@@ -94,7 +94,7 @@ export function HeroSection({ heroImage }: Props) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.08 }}
               className={[
-                'font-display text-display-xl leading-[1.3] text-balance',
+                'font-display font-bold text-display-xl leading-[1.3] text-balance',
                 heroImage ? 'text-white' : 'text-ink',
               ].join(' ')}
             >

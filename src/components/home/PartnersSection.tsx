@@ -60,30 +60,42 @@ export async function PartnersSection() {
             </div>
           </div>
 
-          {/* Right — partner logo grid */}
+          {/* Right — partner logo grid (clickable → partner website) */}
           {strategic.length > 0 ? (
             <div className="grid grid-cols-3 gap-4">
-              {strategic.slice(0, 9).map((partner) => (
-                <div
-                  key={partner.id}
-                  className="relative flex items-center justify-center rounded-xl bg-white border border-sand-200 px-4 py-5 h-20 overflow-hidden"
-                  title={partner.name}
-                >
-                  {partner.logo ? (
-                    <Image
-                      src={partner.logo}
-                      alt={partner.name}
-                      fill
-                      sizes="(max-width: 768px) 33vw, 15vw"
-                      className="object-contain p-3"
-                    />
-                  ) : (
-                    <span className="text-xs font-mono text-ink-soft/60 text-center leading-tight">
-                      {partner.name}
-                    </span>
-                  )}
-                </div>
-              ))}
+              {strategic.slice(0, 9).map((partner) => {
+                const inner = partner.logo ? (
+                  <Image
+                    src={partner.logo}
+                    alt={partner.name}
+                    fill
+                    sizes="(max-width: 768px) 33vw, 15vw"
+                    className="object-contain p-3"
+                  />
+                ) : (
+                  <span className="text-xs font-mono text-ink-soft/60 text-center leading-tight">
+                    {partner.name}
+                  </span>
+                )
+                const cls =
+                  'relative flex items-center justify-center rounded-xl bg-white border border-sand-200 px-4 py-5 h-20 overflow-hidden transition-all hover:border-teal-300 hover:shadow-sm'
+                return partner.website ? (
+                  <a
+                    key={partner.id}
+                    href={partner.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={cls}
+                    title={partner.name}
+                  >
+                    {inner}
+                  </a>
+                ) : (
+                  <div key={partner.id} className={cls} title={partner.name}>
+                    {inner}
+                  </div>
+                )
+              })}
             </div>
           ) : (
             <div className="flex items-center justify-center rounded-2xl bg-teal-50 border border-teal-100 h-48">

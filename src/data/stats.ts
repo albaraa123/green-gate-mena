@@ -76,13 +76,6 @@ export const impactTimeline = [
     descriptionAr: 'جمعت أكثر من 180 مشاركًا من 22 دولة في واحدة من أبرز القمم الشبابية المناخية في المنطقة.',
   },
   {
-    year: '2025',
-    title: 'First 500 Community Members',
-    titleAr: 'أول 500 عضو في المجتمع',
-    description: 'Grew to 500+ active youth members across 15 MENA countries within the first year.',
-    descriptionAr: 'نمت المنصة لتصل إلى أكثر من 500 عضو شاب نشط من 15 دولة في منطقة الشرق الأوسط وشمال أفريقيا خلال السنة الأولى.',
-  },
-  {
     year: '2026',
     title: 'Official Platform Launch',
     titleAr: 'إطلاق المنصة الرسمية',

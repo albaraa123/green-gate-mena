@@ -103,55 +103,47 @@ export default async function ImpactPage({ params }: Props) {
                 <blockquote
                   key={story.id}
                   className={[
-                    'relative rounded-2xl p-6 flex flex-col gap-5',
-                    dark ? 'bg-teal-700 text-white' : 'bg-sand-100 border border-sand-200',
+                    'group relative rounded-2xl overflow-hidden flex flex-col',
+                    dark ? 'bg-teal-700 text-white' : 'bg-white border border-sand-200',
                   ].join(' ')}
                 >
-                  <Quote
-                    className={['h-8 w-8 shrink-0', dark ? 'text-lime/60' : 'text-teal-200'].join(' ')}
-                    aria-hidden
-                  />
-                  <p
-                    className={[
-                      'text-sm leading-relaxed flex-1',
-                      dark ? 'text-teal-100' : 'text-ink-soft',
-                    ].join(' ')}
-                  >
-                    &ldquo;{quote}&rdquo;
-                  </p>
-                  {story.opportunityTitle && (
-                    <p className={['text-xs font-mono', dark ? 'text-lime/60' : 'text-teal-600/60'].join(' ')}>
-                      {t('via')} {story.opportunityTitle}
+                  {/* Large prominent photo */}
+                  <div className="relative w-full aspect-[4/3] overflow-hidden bg-teal-50">
+                    {story.avatar ? (
+                      <Image
+                        src={story.avatar}
+                        alt={story.name}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 400px"
+                        className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <span className="font-display text-6xl font-bold text-teal-300">{story.name.charAt(0)}</span>
+                      </div>
+                    )}
+                    {/* Name overlay on the image */}
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent p-4 pt-10">
+                      <p className="font-display font-semibold text-white text-base leading-snug">{story.name}</p>
+                      <p className="text-xs text-white/80">{role} · {getCountryName(story.country, locale)}</p>
+                    </div>
+                  </div>
+
+                  {/* Quote */}
+                  <div className="p-6 flex flex-col gap-3 flex-1">
+                    <Quote
+                      className={['h-7 w-7 shrink-0', dark ? 'text-lime/60' : 'text-teal-200'].join(' ')}
+                      aria-hidden
+                    />
+                    <p className={['text-sm leading-relaxed flex-1', dark ? 'text-teal-100' : 'text-ink-soft'].join(' ')}>
+                      &ldquo;{quote}&rdquo;
                     </p>
-                  )}
-                  <footer className="flex items-center gap-3">
-                    <div
-                      className={[
-                        'relative h-11 w-11 rounded-full shrink-0 overflow-hidden flex items-center justify-center font-display text-sm font-semibold',
-                        dark ? 'bg-teal-700 text-white' : 'bg-teal-100 text-teal-700',
-                      ].join(' ')}
-                    >
-                      {story.avatar ? (
-                        <Image
-                          src={story.avatar}
-                          alt={story.name}
-                          fill
-                          sizes="44px"
-                          className="object-cover object-center"
-                        />
-                      ) : (
-                        story.name.charAt(0)
-                      )}
-                    </div>
-                    <div>
-                      <p className={['font-semibold text-sm', dark ? 'text-white' : 'text-ink'].join(' ')}>
-                        {story.name}
+                    {story.opportunityTitle && (
+                      <p className={['text-xs font-mono', dark ? 'text-lime/60' : 'text-teal-600/60'].join(' ')}>
+                        {t('via')} {story.opportunityTitle}
                       </p>
-                      <p className={['text-xs', dark ? 'text-teal-300/70' : 'text-ink-soft/70'].join(' ')}>
-                        {role} · {getCountryName(story.country, locale)}
-                      </p>
-                    </div>
-                  </footer>
+                    )}
+                  </div>
                 </blockquote>
               )
             })}
