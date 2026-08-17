@@ -29,7 +29,12 @@ export function ReadMoreText({
     return <p className={className}>{text}</p>
   }
 
-  const shown = expanded ? text : text.slice(0, limit).trimEnd() + '…'
+  // Cut at the last word boundary before the limit so we never split a word
+  // (important for Arabic, where a mid-word cut is especially jarring).
+  const rawCut = text.slice(0, limit)
+  const lastSpace = rawCut.lastIndexOf(' ')
+  const truncated = (lastSpace > limit * 0.6 ? rawCut.slice(0, lastSpace) : rawCut).trimEnd()
+  const shown = expanded ? text : truncated + '…'
 
   return (
     <p className={className}>

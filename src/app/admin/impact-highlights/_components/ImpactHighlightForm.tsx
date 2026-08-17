@@ -15,7 +15,7 @@ const schema = z.object({
   title_ar: z.string().optional().nullable(),
   body: z.string().min(1, 'Required'),
   body_ar: z.string().optional().nullable(),
-  accent: z.enum(['teal', 'deep', 'turquoise']),
+  accent: z.enum(['teal', 'deep', 'turquoise', 'lime']),
   link: z.string().url('Must be a valid URL').optional().or(z.literal('')),
   sort_order: z.string().optional(),
 })
@@ -63,8 +63,8 @@ export function ImpactHighlightForm({ row }: Props) {
           title_ar: row.title_ar ?? '',
           body: row.body,
           body_ar: row.body_ar ?? '',
-          accent: (['teal', 'deep', 'turquoise'].includes(row.accent ?? '')
-            ? (row.accent as 'teal' | 'deep' | 'turquoise')
+          accent: (['teal', 'deep', 'turquoise', 'lime'].includes(row.accent ?? '')
+            ? (row.accent as 'teal' | 'deep' | 'turquoise' | 'lime')
             : 'teal'),
           link: row.link ?? '',
           sort_order: row.sort_order != null ? String(row.sort_order) : '0',
@@ -131,11 +131,12 @@ export function ImpactHighlightForm({ row }: Props) {
         <textarea {...register('body_ar')} rows={5} dir="rtl" className={inputCls} />
       </Field>
 
-      <Field label="Accent color" error={errors.accent?.message}>
+      <Field label="Card style — نمط البطاقة" error={errors.accent?.message}>
         <select {...register('accent')} className={inputCls}>
-          <option value="teal">Teal — الأخضر المائي</option>
-          <option value="deep">Deep teal — الأخضر الداكن</option>
-          <option value="turquoise">Turquoise — الفيروزي</option>
+          <option value="teal">Soft teal — أخضر فاتح (خلفية فاتحة)</option>
+          <option value="deep">Solid teal — أخضر داكن (بطاقة معبّأة، نص أبيض)</option>
+          <option value="turquoise">White — أبيض بحدود</option>
+          <option value="lime">Lime — لايم فاتح (خلفية الهوية)</option>
         </select>
       </Field>
 
