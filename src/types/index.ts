@@ -120,6 +120,21 @@ export interface Program {
   sortOrder?: number
 }
 
+// ─── Services ─────────────────────────────────────────────────────────────────
+
+export interface Service {
+  id: string
+  slug: string
+  title: string
+  titleAr?: string
+  description: string
+  descriptionAr?: string
+  icon?: string
+  image?: string
+  link?: string
+  sortOrder?: number
+}
+
 // ─── Impact / Stories ─────────────────────────────────────────────────────────
 
 export interface Story {
