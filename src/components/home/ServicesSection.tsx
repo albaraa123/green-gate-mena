@@ -111,8 +111,8 @@ export async function ServicesSection() {
                   <Link
                     href={href}
                     className={[
-                      'group relative flex h-full flex-col gap-5 rounded-2xl border p-6 transition-all duration-200',
-                      'hover:shadow-md hover:-translate-y-0.5',
+                      'group relative flex h-full flex-col gap-5 rounded-2xl border p-6 transition-[transform,box-shadow,border-color] duration-300 ease-out',
+                      'hover:shadow-xl hover:-translate-y-1',
                       'bg-white border-sand-200 group-hover:border-teal-300',
                     ].join(' ')}
                   >

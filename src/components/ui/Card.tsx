@@ -13,7 +13,7 @@ export function Card({ children, className, hover = false, as: Tag = 'div' }: Ca
     <Tag
       className={cn(
         'rounded-2xl bg-white border border-sand-200 overflow-hidden',
-        hover && 'transition-shadow duration-200 hover:shadow-md hover:-translate-y-0.5',
+        hover && 'transition-[transform,box-shadow] duration-300 ease-out hover:shadow-xl hover:-translate-y-1',
         className
       )}
     >
