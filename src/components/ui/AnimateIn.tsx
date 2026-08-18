@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 
 const ease: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
@@ -19,19 +19,22 @@ export function AnimateIn({
   from = 'bottom',
   duration = 0.65,
 }: AnimateInProps) {
+  const reduced = useReducedMotion()
   const offset = 28
-  const initial = {
-    opacity: 0,
-    y: from === 'bottom' ? offset : from === 'top' ? -offset : 0,
-    x: from === 'left' ? -offset : from === 'right' ? offset : 0,
-  }
+  const initial = reduced
+    ? { opacity: 0 }
+    : {
+        opacity: 0,
+        y: from === 'bottom' ? offset : from === 'top' ? -offset : 0,
+        x: from === 'left' ? -offset : from === 'right' ? offset : 0,
+      }
 
   return (
     <motion.div
       initial={initial}
       whileInView={{ opacity: 1, y: 0, x: 0 }}
       viewport={{ once: true, amount: 0.12 }}
-      transition={{ duration, delay, ease }}
+      transition={{ duration: reduced ? 0.3 : duration, delay, ease }}
       className={className}
     >
       {children}
@@ -47,6 +50,7 @@ interface StaggerProps {
 }
 
 export function StaggerIn({ children, className, stagger = 0.1, delayStart = 0 }: StaggerProps) {
+  const reduced = useReducedMotion()
   return (
     <motion.div
       initial="hidden"
@@ -55,7 +59,10 @@ export function StaggerIn({ children, className, stagger = 0.1, delayStart = 0 }
       variants={{
         hidden: {},
         visible: {
-          transition: { staggerChildren: stagger, delayChildren: delayStart },
+          transition: {
+            staggerChildren: reduced ? 0 : stagger,
+            delayChildren: delayStart,
+          },
         },
       }}
       className={className}
@@ -72,11 +79,12 @@ export function StaggerItem({
   children: React.ReactNode
   className?: string
 }) {
+  const reduced = useReducedMotion()
   return (
     <motion.div
       variants={{
-        hidden: { opacity: 0, y: 24 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease } },
+        hidden: reduced ? { opacity: 0 } : { opacity: 0, y: 24 },
+        visible: { opacity: 1, y: 0, transition: { duration: reduced ? 0.3 : 0.55, ease } },
       }}
       className={className}
     >

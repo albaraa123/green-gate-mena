@@ -49,7 +49,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         className={cn(
           'inline-flex items-center justify-center rounded-lg font-body font-semibold',
-          'transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2',
+          'transition-[color,background-color,transform,box-shadow] duration-150 ease-out',
+          'hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.97]',
+          'focus-visible:outline-none focus-visible:ring-2',
           'focus-visible:ring-teal-700 focus-visible:ring-offset-2',
           'disabled:pointer-events-none disabled:opacity-50 select-none',
           variantClasses[variant],

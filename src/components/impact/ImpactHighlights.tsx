@@ -43,7 +43,7 @@ export async function ImpactHighlights({ highlights }: Props) {
         const logos = h.logos ?? []
 
         const card = (
-          <div className={`rounded-2xl p-7 h-full transition-shadow hover:shadow-md ${variant.card}`}>
+          <div className={`rounded-2xl p-7 h-full transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:shadow-xl ${variant.card}`}>
             <h3
               className={`font-display text-2xl md:text-[1.7rem] font-bold leading-tight mb-3 ${
                 dark ? 'text-white' : variant.headline

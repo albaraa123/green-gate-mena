@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { Link } from '@/i18n/navigation'
 import { Button } from '@/components/ui/Button'
@@ -22,8 +22,44 @@ const FLOAT_DOTS = [
   { bottom: '28%', right: '6%', size: 16, color: 'bg-teal-600', delay: 0.6 },
 ]
 
+// Splits a phrase into words, each an inline motion span that fades up.
+// The parent <motion.h1> orchestrates the stagger. Words keep a trailing
+// space so the headline still wraps and reads naturally (incl. RTL).
+function HeroWords({
+  text,
+  className,
+  reduced,
+}: {
+  text: string
+  className?: string
+  reduced: boolean
+}) {
+  return (
+    <>
+      {text.split(' ').map((word, i) => (
+        <motion.span
+          key={`${word}-${i}`}
+          className={`inline-block ${className ?? ''}`}
+          variants={{
+            hidden: reduced ? { opacity: 0 } : { opacity: 0, y: '0.4em' },
+            visible: {
+              opacity: 1,
+              y: 0,
+              transition: { duration: reduced ? 0.3 : 0.5, ease: [0.16, 1, 0.3, 1] },
+            },
+          }}
+        >
+          {word}
+          {' '}
+        </motion.span>
+      ))}
+    </>
+  )
+}
+
 export function HeroSection({ heroImage }: Props) {
   const t = useTranslations('hero')
+  const reduced = useReducedMotion()
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden pt-16 bg-gradient-to-br from-white via-teal-50/30 to-lime/5">
@@ -49,12 +85,12 @@ export function HeroSection({ heroImage }: Props) {
         <div className="absolute inset-0 pointer-events-none" aria-hidden>
           <motion.div
             className="absolute top-0 end-0 w-[700px] h-[700px] rounded-full bg-teal-100/50 blur-3xl translate-x-1/3 -translate-y-1/4"
-            animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.7, 0.5] }}
+            animate={reduced ? undefined : { scale: [1, 1.1, 1], opacity: [0.5, 0.7, 0.5] }}
             transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
           />
           <motion.div
             className="absolute bottom-0 start-0 w-[500px] h-[500px] rounded-full bg-lime/15 blur-3xl"
-            animate={{ scale: [1, 1.15, 1], opacity: [0.6, 0.85, 0.6] }}
+            animate={reduced ? undefined : { scale: [1, 1.15, 1], opacity: [0.6, 0.85, 0.6] }}
             transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
           />
         </div>
@@ -75,7 +111,7 @@ export function HeroSection({ heroImage }: Props) {
                 width: d.size,
                 height: d.size,
               }}
-              animate={{ y: [0, -18, 0], opacity: [0.4, 1, 0.4] }}
+              animate={reduced ? undefined : { y: [0, -18, 0], opacity: [0.4, 1, 0.4] }}
               transition={{ duration: 4 + i, repeat: Infinity, ease: 'easeInOut', delay: d.delay }}
             />
           ))}
@@ -88,21 +124,34 @@ export function HeroSection({ heroImage }: Props) {
           {/* Text column */}
           <div className="flex flex-col gap-6 sm:gap-7 text-center lg:text-start">
 
-            {/* H1 */}
+            {/* H1 — words fade up in sequence for a refined reveal */}
             <motion.h1
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.08 }}
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: {},
+                visible: {
+                  transition: { staggerChildren: reduced ? 0 : 0.06, delayChildren: 0.08 },
+                },
+              }}
               className={[
                 'font-display font-bold text-display-xl leading-[1.3] text-balance',
                 heroImage ? 'text-white' : 'text-ink',
               ].join(' ')}
             >
-              {t('h1Part1')}{' '}
-              <span className={heroImage ? 'text-lime' : 'text-teal-700'}>{t('h1Italic')}</span>
-              {t('h1Part2') ? ` ${t('h1Part2')} ` : ' '}
-              <span className={heroImage ? 'text-lime' : 'text-teal-700'}>{t('h1Highlight')}</span>
-              {t('h1Part3') ? ` ${t('h1Part3')}` : ''}
+              <HeroWords text={t('h1Part1')} reduced={!!reduced} />
+              <HeroWords
+                text={t('h1Italic')}
+                reduced={!!reduced}
+                className={heroImage ? 'text-lime' : 'text-teal-700'}
+              />
+              {t('h1Part2') && <HeroWords text={t('h1Part2')} reduced={!!reduced} />}
+              <HeroWords
+                text={t('h1Highlight')}
+                reduced={!!reduced}
+                className={heroImage ? 'text-lime' : 'text-teal-700'}
+              />
+              {t('h1Part3') && <HeroWords text={t('h1Part3')} reduced={!!reduced} />}
             </motion.h1>
 
             {/* Subhead */}

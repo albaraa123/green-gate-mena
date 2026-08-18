@@ -134,6 +134,15 @@
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
+
+    /* Neutralize hover/press lifts and scales so nothing jumps */
+    .hover\:-translate-y-0\.5:hover,
+    .hover\:-translate-y-1:hover,
+    .active\:scale-\[0\.97\]:active,
+    .active\:translate-y-0:active,
+    .group:hover .group-hover\:scale-105 {
+      transform: none !important;
+    }
   }
 
   /* Logical margin/padding helpers (RTL-aware) */
