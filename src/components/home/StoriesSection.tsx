@@ -89,7 +89,7 @@ export async function StoriesSection() {
                     />
                     <ReadMoreText
                       text={quote}
-                      limit={240}
+                      limit={150}
                       moreLabel={tc('readMore')}
                       lessLabel={tc('readLess')}
                       className={['text-sm leading-relaxed flex-1', dark ? 'text-teal-100' : 'text-ink-soft'].join(' ')}

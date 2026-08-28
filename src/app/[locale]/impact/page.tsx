@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/Button'
 import { AnimatedCounter } from '@/components/ui/AnimatedCounter'
 import { getStories, getPartners, getImpactHighlights } from '@/lib/supabase/queries'
 import { ImpactHighlights } from '@/components/impact/ImpactHighlights'
+import { ReadMoreText } from '@/components/ui/ReadMoreText'
 import { impactStats } from '@/data/stats'
 import { getCountryName } from '@/data/countries'
 
@@ -25,6 +26,7 @@ export default async function ImpactPage({ params }: Props) {
   const { locale } = await params
   setRequestLocale(locale)
   const t = await getTranslations('impactPage')
+  const tc = await getTranslations('common')
   const isAr = locale === 'ar'
 
   const [stories, allPartners, highlights] = await Promise.all([
@@ -115,7 +117,7 @@ export default async function ImpactPage({ params }: Props) {
               <em className="not-italic italic text-teal-700">{t('voicesHeadingItalic')}</em>
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
             {stories.map((story, i) => {
               const dark = i === 1 || i === 4
               const quote = isAr ? (story.quoteAr ?? story.quote) : story.quote
@@ -150,17 +152,26 @@ export default async function ImpactPage({ params }: Props) {
                     </div>
                   </div>
 
-                  {/* Quote */}
+                  {/* Quote (Read more keeps every card the same height) */}
                   <div className="p-6 flex flex-col gap-3 flex-1">
                     <Quote
                       className={['h-7 w-7 shrink-0', dark ? 'text-lime/60' : 'text-teal-200'].join(' ')}
                       aria-hidden
                     />
-                    <p className={['text-sm leading-relaxed flex-1', dark ? 'text-teal-100' : 'text-ink-soft'].join(' ')}>
-                      &ldquo;{quote}&rdquo;
-                    </p>
+                    <ReadMoreText
+                      text={quote}
+                      limit={150}
+                      moreLabel={tc('readMore')}
+                      lessLabel={tc('readLess')}
+                      className={['text-sm leading-relaxed flex-1', dark ? 'text-teal-100' : 'text-ink-soft'].join(' ')}
+                      linkClassName={
+                        dark
+                          ? 'font-medium text-lime hover:text-lime/80 underline underline-offset-2'
+                          : undefined
+                      }
+                    />
                     {story.opportunityTitle && (
-                      <p className={['text-xs font-mono', dark ? 'text-lime/60' : 'text-teal-600/60'].join(' ')}>
+                      <p className={['text-xs', dark ? 'text-lime/60' : 'text-teal-600/60'].join(' ')}>
                         {t('via')} {story.opportunityTitle}
                       </p>
                     )}

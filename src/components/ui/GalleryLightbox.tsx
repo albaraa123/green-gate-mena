@@ -63,7 +63,9 @@ export function GalleryLightbox({ images, isAr, closeLabel }: Props) {
             className={[
               'relative overflow-hidden rounded-2xl bg-teal-50 group cursor-zoom-in',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 focus-visible:ring-offset-2',
-              i % 6 === 0 ? 'aspect-[3/2] md:row-span-2 md:aspect-[3/4]' : 'aspect-[3/2]',
+              // Uniform landscape tiles so nothing is cropped into a tall shape;
+              // the full image is always available in the lightbox on click.
+              'aspect-[3/2]',
             ].join(' ')}
           >
             <Image
