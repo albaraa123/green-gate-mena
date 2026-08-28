@@ -696,6 +696,10 @@
     "themeAgriculture": "الزراعة",
     "themeUrban": "العمران",
     "themeOceans": "المحيطات",
-    "themeYouth": "الشباب"
+    "themeYouth": "الشباب",
+    "allCountries": "كل الدول",
+    "fundingAll": "كل التمويل",
+    "fundingPartial": "ممول جزئياً",
+    "fundingFull": "ممول كلياً"
   }
 }

@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 interface Props {
   params: Promise<{ locale: string }>
-  searchParams: Promise<{ type?: string; theme?: string; format?: string; funded?: string }>
+  searchParams: Promise<{ type?: string; theme?: string; format?: string; funded?: string; funding?: string; country?: string }>
 }
 
 export default async function OpportunitiesPage({ params, searchParams }: Props) {
@@ -35,6 +35,8 @@ export default async function OpportunitiesPage({ params, searchParams }: Props)
       theme: filters.theme,
       format: filters.format,
       funded: filters.funded === '1',
+      fundingType: filters.funding,
+      country: filters.country,
     }),
   ])
 

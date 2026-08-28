@@ -2,8 +2,9 @@
 
 import { useRouter, usePathname } from '@/i18n/navigation'
 import { useSearchParams } from 'next/navigation'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 import { X } from 'lucide-react'
+import { countries } from '@/data/countries'
 
 const TYPES = ['fellowship', 'grant', 'event', 'competition', 'internship', 'volunteer', 'training', 'job'] as const
 const THEMES = ['climate', 'energy', 'water', 'biodiversity', 'waste', 'sustainability', 'policy', 'finance', 'agriculture', 'urban', 'oceans', 'youth'] as const
@@ -51,11 +52,15 @@ export function OpportunityFilters({ total, filtered }: Props) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const t = useTranslations('opportunitiesPage')
+  const locale = useLocale()
+  const isAr = locale === 'ar'
 
   const activeType = searchParams.get('type') ?? ''
   const activeTheme = searchParams.get('theme') ?? ''
   const activeFormat = searchParams.get('format') ?? ''
   const activeFunded = searchParams.get('funded') === '1'
+  const activeFunding = searchParams.get('funding') ?? ''
+  const activeCountry = searchParams.get('country') ?? ''
 
   function update(key: string, value: string) {
     const params = new URLSearchParams(searchParams.toString())
@@ -71,7 +76,7 @@ export function OpportunityFilters({ total, filtered }: Props) {
     router.push(pathname)
   }
 
-  const hasFilters = activeType || activeTheme || activeFormat || activeFunded
+  const hasFilters = activeType || activeTheme || activeFormat || activeFunded || activeFunding || activeCountry
 
   return (
     <div className="flex flex-col gap-4">
@@ -135,18 +140,30 @@ export function OpportunityFilters({ total, filtered }: Props) {
           ))}
         </select>
 
-        {/* Funded toggle */}
-        <button
-          onClick={() => update('funded', activeFunded ? '' : '1')}
-          className={[
-            'rounded-full px-3 py-1 text-xs font-medium border transition-colors',
-            activeFunded
-              ? 'bg-leaf/20 text-green-800 border-leaf/30'
-              : 'bg-white text-ink-soft border-sand-200 hover:border-teal-300 hover:text-teal-700',
-          ].join(' ')}
+        {/* Country / nationality */}
+        <select
+          value={activeCountry}
+          onChange={(e) => update('country', e.target.value)}
+          className="border border-sand-200 rounded-lg px-3 py-2 text-sm bg-white text-ink focus:outline-none focus:ring-2 focus:ring-teal-500"
         >
-          {t('filterFundedOnly')}
-        </button>
+          <option value="">{t('allCountries')}</option>
+          {countries.map((c) => (
+            <option key={c.code} value={c.code}>
+              {isAr ? c.nameAr : c.name}
+            </option>
+          ))}
+        </select>
+
+        {/* Funding type */}
+        <select
+          value={activeFunding}
+          onChange={(e) => update('funding', e.target.value)}
+          className="border border-sand-200 rounded-lg px-3 py-2 text-sm bg-white text-ink focus:outline-none focus:ring-2 focus:ring-teal-500"
+        >
+          <option value="">{t('fundingAll')}</option>
+          <option value="partial">{t('fundingPartial')}</option>
+          <option value="full">{t('fundingFull')}</option>
+        </select>
       </div>
     </div>
   )

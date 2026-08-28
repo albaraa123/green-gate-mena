@@ -19,6 +19,8 @@ export async function getOpportunities(filters?: {
   theme?: string
   format?: string
   funded?: boolean
+  fundingType?: string
+  country?: string
 }): Promise<Opportunity[]> {
   const supabase = await createClient()
   let query = supabase
@@ -30,6 +32,8 @@ export async function getOpportunities(filters?: {
   if (filters?.theme) query = query.contains('theme', [filters.theme])
   if (filters?.format) query = query.eq('format', filters.format)
   if (filters?.funded) query = query.eq('funded', true)
+  if (filters?.fundingType) query = query.eq('funding_type', filters.fundingType)
+  if (filters?.country) query = query.contains('countries', [filters.country])
 
   const { data, error } = await query
   if (error) {

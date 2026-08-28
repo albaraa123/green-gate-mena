@@ -696,6 +696,10 @@
     "themeAgriculture": "Agriculture",
     "themeUrban": "Urban",
     "themeOceans": "Oceans",
-    "themeYouth": "Youth"
+    "themeYouth": "Youth",
+    "allCountries": "All countries",
+    "fundingAll": "All funding",
+    "fundingPartial": "Partially funded",
+    "fundingFull": "Fully funded"
   }
 }

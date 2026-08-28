@@ -37,7 +37,8 @@ interface Props {
 }
 
 interface FormState {
-  name: string
+  firstName: string
+  lastName: string
   email: string
   phone: string
   organization: string
@@ -48,7 +49,7 @@ interface FormState {
 }
 
 const EMPTY: FormState = {
-  name: '', email: '', phone: '', organization: '',
+  firstName: '', lastName: '', email: '', phone: '', organization: '',
   country: '', linkedin: '', bio: '', avatar: '',
 }
 
@@ -60,8 +61,10 @@ export function GetInvolvedForm({ pathway, showOrg = false, orgLabel, messagePla
   const [uploading, setUploading] = useState(false)
 
   const ui = {
-    labelName: isAr ? 'الاسم الكامل *' : 'Full name *',
-    placeholderName: isAr ? 'اسمك الكامل' : 'Your full name',
+    labelFirstName: isAr ? 'الاسم الأول *' : 'First name *',
+    placeholderFirstName: isAr ? 'اسمك الأول' : 'Your first name',
+    labelLastName: isAr ? 'اسم العائلة *' : 'Surname *',
+    placeholderLastName: isAr ? 'اسم عائلتك' : 'Your surname',
     labelEmail: isAr ? 'البريد الإلكتروني *' : 'Email *',
     placeholderEmail: isAr ? 'بريدك@مثال.com' : 'you@example.com',
     labelPhone: isAr ? 'واتساب / هاتف' : 'WhatsApp / Phone',
@@ -81,7 +84,8 @@ export function GetInvolvedForm({ pathway, showOrg = false, orgLabel, messagePla
     btnSubmit: isAr ? 'إرسال الطلب' : 'Submit Application',
     btnSubmitting: isAr ? 'جاري الإرسال...' : 'Submitting…',
     errorGeneric: isAr ? 'حدث خطأ. حاول مجدداً.' : 'Something went wrong. Please try again.',
-    errName: isAr ? 'الاسم يجب أن يكون حرفين على الأقل' : 'Name must be at least 2 characters',
+    errFirstName: isAr ? 'الاسم الأول مطلوب' : 'First name is required',
+    errLastName: isAr ? 'اسم العائلة مطلوب' : 'Surname is required',
     errEmail: isAr ? 'بريد إلكتروني صحيح مطلوب' : 'Valid email required',
     errCountry: isAr ? 'يرجى اختيار دولتك' : 'Please select your country',
     errBio: isAr ? 'النبذة مطلوبة (20 حرفاً على الأقل)' : 'Bio is required (at least 20 characters)',
@@ -127,7 +131,8 @@ export function GetInvolvedForm({ pathway, showOrg = false, orgLabel, messagePla
 
   function validate(): boolean {
     const e: Partial<Record<keyof FormState, string>> = {}
-    if (!form.name.trim() || form.name.length < 2) e.name = ui.errName
+    if (!form.firstName.trim()) e.firstName = ui.errFirstName
+    if (!form.lastName.trim()) e.lastName = ui.errLastName
     if (!form.email.trim() || !form.email.includes('@')) e.email = ui.errEmail
     if (!form.country) e.country = ui.errCountry
     if (!form.bio.trim() || form.bio.length < 20) e.bio = ui.errBio
@@ -143,7 +148,11 @@ export function GetInvolvedForm({ pathway, showOrg = false, orgLabel, messagePla
       const res = await fetch('/api/get-involved', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ pathway, ...form }),
+        body: JSON.stringify({
+          pathway,
+          ...form,
+          name: `${form.firstName.trim()} ${form.lastName.trim()}`.trim(),
+        }),
       })
       if (res.ok) {
         setStatus('success')
@@ -222,7 +231,7 @@ export function GetInvolvedForm({ pathway, showOrg = false, orgLabel, messagePla
             <img src={form.avatar} alt="preview" className="h-16 w-16 rounded-full object-cover border-2 border-teal-200" />
           ) : (
             <div className="h-16 w-16 rounded-full bg-teal-50 border-2 border-dashed border-teal-200 flex items-center justify-center text-teal-400 text-xl font-bold">
-              {form.name ? form.name.charAt(0).toUpperCase() : '?'}
+              {form.firstName ? form.firstName.charAt(0).toUpperCase() : '?'}
             </div>
           )}
           <div>
@@ -246,18 +255,25 @@ export function GetInvolvedForm({ pathway, showOrg = false, orgLabel, messagePla
         />
       </div>
 
-      {/* Name + Email */}
+      {/* First name + Surname */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="flex flex-col gap-1.5">
-          <label className="text-sm font-medium text-ink" htmlFor="gi-name">{ui.labelName}</label>
-          <Input id="gi-name" value={form.name} onChange={e => set('name', e.target.value)} placeholder={ui.placeholderName} />
-          {errors.name && <p className="text-xs text-red-600">{errors.name}</p>}
+          <label className="text-sm font-medium text-ink" htmlFor="gi-firstname">{ui.labelFirstName}</label>
+          <Input id="gi-firstname" value={form.firstName} onChange={e => set('firstName', e.target.value)} placeholder={ui.placeholderFirstName} />
+          {errors.firstName && <p className="text-xs text-red-600">{errors.firstName}</p>}
         </div>
         <div className="flex flex-col gap-1.5">
-          <label className="text-sm font-medium text-ink" htmlFor="gi-email">{ui.labelEmail}</label>
-          <Input id="gi-email" type="email" value={form.email} onChange={e => set('email', e.target.value)} placeholder={ui.placeholderEmail} />
-          {errors.email && <p className="text-xs text-red-600">{errors.email}</p>}
+          <label className="text-sm font-medium text-ink" htmlFor="gi-lastname">{ui.labelLastName}</label>
+          <Input id="gi-lastname" value={form.lastName} onChange={e => set('lastName', e.target.value)} placeholder={ui.placeholderLastName} />
+          {errors.lastName && <p className="text-xs text-red-600">{errors.lastName}</p>}
         </div>
+      </div>
+
+      {/* Email */}
+      <div className="flex flex-col gap-1.5">
+        <label className="text-sm font-medium text-ink" htmlFor="gi-email">{ui.labelEmail}</label>
+        <Input id="gi-email" type="email" value={form.email} onChange={e => set('email', e.target.value)} placeholder={ui.placeholderEmail} />
+        {errors.email && <p className="text-xs text-red-600">{errors.email}</p>}
       </div>
 
       {/* Phone + Country */}

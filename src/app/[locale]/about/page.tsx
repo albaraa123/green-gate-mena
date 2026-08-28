@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/Button'
 import { TeamCarousel } from '@/components/ui/TeamCarousel'
 import { getTeam, getPartners } from '@/lib/supabase/queries'
 import { getGallery } from '@/lib/supabase/gallery'
+import { GalleryLightbox } from '@/components/ui/GalleryLightbox'
 import { impactTimeline } from '@/data/stats'
 import { getCountryName } from '@/data/countries'
 
@@ -25,6 +26,7 @@ export default async function AboutPage({ params }: Props) {
   const { locale } = await params
   setRequestLocale(locale)
   const t = await getTranslations('about')
+  const tc = await getTranslations('common')
   const isAr = locale === 'ar'
 
   const [team, allPartners, gallery] = await Promise.all([getTeam(), getPartners(), getGallery()])
@@ -137,33 +139,7 @@ export default async function AboutPage({ params }: Props) {
                 <em className="not-italic italic text-teal-700">{t('galleryHeadingItalic')}</em>
               </h2>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {gallery.map((img, i) => (
-                <div
-                  key={img.id}
-                  className={[
-                    'relative overflow-hidden rounded-2xl bg-teal-50 group',
-                    // On mobile keep uniform; add masonry spanning only on md+
-                    i % 6 === 0 ? 'aspect-[3/2] md:row-span-2 md:aspect-[3/4]' : 'aspect-[3/2]',
-                  ].join(' ')}
-                >
-                  <Image
-                    src={img.image}
-                    alt={(isAr ? img.captionAr : img.caption) ?? ''}
-                    fill
-                    sizes="(max-width: 768px) 50vw, 25vw"
-                    className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                  />
-                  {(isAr ? img.captionAr : img.caption) && (
-                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-3 pt-8">
-                      <p className="text-white text-xs font-medium leading-snug">
-                        {isAr ? img.captionAr : img.caption}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
+            <GalleryLightbox images={gallery} isAr={isAr} closeLabel={tc('close')} />
           </Container>
         </section>
       )}

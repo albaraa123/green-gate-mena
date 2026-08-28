@@ -8,6 +8,8 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 const schema = z.object({
   pathway: z.enum(['youth', 'ngo', 'consultant', 'partner']),
   name: z.string().min(2),
+  firstName: z.string().optional(),
+  lastName: z.string().optional(),
   email: z.string().email(),
   phone: z.string().optional(),
   organization: z.string().optional(),
