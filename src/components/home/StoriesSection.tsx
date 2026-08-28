@@ -3,12 +3,14 @@ import { getTranslations, getLocale } from 'next-intl/server'
 import { Quote } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
 import { SectionHeader } from '@/components/ui/SectionHeader'
+import { ReadMoreText } from '@/components/ui/ReadMoreText'
 import { getCountryName } from '@/data/countries'
 import { getStories } from '@/lib/supabase/queries'
 import { AnimateIn, StaggerIn, StaggerItem } from '@/components/ui/AnimateIn'
 
 export async function StoriesSection() {
   const t = await getTranslations('impact')
+  const tc = await getTranslations('common')
   const locale = await getLocale()
   const isAr = locale === 'ar'
   const allStories = await getStories()
@@ -37,74 +39,73 @@ export async function StoriesSection() {
           />
         </AnimateIn>
 
-        <StaggerIn className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12" delayStart={0.1}>
+        {/* Matches the Impact page story cards: large photo, name overlay, quote below */}
+        <StaggerIn className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 items-start" delayStart={0.1}>
           {featured.map((story, i) => {
+            const dark = i === 1
             const quote = isAr && story.quoteAr ? story.quoteAr : story.quote
             const role = isAr && story.roleAr ? story.roleAr : story.role
             return (
               <StaggerItem key={story.id}>
-              <blockquote
-                className={[
-                  'relative rounded-2xl p-6 flex flex-col gap-5',
-                  i === 1
-                    ? 'bg-teal-700 text-white'
-                    : 'bg-sand-100 border border-sand-200',
-                ].join(' ')}
-              >
-                <Quote
+                <blockquote
                   className={[
-                    'h-8 w-8 shrink-0',
-                    i === 1 ? 'text-lime/60' : 'text-teal-200',
-                  ].join(' ')}
-                  aria-hidden
-                />
-                <p
-                  className={[
-                    'text-sm leading-relaxed flex-1',
-                    i === 1 ? 'text-teal-100' : 'text-ink-soft',
+                    'group relative rounded-2xl overflow-hidden flex flex-col h-full',
+                    dark ? 'bg-teal-700 text-white' : 'bg-white border border-sand-200',
                   ].join(' ')}
                 >
-                  &ldquo;{quote}&rdquo;
-                </p>
-                <footer className="flex items-center gap-3">
-                  <div
-                    className={[
-                      'relative h-11 w-11 rounded-full shrink-0 overflow-hidden flex items-center justify-center font-display text-sm font-semibold',
-                      i === 1 ? 'bg-teal-700 text-white' : 'bg-teal-100 text-teal-700',
-                    ].join(' ')}
-                  >
+                  {/* Large prominent photo */}
+                  <div className="relative w-full aspect-[4/3] overflow-hidden bg-teal-50">
                     {story.avatar ? (
                       <Image
                         src={story.avatar}
                         alt={story.name}
                         fill
-                        sizes="44px"
-                        className="object-cover object-center"
+                        sizes="(max-width: 768px) 100vw, 400px"
+                        className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
                       />
                     ) : (
-                      story.name.charAt(0)
+                      <div className="w-full h-full flex items-center justify-center">
+                        <span className="font-display text-6xl font-bold text-teal-300">
+                          {story.name.charAt(0)}
+                        </span>
+                      </div>
+                    )}
+                    {/* Name overlay on the image */}
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent p-4 pt-10">
+                      <p className="font-display font-semibold text-white text-base leading-snug">
+                        {story.name}
+                      </p>
+                      <p className="text-xs text-white/80">
+                        {role} · {getCountryName(story.country, locale)}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Quote (with Read more for long testimonials) */}
+                  <div className="p-6 flex flex-col gap-3 flex-1">
+                    <Quote
+                      className={['h-7 w-7 shrink-0', dark ? 'text-lime/60' : 'text-teal-200'].join(' ')}
+                      aria-hidden
+                    />
+                    <ReadMoreText
+                      text={quote}
+                      limit={240}
+                      moreLabel={tc('readMore')}
+                      lessLabel={tc('readLess')}
+                      className={['text-sm leading-relaxed flex-1', dark ? 'text-teal-100' : 'text-ink-soft'].join(' ')}
+                      linkClassName={
+                        dark
+                          ? 'font-medium text-lime hover:text-lime/80 underline underline-offset-2'
+                          : undefined
+                      }
+                    />
+                    {story.opportunityTitle && (
+                      <p className={['text-xs', dark ? 'text-lime/60' : 'text-teal-600/60'].join(' ')}>
+                        {t('via')} {story.opportunityTitle}
+                      </p>
                     )}
                   </div>
-                  <div>
-                    <p
-                      className={[
-                        'font-semibold text-sm',
-                        i === 1 ? 'text-white' : 'text-ink',
-                      ].join(' ')}
-                    >
-                      {story.name}
-                    </p>
-                    <p
-                      className={[
-                        'text-xs',
-                        i === 1 ? 'text-teal-300/70' : 'text-ink-soft/70',
-                      ].join(' ')}
-                    >
-                      {role} · {getCountryName(story.country, locale)}
-                    </p>
-                  </div>
-                </footer>
-              </blockquote>
+                </blockquote>
               </StaggerItem>
             )
           })}
