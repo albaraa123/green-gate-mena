@@ -12,6 +12,8 @@ const variantClasses: Record<BadgeVariant, string> = {
   volunteer: 'bg-red-50 text-red-700 border-red-200',
   training: 'bg-leaf/10 text-green-800 border-leaf/20',
   job: 'bg-blue-50 text-blue-800 border-blue-200',
+  study: 'bg-indigo-50 text-indigo-800 border-indigo-200',
+  other: 'bg-sand-100 text-ink-soft border-sand-200',
   default: 'bg-sand-100 text-ink-soft border-sand-200',
   outline: 'bg-transparent text-ink-soft border-ink-soft/30',
 }

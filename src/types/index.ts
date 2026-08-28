@@ -11,6 +11,8 @@ export type OpportunityType =
   | 'volunteer'
   | 'training'
   | 'job'
+  | 'study'
+  | 'other'
 
 export type OpportunityTheme =
   | 'climate'
@@ -25,6 +27,8 @@ export type OpportunityTheme =
   | 'urban'
   | 'oceans'
   | 'youth'
+  | 'technology'
+  | 'other'
 
 export type OpportunityFormat = 'in-person' | 'online' | 'hybrid'
 

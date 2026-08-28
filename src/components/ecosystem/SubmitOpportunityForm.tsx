@@ -10,8 +10,8 @@ import { Input } from '@/components/ui/Input'
 import { Textarea } from '@/components/ui/Textarea'
 import { Select } from '@/components/ui/Select'
 
-const TYPES = ['fellowship', 'grant', 'event', 'competition', 'internship', 'volunteer', 'training', 'job']
-const THEMES = ['climate', 'energy', 'water', 'biodiversity', 'waste', 'sustainability', 'policy', 'finance', 'agriculture', 'urban', 'oceans', 'youth']
+const TYPES = ['fellowship', 'grant', 'event', 'competition', 'internship', 'volunteer', 'training', 'job', 'study', 'other']
+const THEMES = ['climate', 'energy', 'water', 'biodiversity', 'waste', 'sustainability', 'policy', 'finance', 'agriculture', 'urban', 'oceans', 'youth', 'technology', 'other']
 const FORMATS = ['in-person', 'online', 'hybrid']
 
 interface FormState {
@@ -85,9 +85,23 @@ export function SubmitOpportunityForm() {
   const TYPE_LABELS: Record<string, string> = isAr ? {
     fellowship: 'زمالة', grant: 'منحة', event: 'فعالية', competition: 'مسابقة',
     internship: 'تدريب', volunteer: 'تطوع', training: 'تدريب', job: 'وظيفة',
+    study: 'دراسة', other: 'أخرى',
   } : {
     fellowship: 'Fellowship', grant: 'Grant', event: 'Event', competition: 'Competition',
     internship: 'Internship', volunteer: 'Volunteer', training: 'Training', job: 'Job',
+    study: 'Study', other: 'Other',
+  }
+
+  const THEME_LABELS: Record<string, string> = isAr ? {
+    climate: 'المناخ', energy: 'الطاقة', water: 'المياه', biodiversity: 'التنوع البيولوجي',
+    waste: 'النفايات', sustainability: 'الاستدامة', policy: 'السياسات', finance: 'التمويل',
+    agriculture: 'الزراعة', urban: 'التخطيط الحضري', oceans: 'المحيطات', youth: 'الشباب',
+    technology: 'التكنولوجيا والابتكار', other: 'أخرى',
+  } : {
+    climate: 'Climate', energy: 'Energy', water: 'Water', biodiversity: 'Biodiversity',
+    waste: 'Waste', sustainability: 'Sustainability', policy: 'Policy', finance: 'Finance',
+    agriculture: 'Agriculture', urban: 'Urban', oceans: 'Oceans', youth: 'Youth',
+    technology: 'Technology & Innovation', other: 'Other',
   }
 
   const FORMAT_LABELS: Record<string, string> = isAr ? {
@@ -234,7 +248,7 @@ export function SubmitOpportunityForm() {
                     value={form.theme}
                     onChange={(e) => set('theme', e.target.value)}
                     placeholder={ui.selectTheme}
-                    options={THEMES.map((t) => ({ value: t, label: t.charAt(0).toUpperCase() + t.slice(1) }))}
+                    options={THEMES.map((t) => ({ value: t, label: THEME_LABELS[t] ?? t }))}
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">

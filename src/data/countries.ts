@@ -38,7 +38,13 @@ export const countryOptions = countries.map((c) => ({
 }))
 
 export function getCountryName(code: string, locale?: string): string {
-  const country = countries.find((c) => c.code === code)
+  // Match by ISO code first; fall back to matching the stored English name
+  // (team/directory rows often store "Tunisia" rather than "TN"), so the
+  // Arabic locale still resolves to the Arabic name.
+  const needle = (code ?? '').trim().toLowerCase()
+  const country = countries.find(
+    (c) => c.code.toLowerCase() === needle || c.name.toLowerCase() === needle
+  )
   if (!country) return code
   return locale === 'ar' ? country.nameAr : country.name
 }

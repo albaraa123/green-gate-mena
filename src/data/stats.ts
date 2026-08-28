@@ -60,26 +60,27 @@ export const impactStats: ImpactStat[] = [
   },
 ]
 
+// Newest first — the oldest milestone sits at the bottom of the timeline.
 export const impactTimeline = [
-  {
-    year: '2024',
-    title: 'Green Gate 4 MENA Youth Launched',
-    titleAr: 'إطلاق Green Gate 4 MENA Youth',
-    description: 'Launched Green Gate 4 MENA Youth after COP28 in Dubai, after noticing a clear gap in access for MENA youth to international conferences, programs, and opportunities.',
-    descriptionAr: 'إطلاق Green Gate 4 MENA Youth بعد مؤتمر COP28 في دبي، بعد ملاحظة وجود فجوة واضحة في وصول شباب منطقة الشرق الأوسط وشمال أفريقيا إلى المؤتمرات الدولية والبرامج والفرص.',
-  },
-  {
-    year: '2025',
-    title: 'GreenX 2025 Summit',
-    titleAr: 'قمة GreenX 2025',
-    description: '180+ participants from 22 countries gathered for the region\'s premier youth climate summit.',
-    descriptionAr: 'جمعت أكثر من 180 مشاركًا من 22 دولة في واحدة من أبرز القمم الشبابية المناخية في المنطقة.',
-  },
   {
     year: '2026',
     title: 'Official Platform Launch',
     titleAr: 'إطلاق المنصة الرسمية',
     description: 'Launching our official platform, services, and programs.',
     descriptionAr: 'إطلاق المنصة الرسمية والخدمات والبرامج الخاصة بـ Green Gate.',
+  },
+  {
+    year: '2025',
+    title: 'GreenX 2025 Summit',
+    titleAr: 'قمة GreenX 2025',
+    description: '180+ participants gathered for one of the region\'s premier youth climate summits.',
+    descriptionAr: 'جمعت أكثر من 180 مشاركًا في واحدة من أبرز القمم الشبابية المناخية في المنطقة.',
+  },
+  {
+    year: '2024',
+    title: 'Green Gate 4 MENA Youth Launched',
+    titleAr: 'إطلاق Green Gate 4 MENA Youth',
+    description: 'Launched Green Gate 4 MENA Youth after COP28 in Dubai, after noticing a clear gap in access for MENA youth to international conferences, programs, and opportunities.',
+    descriptionAr: 'إطلاق Green Gate 4 MENA Youth بعد مؤتمر COP28 في دبي، بعد ملاحظة وجود فجوة واضحة في وصول شباب منطقة الشرق الأوسط وشمال أفريقيا إلى المؤتمرات الدولية والبرامج والفرص.',
   },
 ]
