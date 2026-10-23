@@ -6,8 +6,22 @@ import { routing } from './i18n/routing'
 
 const intlMiddleware = createMiddleware(routing)
 
+// Public site is closed behind a bilingual "coming soon" page.
+// Set COMING_SOON=false in the environment to reopen the site.
+const COMING_SOON = process.env.COMING_SOON !== 'false'
+
 export default async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
+
+  if (COMING_SOON && !pathname.startsWith('/admin')) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/coming-soon'
+    url.search = ''
+    return NextResponse.rewrite(url, {
+      status: 503,
+      headers: { 'Retry-After': '86400', 'X-Robots-Tag': 'noindex, nofollow' },
+    })
+  }
 
   // Admin routes: bypass intl middleware entirely
   if (pathname.startsWith('/admin')) {
