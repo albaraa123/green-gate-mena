@@ -7,7 +7,7 @@ export default function ComingSoonPage() {
       />
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/logo/logo-vertical-dark-bg.svg"
+        src="/logo/logo-vertical-white.svg"
         alt="Green Gate — بوابة خضراء"
         className="relative mb-12 h-32 w-auto md:h-40"
       />
@@ -17,12 +17,13 @@ export default function ComingSoonPage() {
           Coming Soon
         </p>
         <h1 className="font-display text-4xl font-extrabold md:text-5xl">
-          Our website is launching soon
+          Our Website is Launching Soon
         </h1>
         <p className="mt-4 text-lg text-teal-100">
-          We&apos;re putting the finishing touches on Green Gate, the Arab world&apos;s gateway to
-          environmental opportunities. Please check back shortly.
+          We are putting the final touches on Green Gate Website. The Arab world&apos;s premier
+          gateway to environmental opportunities.
         </p>
+        <p className="mt-3 text-lg font-semibold text-white">Please check back shortly!</p>
       </section>
 
       <div className="relative my-10 h-px w-24 bg-teal-500/60" />
@@ -35,12 +36,13 @@ export default function ComingSoonPage() {
       >
         <p className="mb-3 text-base font-bold text-lime">قريباً</p>
         <h2 className="text-4xl font-black leading-tight md:text-5xl">
-          موقعنا قيد الإطلاق قريباً
+          موقعنا الإلكتروني ينطلق قريباً
         </h2>
         <p className="mt-4 text-lg leading-relaxed text-teal-100">
-          نعمل على اللمسات الأخيرة لبوابة خضراء، بوابة العالم العربي إلى الفرص البيئية. يرجى
-          العودة قريباً.
+          نضع الآن لمساتنا الأخيرة على منصتنا؛ لتكون بوابتكم الأولى والوجهة الرائدة للفرص البيئية
+          في منطقة الشرق الأوسط وشمال أفريقيا.
         </p>
+        <p className="mt-3 text-lg font-bold text-white">نلقاكم قريبًا!</p>
       </section>
     </main>
   )
